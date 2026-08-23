@@ -23,17 +23,22 @@
         </div>
     </header>
 
-    <!-- Dynamic Category Banner (รูปภาพแยกตามหมวดหมู่ 1 รูปหลัก) -->
+    <!-- Dynamic Category Banner (คลิกที่รูปเพื่อขยายได้) -->
     <div class="max-w-md mx-auto px-4 pt-4 space-y-2">
-        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-neutral-800 aspect-[16/9] bg-neutral-900">
+        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-neutral-800 aspect-[16/9] bg-neutral-900 cursor-pointer group" onclick="openLightbox(currentActiveBannerSrc)">
             <!-- รูปหมวดเฟรนฟราย -->
-            <img id="banner-fries" class="category-banner w-full h-full object-contain bg-neutral-900" src="images/เฟรนฟรายทอด.jpg" alt="เฟรนฟราย & ท็อปปิ้ง">
+            <img id="banner-fries" class="category-banner w-full h-full object-contain bg-neutral-900 transition-transform duration-300 group-hover:scale-105" src="images/เฟรนฟรายทอด.jpg" alt="เฟรนฟราย & ท็อปปิ้ง">
 
-            <!-- รูปหมวดข้าวกล่อง (ซ่อนไว้ก่อน จะแสดงเมื่อกดแท็บข้าว) -->
-            <img id="banner-rice" class="category-banner w-full h-full object-contain bg-neutral-900 hidden" src="images/เมนูข้าวกล่อง.jpg" alt="ข้าวกล่อง">
+            <!-- รูปหมวดข้าวกล่อง -->
+            <img id="banner-rice" class="category-banner w-full h-full object-contain bg-neutral-900 hidden transition-transform duration-300 group-hover:scale-105" src="images/เมนูข้าวกล่อง.jpg" alt="ข้าวกล่อง">
             
-            <!-- รูปหมวดเครื่องดื่ม (ซ่อนไว้ก่อน จะแสดงเมื่อกดแท็บเครื่องดื่ม) -->
-            <img id="banner-drink" class="category-banner w-full h-full object-contain bg-neutral-900 hidden" src="images/เมนูเครื่องดื่ม.jpg" alt="เครื่องดื่ม">
+            <!-- รูปหมวดเครื่องดื่ม -->
+            <img id="banner-drink" class="category-banner w-full h-full object-contain bg-neutral-900 hidden transition-transform duration-300 group-hover:scale-105" src="images/เมนูเครื่องดื่ม.jpg" alt="เครื่องดื่ม">
+
+            <!-- ไอคอนบอกใบ้ว่ากดซูมได้ -->
+            <div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg opacity-80 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                🔍 คลิกเพื่อขยาย
+            </div>
         </div>
 
         <!-- ป้ายข้อความอยู่ด้านนอกรูป ไม่บังเนื้อหา -->
@@ -122,9 +127,7 @@
                     <h3 class="font-bold text-sm text-amber-400">✨ เลือกผงโรยเพิ่ม (ผงละ 5 บาท)</h3>
                     <span class="text-[10px] text-neutral-400">เลือกได้หลายรสชาติ</span>
                 </div>
-                <div id="powder-list-container" class="grid grid-cols-2 gap-2">
-                    <!-- โหลดผ่าน Script -->
-                </div>
+                <div id="powder-list-container" class="grid grid-cols-2 gap-2"></div>
             </div>
 
             <!-- กลุ่มท็อปปิ้งดิป (2 คอลัมน์) -->
@@ -132,9 +135,7 @@
                 <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
                     <h3 class="font-bold text-sm text-amber-400">🍯 เพิ่มท็อปปิ้งดิป (กระปุกละ 10 บาท)</h3>
                 </div>
-                <div id="dip-list-container" class="grid grid-cols-2 gap-2">
-                    <!-- โหลดผ่าน Script -->
-                </div>
+                <div id="dip-list-container" class="grid grid-cols-2 gap-2"></div>
             </div>
         </section>
 
@@ -210,6 +211,14 @@
         </div>
 
     </main>
+
+    <!-- Modal ขยายรูปภาพ (Lightbox) -->
+    <div id="image-lightbox" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="relative max-w-3xl w-full max-h-[90vh] flex items-center justify-center" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-neutral-800 text-white hover:bg-red-600 flex items-center justify-center font-bold text-lg shadow-lg transition-colors">✕</button>
+            <img id="lightbox-img" src="" alt="ขยายรูปภาพ" class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-neutral-800">
+        </div>
+    </div>
 
     <!-- Modal ตะกร้าสินค้า -->
     <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
@@ -344,6 +353,7 @@
         ];
 
         let cart = {};
+        let currentActiveBannerSrc = 'images/เฟรนฟรายทอด.jpg'; // เก็บรูปปัจจุบันไว้สำหรับซูม
 
         function renderDynamicItems() {
             const powderContainer = document.getElementById('powder-list-container');
@@ -386,22 +396,33 @@
                 btn.classList.add('bg-neutral-900', 'text-neutral-300');
             });
 
-            // ซ่อนรูปแบนเนอร์ทั้งหมดก่อน
             document.querySelectorAll('.category-banner').forEach(img => img.classList.add('hidden'));
 
-            // แสดงเฉพาะแท็บและแบนเนอร์ที่เลือก
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`banner-${tabName}`).classList.remove('hidden');
+            const activeImg = document.getElementById(`banner-${tabName}`);
+            activeImg.classList.remove('hidden');
+            
+            // อัปเดตลิงก์รูปปัจจุบันให้ตรงกับแท็บที่กด เพื่อเวลาซูมจะได้ดึงถูกรูป
+            currentActiveBannerSrc = activeImg.src;
 
             const activeBtn = document.getElementById(`tab-btn-${tabName}`);
             activeBtn.classList.remove('bg-neutral-900', 'text-neutral-300');
             activeBtn.classList.add('bg-red-600', 'text-white');
 
-            // เปลี่ยนข้อความป้ายกำกับรูปภาพตามหมวดหมู่
             const bannerText = document.getElementById('banner-text');
             if(tabName === 'fries') bannerText.innerText = '🔥 เมนูเฟรนฟราย & ท็อปปิ้งสุดฟิน';
             else if(tabName === 'rice') bannerText.innerText = '🍱 เมนูข้าวกล่องร้อนๆ อร่อยคุ้ม';
             else if(tabName === 'drink') bannerText.innerText = '🧋 เครื่องดื่มเย็นชื่นใจ แก้วต่อแก้ว';
+        }
+
+        // ฟังก์ชันเปิด-ปิด Lightbox สำหรับขยายรูปภาพ
+        function openLightbox(imgSrc) {
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('image-lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('image-lightbox').classList.add('hidden');
         }
 
         function updateQty(itemId, change) {
