@@ -139,31 +139,61 @@
             </div>
         </section>
 
-        <!-- หมวดที่ 2: ข้าวกล่อง -->
-        <section id="tab-rice" class="menu-section space-y-4 hidden">
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
-                <div>
-                    <h3 class="font-semibold text-sm text-white">ข้าวกล่องไก่สไปซี่</h3>
-                    <p class="text-[11px] text-neutral-400 mt-0.5">อร่อยจัดเต็ม คุ้มทุกคำ</p>
-                    <span class="inline-block mt-2 text-red-400 font-bold text-xs">65 บาท</span>
+        <!-- หมวดที่ 2: ข้าวกล่อง (ดีไซน์ใหม่ 3 สเต็ปตามอินโฟกราฟิก) -->
+        <section id="tab-rice" class="menu-section space-y-5 hidden">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 space-y-5 shadow-xl">
+                <div class="border-b border-neutral-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <h2 class="font-bold text-base text-white">🍱 ข้าวกล่องจัดเต็ม</h2>
+                        <p class="text-xs text-neutral-400">อิ่มคุ้ม เลือกเนื้อสัตว์และซอสได้ตามใจคุณ!</p>
+                    </div>
+                    <span class="bg-red-600 text-white font-bold text-xs px-3 py-1 rounded-xl">เริ่มต้น 65 บาท</span>
                 </div>
-                <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
-                    <button onclick="updateQty('rice_spicy_chicken', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
-                    <span id="qty-rice_spicy_chicken" class="w-6 text-center font-semibold text-sm">0</span>
-                    <button onclick="updateQty('rice_spicy_chicken', 1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
+
+                <!-- STEP 1: เลือกเนื้อสัตว์ -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-amber-400">📌 STEP 1: เลือกเนื้อสัตว์ (เลือก 1 อย่าง)</label>
+                    <div id="rice-meat-container" class="grid grid-cols-1 gap-2"></div>
                 </div>
+
+                <!-- STEP 2: เลือกซอส -->
+                <div class="space-y-2 pt-2 border-t border-neutral-800">
+                    <label class="block text-xs font-bold text-amber-400">📌 STEP 2: เลือกซอส (เลือก 1 อย่าง)</label>
+                    <div id="rice-sauce-container" class="grid grid-cols-2 gap-2"></div>
+                </div>
+
+                <!-- STEP 3: เพิ่มท็อปปิ้งเสริม -->
+                <div class="space-y-2 pt-2 border-t border-neutral-800">
+                    <label class="block text-xs font-bold text-amber-400">📌 STEP 3: เพิ่มไข่ / เพิ่มซอส (ไม่บังคับ)</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="addon-egg" class="w-4 h-4 accent-red-600 rounded">
+                                <span class="text-xs font-medium text-white">เพิ่มไข่ดาว</span>
+                            </div>
+                            <span class="text-[10px] text-red-400 font-bold">+10 ฿</span>
+                        </label>
+                        <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="addon-extra-sauce" class="w-4 h-4 accent-red-600 rounded">
+                                <span class="text-xs font-medium text-white">เพิ่มซอส x2</span>
+                            </div>
+                            <span class="text-[10px] text-red-400 font-bold">+10 ฿</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- ปุ่มกดเพิ่มข้าวกล่องลงตะกร้า -->
+                <button onclick="addCustomRiceBox()" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl text-sm transition-all shadow-lg shadow-red-600/30 flex items-center justify-center gap-2">
+                    🛒 เพิ่มข้าวกล่องนี้ลงตะกร้า
+                </button>
             </div>
 
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
-                <div>
-                    <h3 class="font-semibold text-sm text-white">ข้าวกล่องไก่กรอบ</h3>
-                    <p class="text-[11px] text-neutral-400 mt-0.5">กรอบนอก นุ่มใน</p>
-                    <span class="inline-block mt-2 text-red-400 font-bold text-xs">65 บาท</span>
-                </div>
-                <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
-                    <button onclick="updateQty('rice_crispy_chicken', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
-                    <span id="qty-rice_crispy_chicken" class="w-6 text-center font-semibold text-sm">0</span>
-                    <button onclick="updateQty('rice_crispy_chicken', 1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
+            <!-- รายการข้าวกล่องที่ถูกจัดเซตไว้แล้วในตะกร้า -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <h3 class="font-bold text-sm text-white flex items-center gap-2">📋 ข้าวกล่องที่คุณเลือกไว้ในออเดอร์</h3>
+                <div id="rice-cart-summary-list" class="space-y-2 divide-y divide-neutral-800/60">
+                    <p class="text-xs text-neutral-500 text-center py-4">ยังไม่มีข้าวกล่องในรายการ</p>
                 </div>
             </div>
         </section>
@@ -322,8 +352,6 @@
             'dip_sour_cream': { name: 'ดิปชาวครีม', price: 10 },
             'dip_wasabi': { name: 'ดิปวาซาบิ', price: 10 },
 
-            'rice_spicy_chicken': { name: 'ข้าวกล่องไก่สไปซี่', price: 65 },
-            'rice_crispy_chicken': { name: 'ข้าวกล่องไก่กรอบ', price: 65 },
             'drink_thai_tea': { name: 'ชาไทย', price: 35 },
             'drink_cocoa': { name: 'โกโก้', price: 40 }
         };
@@ -352,8 +380,31 @@
             { id: 'dip_wasabi', name: 'ดิปวาซาบิ' }
         ];
 
+        const riceMeats = [
+            { id: 'meat_spicy_chicken', name: 'ไก่สไปซี่' },
+            { id: 'meat_crispy_chicken', name: 'ไก่กรอบ' },
+            { id: 'meat_karaage', name: 'ไก่คาราอาเกะ' },
+            { id: 'meat_grilled_chicken', name: 'ไก่ย่าง' },
+            { id: 'meat_shrimp_tempura', name: 'กุ้งชุบแป้งทอด (Add-on)' },
+            { id: 'meat_fish_tofu', name: 'ปลาทิพย์ (Add-on)' },
+            { id: 'meat_tonkatsu', name: 'หมูทงคัตสึ (Add-on)' },
+            { id: 'meat_saba', name: 'ปลาซาบะ (Add-on)' }
+        ];
+
+        const riceSauces = [
+            { id: 'sauce_korean', name: 'ซอสเกาหลี' },
+            { id: 'sauce_garlic', name: 'ซอสกระเทียม' },
+            { id: 'sauce_bbq', name: 'ซอสบาร์บีคิว' },
+            { id: 'sauce_fish_sauce', name: 'ซอสน้ำปลา' },
+            { id: 'sauce_tonkatsu', name: 'ซอสทงคัตสึ' },
+            { id: 'sauce_teriyaki', name: 'ซอสเทอริยากิ' },
+            { id: 'sauce_sour_cream', name: 'ซอสชาวครีม' },
+            { id: 'sauce_jaew', name: 'น้ำจิ้มแจ่ว' }
+        ];
+
         let cart = {};
-        let currentActiveBannerSrc = 'images/เฟรนฟรายทอด.jpg'; // เก็บรูปปัจจุบันไว้สำหรับซูม
+        let riceBoxOrders = [];
+        let currentActiveBannerSrc = 'images/เฟรนฟรายทอด.jpg';
 
         function renderDynamicItems() {
             const powderContainer = document.getElementById('powder-list-container');
@@ -385,9 +436,82 @@
                     </div>
                 </div>
             `).join('');
+
+            const meatContainer = document.getElementById('rice-meat-container');
+            meatContainer.innerHTML = riceMeats.map((m, idx) => `
+                <label class="flex items-center justify-between bg-neutral-950 px-3 py-2.5 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                    <div class="flex items-center gap-2">
+                        <input type="radio" name="rice_meat" value="${m.name}" class="accent-red-600">
+                        <span class="text-xs font-medium text-white">${m.name}</span>
+                    </div>
+                    <span class="text-[10px] text-neutral-400">65 ฿</span>
+                </label>
+            `).join('');
+
+            const sauceContainer = document.getElementById('rice-sauce-container');
+            sauceContainer.innerHTML = riceSauces.map((s, idx) => `
+                <label class="flex items-center gap-2 bg-neutral-950 px-3 py-2 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                    <input type="radio" name="rice_sauce" value="${s.name}" class="accent-red-600">
+                    <span class="text-xs font-medium text-white truncate">${s.name}</span>
+                </label>
+            `).join('');
         }
 
         window.addEventListener('DOMContentLoaded', renderDynamicItems);
+
+        function addCustomRiceBox() {
+            const selectedMeat = document.querySelector('input[name="rice_meat"]:checked');
+            const selectedSauce = document.querySelector('input[name="rice_sauce"]:checked');
+            const addEgg = document.getElementById('addon-egg').checked;
+            const addExtraSauce = document.getElementById('addon-extra-sauce').checked;
+
+            if (!selectedMeat || !selectedSauce) {
+                alert('กรุณาเลือกเนื้อสัตว์และซอสอย่างละ 1 อย่างครับ!');
+                return;
+            }
+
+            let price = 65;
+            let addonsText = [];
+            if (addEgg) {
+                price += 10;
+                addonsText.push('เพิ่มไข่ดาว');
+            }
+            if (addExtraSauce) {
+                price += 10;
+                addonsText.push('เพิ่มซอส x2');
+            }
+
+            const boxItem = {
+                id: 'rice_box_' + Date.now(),
+                name: `ข้าวกล่อง: ${selectedMeat.value} + ${selectedSauce.value}`,
+                details: addonsText.length > 0 ? `(${addonsText.join(', ')})` : '(ปกติ)',
+                price: price,
+                quantity: 1
+            };
+
+            riceBoxOrders.push(boxItem);
+            
+            // รีเซ็ตตัวเลือกข้าวกล่องให้กลับเป็นค่าเริ่มต้น
+            const meatInputs = document.querySelectorAll('input[name="rice_meat"]');
+            if (meatInputs.length > 0) meatInputs[0].checked = true;
+
+            const sauceInputs = document.querySelectorAll('input[name="rice_sauce"]');
+            if (sauceInputs.length > 0) sauceInputs[0].checked = true;
+
+            document.getElementById('addon-egg').checked = false;
+            document.getElementById('addon-extra-sauce').checked = false;
+
+            calculateTotal();
+            // เอา alert ออกตามต้องการ ให้ทำงานเงียบๆ ไหลลื่น
+        }
+
+        function updateRiceBoxQty(index, change) {
+            riceBoxOrders[index].quantity += change;
+            if (riceBoxOrders[index].quantity <= 0) {
+                riceBoxOrders.splice(index, 1);
+            }
+            calculateTotal();
+        }
 
         function switchTab(tabName) {
             document.querySelectorAll('.menu-section').forEach(sec => sec.classList.add('hidden'));
@@ -402,7 +526,6 @@
             const activeImg = document.getElementById(`banner-${tabName}`);
             activeImg.classList.remove('hidden');
             
-            // อัปเดตลิงก์รูปปัจจุบันให้ตรงกับแท็บที่กด เพื่อเวลาซูมจะได้ดึงถูกรูป
             currentActiveBannerSrc = activeImg.src;
 
             const activeBtn = document.getElementById(`tab-btn-${tabName}`);
@@ -415,7 +538,6 @@
             else if(tabName === 'drink') bannerText.innerText = '🧋 เครื่องดื่มเย็นชื่นใจ แก้วต่อแก้ว';
         }
 
-        // ฟังก์ชันเปิด-ปิด Lightbox สำหรับขยายรูปภาพ
         function openLightbox(imgSrc) {
             document.getElementById('lightbox-img').src = imgSrc;
             document.getElementById('image-lightbox').classList.remove('hidden');
@@ -438,18 +560,51 @@
         function calculateTotal() {
             let total = 0;
             let totalQty = 0;
+
             for (let id in cart) {
                 if(menuData[id]) {
                     total += cart[id] * menuData[id].price;
                     totalQty += cart[id];
                 }
             }
+
+            riceBoxOrders.forEach(box => {
+                total += box.price * box.quantity;
+                totalQty += box.quantity;
+            });
+
             document.getElementById('total-price').innerText = total + ' บาท';
             document.getElementById('modal-total-price').innerText = total + ' บาท';
             document.getElementById('modal-total-qty').innerText = totalQty + ' ชิ้น';
             
             updateCartModalList();
+            updateRiceCartSummary();
             return total;
+        }
+
+        function updateRiceCartSummary() {
+            const container = document.getElementById('rice-cart-summary-list');
+            if (riceBoxOrders.length === 0) {
+                container.innerHTML = `<p class="text-xs text-neutral-500 text-center py-4">ยังไม่มีข้าวกล่องในรายการ</p>`;
+                return;
+            }
+
+            container.innerHTML = riceBoxOrders.map((box, idx) => `
+                <div class="flex items-center justify-between pt-2 first:pt-0">
+                    <div>
+                        <h4 class="text-xs font-semibold text-white">${box.name}</h4>
+                        <p class="text-[10px] text-neutral-400">${box.details} | ${box.price} ฿</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-red-400">${box.price * box.quantity} ฿</span>
+                        <div class="flex items-center gap-1 bg-neutral-950 px-2 py-1 rounded-lg border border-neutral-800">
+                            <button onclick="updateRiceBoxQty(${idx}, -1)" class="w-5 h-5 rounded bg-neutral-800 text-[10px] text-white font-bold hover:bg-red-600">-</button>
+                            <span class="w-4 text-center text-xs font-semibold">${box.quantity}</span>
+                            <button onclick="updateRiceBoxQty(${idx}, 1)" class="w-5 h-5 rounded bg-neutral-800 text-[10px] text-white font-bold hover:bg-red-600">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function toggleCartModal() {
@@ -491,6 +646,23 @@
                 }
             }
 
+            riceBoxOrders.forEach(box => {
+                hasItems = true;
+                const subTotal = box.price * box.quantity;
+                totalAmount += subTotal;
+
+                const row = document.createElement('div');
+                row.className = 'flex justify-between items-center pt-2 first:pt-0 text-neutral-300';
+                row.innerHTML = `
+                    <div>
+                        <p class="text-white">${box.name} x ${box.quantity}</p>
+                        <p class="text-[10px] text-neutral-400">${box.details}</p>
+                    </div>
+                    <span class="font-semibold text-white">${subTotal} บาท</span>
+                `;
+                checkoutList.appendChild(row);
+            });
+
             if (!hasItems) {
                 alert('กรุณาเลือกสินค้าอย่างน้อย 1 รายการครับ!');
                 return;
@@ -508,6 +680,7 @@
             listContainer.innerHTML = '';
 
             let hasItems = false;
+
             for (let id in cart) {
                 if (cart[id] > 0 && menuData[id]) {
                     hasItems = true;
@@ -534,6 +707,28 @@
                 }
             }
 
+            riceBoxOrders.forEach((box, idx) => {
+                hasItems = true;
+                const subTotal = box.price * box.quantity;
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between pt-3 first:pt-0';
+                row.innerHTML = `
+                    <div>
+                        <h4 class="text-sm font-semibold text-white">${box.name}</h4>
+                        <p class="text-[10px] text-neutral-400">${box.details} | ${box.price} ฿</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-bold text-red-400">${subTotal} บาท</span>
+                        <div class="flex items-center gap-1 bg-neutral-950 px-2 py-1 rounded-lg border border-neutral-800">
+                            <button onclick="updateRiceBoxQty(${idx}, -1)" class="w-6 h-6 rounded bg-neutral-800 text-xs text-white font-bold hover:bg-red-600">-</button>
+                            <span class="w-5 text-center text-xs font-semibold">${box.quantity}</span>
+                            <button onclick="updateRiceBoxQty(${idx}, 1)" class="w-6 h-6 rounded bg-neutral-800 text-xs text-white font-bold hover:bg-red-600">+</button>
+                        </div>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+
             if (!hasItems) {
                 listContainer.innerHTML = `
                     <div class="text-center py-8 text-neutral-500 text-sm">
@@ -549,6 +744,7 @@
 
             let itemsOrdered = [];
             let totalAmount = 0;
+
             for (let id in cart) {
                 if (cart[id] > 0 && menuData[id]) {
                     const subTotal = cart[id] * menuData[id].price;
@@ -562,6 +758,18 @@
                     totalAmount += subTotal;
                 }
             }
+
+            riceBoxOrders.forEach(box => {
+                const subTotal = box.price * box.quantity;
+                itemsOrdered.push({
+                    itemId: box.id,
+                    name: `${box.name} ${box.details}`,
+                    quantity: box.quantity,
+                    price: box.price,
+                    subTotal: subTotal
+                });
+                totalAmount += subTotal;
+            });
 
             const payload = {
                 store: "ร้านเฟรนฟรายตังค์ตังค์",
@@ -585,6 +793,7 @@
                     alert('ส่งออเดอร์สำเร็จ! ข้อมูลถูกส่งเข้า n8n เรียบร้อยแล้วครับ 🎉');
                     toggleCheckoutModal();
                     cart = {};
+                    riceBoxOrders = [];
                     document.querySelectorAll('[id^="qty-"]').forEach(el => el.innerText = '0');
                     document.getElementById('customer-name').value = '';
                     document.getElementById('customer-phone').value = '';
