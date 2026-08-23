@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Prompt', sans-serif; }
-        /* ซ่อน Scrollbar แต่อ่านได้ปกติ */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -24,7 +23,7 @@
         </div>
     </header>
 
-    <!-- Navigation Tabs (แบ่งตามหมวดหมู่) -->
+    <!-- Navigation Tabs -->
     <nav class="sticky top-[73px] z-30 bg-neutral-950/90 backdrop-blur border-b border-neutral-800">
         <div class="max-w-md mx-auto flex overflow-x-auto no-scrollbar px-2 py-2 gap-2">
             <button onclick="switchTab('fries')" id="tab-btn-fries" class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-red-600 text-white transition-all shadow-md">🍟 เฟรนฟราย & ท็อปปิ้ง</button>
@@ -36,9 +35,9 @@
     <!-- Main Container -->
     <main class="max-w-md mx-auto px-4 py-6 space-y-6">
 
-        <!-- หมวดที่ 1: เฟรนฟราย, ผงโรย และท็อปปิ้งดิป (รวมอยู่ในหน้าเดียวตามเลย์เอาต์เมนู) -->
+        <!-- หมวดที่ 1: เฟรนฟราย, ผงโรย และท็อปปิ้งดิป -->
         <section id="tab-fries" class="menu-section space-y-6">
-            <!-- หัวข้อกลุ่มเฟรนฟราย -->
+            <!-- กลุ่มเฟรนฟรายหลัก -->
             <div>
                 <div class="flex items-center justify-between mb-3">
                     <h2 class="font-bold text-lg text-white border-l-4 border-red-600 pl-2">เมนูเฟรนฟรายทอด (50 บาท)</h2>
@@ -98,26 +97,24 @@
                 </div>
             </div>
 
-            <!-- กลุ่มผงโรยเพิ่ม (14 รสชาติ) -->
+            <!-- กลุ่มผงโรยเพิ่ม (ปรับเป็น 2 คอลัมน์ ประหยัดพื้นที่) -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
                 <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
                     <h3 class="font-bold text-sm text-amber-400">✨ เลือกผงโรยเพิ่ม (ผงละ 5 บาท)</h3>
-                    <span class="text-[11px] text-neutral-400">เลือกได้หลายรายการ</span>
+                    <span class="text-[10px] text-neutral-400">เลือกได้หลายรสชาติ</span>
                 </div>
-                <div class="space-y-2.5">
-                    <!-- รายการผงโรยสร้างด้วยลูปข้อมูลด้านล่างหรือลิสต์ตรงนี้ -->
-                    <div id="powder-list-container" class="space-y-2.5">
-                        <!-- โหลดผ่าน Script ด้านล่าง -->
-                    </div>
+                <!-- ใช้ grid-cols-2 เพื่อแสดงผล 2 ฝั่งซ้าย-ขวา ประหยัดพื้นที่แนวตั้งลงครึ่งหนึ่ง -->
+                <div id="powder-list-container" class="grid grid-cols-2 gap-2">
+                    <!-- โหลดผ่าน Script ด้านล่าง -->
                 </div>
             </div>
 
-            <!-- กลุ่มท็อปปิ้งดิป (4 แบบ กระปุกละ 10 บาท) -->
+            <!-- กลุ่มท็อปปิ้งดิป (4 แบบ 2 คอลัมน์เช่นกัน) -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
                 <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
                     <h3 class="font-bold text-sm text-amber-400">🍯 เพิ่มท็อปปิ้งดิป (กระปุกละ 10 บาท)</h3>
                 </div>
-                <div id="dip-list-container" class="space-y-2.5">
+                <div id="dip-list-container" class="grid grid-cols-2 gap-2">
                     <!-- โหลดผ่าน Script ด้านล่าง -->
                 </div>
             </div>
@@ -222,7 +219,7 @@
         </div>
     </div>
 
-    <!-- Modal 2: หน้าต่างยืนยันก่อนสั่งซื้อ (Checkout Summary Modal) -->
+    <!-- Modal 2: หน้าต่างยืนยันก่อนสั่งซื้อ -->
     <div id="checkout-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -277,42 +274,37 @@
     <!-- JavaScript Logic -->
     <script>
         const menuData = {
-            // เฟรนฟราย
             'fries_small': { name: 'เฟรนฟรายเส้นเล็ก', price: 50 },
             'fries_large': { name: 'เฟรนฟรายเส้นใหญ่', price: 50 },
             'fries_smile': { name: 'เฟรนฟรายหน้ายิ้ม', price: 50 },
             'fries_crab': { name: 'เฟรนฟรายปูอัด', price: 50 },
 
-            // ผงโรย (5 บาท)
-            'powder_cheese': { name: 'ผงโรย: ชีส', price: 5 },
-            'powder_seaweed': { name: 'ผงโรย: สาหร่าย', price: 5 },
-            'powder_salted_egg': { name: 'ผงโรย: ไข่เค็ม', price: 5 },
-            'powder_sour_cream': { name: 'ผงโรย: ชาวครีม', price: 5 },
-            'powder_bacon_cheese': { name: 'ผงโรย: เบคอนชีส', price: 5 },
-            'powder_corn': { name: 'ผงโรย: ข้าวโพด', price: 5 },
-            'powder_pizza': { name: 'ผงโรย: พิซซ่า', price: 5 },
-            'powder_bbq': { name: 'ผงโรย: บาร์บีคิว', price: 5 },
-            'powder_paprika': { name: 'ผงโรย: ปาปริก้า', price: 5 },
-            'powder_larb': { name: 'ผงโรย: ลาบ', price: 5 },
-            'powder_tomyum': { name: 'ผงโรย: ต้มยำ', price: 5 },
-            'powder_wasabi': { name: 'ผงโรย: วาซาบิ', price: 5 },
-            'powder_wingzabb': { name: 'ผงโรย: วิงแซ่บ', price: 5 },
-            'powder_hot_spicy': { name: 'ผงโรย: ฮอต & สปิซี่', price: 5 },
+            'powder_cheese': { name: 'ผง: ชีส', price: 5 },
+            'powder_seaweed': { name: 'ผง: สาหร่าย', price: 5 },
+            'powder_salted_egg': { name: 'ผง: ไข่เค็ม', price: 5 },
+            'powder_sour_cream': { name: 'ผง: ชาวครีม', price: 5 },
+            'powder_bacon_cheese': { name: 'ผง: เบคอนชีส', price: 5 },
+            'powder_corn': { name: 'ผง: ข้าวโพด', price: 5 },
+            'powder_pizza': { name: 'ผง: พิซซ่า', price: 5 },
+            'powder_bbq': { name: 'ผง: บาร์บีคิว', price: 5 },
+            'powder_paprika': { name: 'ผง: ปาปริก้า', price: 5 },
+            'powder_larb': { name: 'ผง: ลาบ', price: 5 },
+            'powder_tomyum': { name: 'ผง: ต้มยำ', price: 5 },
+            'powder_wasabi': { name: 'ผง: วาซาบิ', price: 5 },
+            'powder_wingzabb': { name: 'ผง: วิงแซ่บ', price: 5 },
+            'powder_hot_spicy': { name: 'ผง: ฮอต & สปิซี่', price: 5 },
 
-            // ท็อปปิ้งดิป (10 บาท)
             'dip_cheese': { name: 'ดิปชีส', price: 10 },
             'dip_mayo': { name: 'ดิปมายองเนส', price: 10 },
             'dip_sour_cream': { name: 'ดิปชาวครีม', price: 10 },
             'dip_wasabi': { name: 'ดิปวาซาบิ', price: 10 },
 
-            // ข้าวกล่อง & เครื่องดื่ม
             'rice_spicy_chicken': { name: 'ข้าวกล่องไก่สไปซี่', price: 65 },
             'rice_crispy_chicken': { name: 'ข้าวกล่องไก่กรอบ', price: 65 },
             'drink_thai_tea': { name: 'ชาไทย', price: 35 },
             'drink_cocoa': { name: 'โกโก้', price: 40 }
         };
 
-        // ข้อมูลตั้งต้นสำหรับสร้าง Component ผงโรยและดิปอัตโนมัติ
         const powders = [
             { id: 'powder_cheese', name: 'ชีส' },
             { id: 'powder_seaweed', name: 'สาหร่าย' },
@@ -339,42 +331,38 @@
 
         let cart = {};
 
-        // Render รายการผงและดิปเข้าหน้า HTML อัตโนมัติ
         function renderDynamicItems() {
-            // Render Powders
             const powderContainer = document.getElementById('powder-list-container');
             powderContainer.innerHTML = powders.map(p => `
-                <div class="flex items-center justify-between bg-neutral-950 px-3 py-2 rounded-xl border border-neutral-800">
-                    <div>
-                        <span class="text-xs font-medium text-white">${p.name}</span>
-                        <span class="text-[10px] text-red-400 block">+5 บาท</span>
+                <div class="flex items-center justify-between bg-neutral-950 px-2.5 py-2 rounded-xl border border-neutral-800">
+                    <div class="truncate pr-1">
+                        <span class="text-xs font-medium text-white truncate block">${p.name}</span>
+                        <span class="text-[9px] text-red-400">+5</span>
                     </div>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 shrink-0">
                         <button onclick="updateQty('${p.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
-                        <span id="qty-${p.id}" class="w-5 text-center font-semibold text-xs">0</span>
+                        <span id="qty-${p.id}" class="w-4 text-center font-semibold text-xs">0</span>
                         <button onclick="updateQty('${p.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                     </div>
                 </div>
             `).join('');
 
-            // Render Dips
             const dipContainer = document.getElementById('dip-list-container');
             dipContainer.innerHTML = dips.map(d => `
-                <div class="flex items-center justify-between bg-neutral-950 px-3 py-2 rounded-xl border border-neutral-800">
-                    <div>
-                        <span class="text-xs font-medium text-white">${d.name}</span>
-                        <span class="text-[10px] text-red-400 block">+10 บาท</span>
+                <div class="flex items-center justify-between bg-neutral-950 px-2.5 py-2 rounded-xl border border-neutral-800">
+                    <div class="truncate pr-1">
+                        <span class="text-xs font-medium text-white truncate block">${d.name}</span>
+                        <span class="text-[9px] text-red-400">+10</span>
                     </div>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 shrink-0">
                         <button onclick="updateQty('${d.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
-                        <span id="qty-${d.id}" class="w-5 text-center font-semibold text-xs">0</span>
+                        <span id="qty-${d.id}" class="w-4 text-center font-semibold text-xs">0</span>
                         <button onclick="updateQty('${d.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // โหลดรายการทันทีเมื่อเปิดหน้าเว็บ
         window.addEventListener('DOMContentLoaded', renderDynamicItems);
 
         function switchTab(tabName) {
