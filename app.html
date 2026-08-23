@@ -11,13 +11,13 @@
         body { font-family: 'Prompt', sans-serif; }
     </style>
 </head>
-<body class="bg-neutral-950 text-neutral-100 min-h-screen pb-32">
+<body class="bg-neutral-950 text-neutral-100 min-h-screen pb-40">
 
     <!-- Header / Banner -->
     <header class="bg-neutral-900 border-b border-red-900/40 sticky top-0 z-40 shadow-lg">
         <div class="max-w-md mx-auto px-4 py-4 text-center">
             <h1 class="text-2xl font-bold text-red-500 tracking-wide">🍟 ร้านเฟรนฟรายตังค์ตังค์</h1>
-            <p class="text-xs text-neutral-400 mt-1">กรอบนอก นุ่มใน อร่อยทุกคำ! ส่งตรงถึงมือคุณ</p>
+            <p class="text-xs text-neutral-400 mt-1">กรอบนอก นุ่มใน อร่อยทุกคำ! ส่งตรงถึงมือคุณ (Dev Mode)</p>
         </div>
     </header>
 
@@ -161,22 +161,51 @@
 
     </main>
 
-    <!-- Bottom Cart Bar -->
-    <div class="fixed bottom-0 left-0 right-0 bg-neutral-900/95 backdrop-blur border-t border-red-900/40 p-4 z-40 shadow-2xl">
-        <div class="max-w-md mx-auto flex items-center justify-between">
-            <div>
-                <p class="text-xs text-neutral-400">ยอดรวมทั้งสิ้น</p>
-                <p id="total-price" class="text-xl font-bold text-red-500">0 บาท</p>
+    <!-- Modal สรุปรายการสินค้าในตะกร้า -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="bg-neutral-900 w-full max-w-md rounded-t-3xl sm:rounded-2xl border border-neutral-800 p-5 space-y-4 max-h-[80vh] flex flex-col shadow-2xl animate-slide-up">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <h3 class="font-bold text-base text-white flex items-center gap-2">🛒 รายการสินค้าที่เลือก</h3>
+                <button onclick="toggleCartModal()" class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
             </div>
-            <button onclick="submitOrder()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30">
-                🚀 ยืนยันการสั่งซื้อ
+            <!-- รายการสินค้าจะถูก render ตรงนี้ -->
+            <div id="cart-items-list" class="overflow-y-auto space-y-3 pr-1 divide-y divide-neutral-800/60 flex-1">
+                <!-- Data injected by JS -->
+            </div>
+            <div class="border-t border-neutral-800 pt-3 space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-neutral-400">จำนวนรวมทั้งหมด</span>
+                    <span id="modal-total-qty" class="font-semibold text-white">0 ชิ้น</span>
+                </div>
+                <div class="flex justify-between text-base font-bold">
+                    <span class="text-neutral-300">ยอดรวมสุทธิ</span>
+                    <span id="modal-total-price" class="text-red-500 text-lg">0 บาท</span>
+                </div>
+            </div>
+            <button onclick="toggleCartModal()" class="w-full bg-neutral-800 hover:bg-neutral-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">
+                กลับไปหน้าเมนู
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Cart Bar (แถบบาร์ด้านล่าง) -->
+    <div class="fixed bottom-0 left-0 right-0 bg-neutral-900/95 backdrop-blur border-t border-red-900/40 p-4 z-40 shadow-2xl">
+        <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+            <div onclick="toggleCartModal()" class="cursor-pointer flex-1 bg-neutral-950 px-4 py-2.5 rounded-xl border border-neutral-800 flex items-center justify-between hover:border-red-600/50 transition-all">
+                <div>
+                    <p class="text-[10px] text-neutral-400">ตะกร้าสินค้า (คลิกเพื่อดูรายการ)</p>
+                    <p id="total-price" class="text-base font-bold text-red-500">0 บาท</p>
+                </div>
+                <span class="text-xs bg-red-600/20 text-red-400 px-2.5 py-1 rounded-lg font-semibold border border-red-900/30">ดูตะกร้า 🛒</span>
+            </div>
+            <button onclick="submitOrder()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30 whitespace-nowrap">
+                🚀 สั่งซื้อ
             </button>
         </div>
     </div>
 
     <!-- JavaScript Logic -->
     <script>
-        // ฐานข้อมูลเมนูและราคา
         const menuData = {
             'fries_small': { name: 'เฟรนฟรายเส้นเล็ก', price: 50 },
             'fries_large': { name: 'เฟรนฟรายเส้นใหญ่', price: 50 },
@@ -190,7 +219,6 @@
 
         let cart = {};
 
-        // ฟังก์ชันสลับ Tabs หมวดหมู่
         function switchTab(tabName) {
             document.querySelectorAll('.menu-section').forEach(sec => sec.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -204,7 +232,6 @@
             activeBtn.classList.add('bg-red-600', 'text-white');
         }
 
-        // ฟังก์ชันบวก-ลบจำนวนสินค้า (Stepper)
         function updateQty(itemId, change) {
             if (!cart[itemId]) cart[itemId] = 0;
             cart[itemId] += change;
@@ -214,17 +241,68 @@
             calculateTotal();
         }
 
-        // คำนวณราคารวม
         function calculateTotal() {
             let total = 0;
+            let totalQty = 0;
             for (let id in cart) {
                 total += cart[id] * menuData[id].price;
+                totalQty += cart[id];
             }
             document.getElementById('total-price').innerText = total + ' บาท';
+            document.getElementById('modal-total-price').innerText = total + ' บาท';
+            document.getElementById('modal-total-qty').innerText = totalQty + ' ชิ้น';
+            
+            updateCartModalList();
             return total;
         }
 
-        // ส่งออเดอร์เข้า n8n Webhook
+        // เปิด-ปิด Modal สรุปตะกร้าสินค้า
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // อัปเดตรายการสินค้าภายใน Modal
+        function updateCartModalList() {
+            const listContainer = document.getElementById('cart-items-list');
+            listContainer.innerHTML = '';
+
+            let hasItems = false;
+            for (let id in cart) {
+                if (cart[id] > 0) {
+                    hasItems = true;
+                    const item = menuData[id];
+                    const subTotal = cart[id] * item.price;
+
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center justify-between pt-3 first:pt-0';
+                    row.innerHTML = `
+                        <div>
+                            <h4 class="text-sm font-semibold text-white">${item.name}</h4>
+                            <p class="text-xs text-neutral-400">${item.price} บาท × ${cart[id]}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-bold text-red-400">${subTotal} บาท</span>
+                            <div class="flex items-center gap-1 bg-neutral-950 px-2 py-1 rounded-lg border border-neutral-800">
+                                <button onclick="updateQty('${id}', -1)" class="w-6 h-6 rounded bg-neutral-800 text-xs text-white font-bold hover:bg-red-600">-</button>
+                                <span class="w-5 text-center text-xs font-semibold">${cart[id]}</span>
+                                <button onclick="updateQty('${id}', 1)" class="w-6 h-6 rounded bg-neutral-800 text-xs text-white font-bold hover:bg-red-600">+</button>
+                            </div>
+                        </div>
+                    `;
+                    listContainer.appendChild(row);
+                }
+            }
+
+            if (!hasItems) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-8 text-neutral-500 text-sm">
+                        🛒 ยังไม่มีสินค้าในตะกร้าของคุณ
+                    </div>
+                `;
+            }
+        }
+
         async function submitOrder() {
             const name = document.getElementById('customer-name').value.trim();
             const phone = document.getElementById('customer-phone').value.trim();
@@ -234,17 +312,19 @@
                 return;
             }
 
-            // รวบรวมรายการที่สั่ง
             let itemsOrdered = [];
+            let totalAmount = 0;
             for (let id in cart) {
                 if (cart[id] > 0) {
+                    const subTotal = cart[id] * menuData[id].price;
                     itemsOrdered.push({
                         itemId: id,
                         name: menuData[id].name,
                         quantity: cart[id],
                         price: menuData[id].price,
-                        subTotal: cart[id] * menuData[id].price
+                        subTotal: subTotal
                     });
+                    totalAmount += subTotal;
                 }
             }
 
@@ -258,12 +338,11 @@
                 customerName: name,
                 customerPhone: phone,
                 items: itemsOrdered,
-                totalAmount: calculateTotal(),
+                totalAmount: totalAmount,
                 timestamp: new Date().toISOString()
             };
 
             try {
-                // แทนที่ลิงก์ด้านล่างด้วย Webhook URL
                 const webhookUrl = 'https://collar-comrade-backrest.ngrok-free.dev/webhook/Form-fries-order';
                 
                 const response = await fetch(webhookUrl, {
@@ -274,7 +353,6 @@
 
                 if (response.ok) {
                     alert('ส่งออเดอร์สำเร็จ! ข้อมูลถูกส่งเข้า n8n เรียบร้อยแล้วครับ 🎉');
-                    // รีเซ็ตฟอร์ม
                     cart = {};
                     document.querySelectorAll('[id^="qty-"]').forEach(el => el.innerText = '0');
                     document.getElementById('customer-name').value = '';
