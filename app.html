@@ -161,14 +161,13 @@
 
     </main>
 
-    <!-- Modal สรุปรายการสินค้าในตะกร้า -->
+    <!-- Modal 1: ดูตะกร้าสินค้าปกติ -->
     <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-        <div class="bg-neutral-900 w-full max-w-md rounded-t-3xl sm:rounded-2xl border border-neutral-800 p-5 space-y-4 max-h-[80vh] flex flex-col shadow-2xl animate-slide-up">
+        <div class="bg-neutral-900 w-full max-w-md rounded-t-3xl sm:rounded-2xl border border-neutral-800 p-5 space-y-4 max-h-[80vh] flex flex-col shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-base text-white flex items-center gap-2">🛒 รายการสินค้าที่เลือก</h3>
                 <button onclick="toggleCartModal()" class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
             </div>
-            <!-- รายการสินค้าจะถูก render ตรงนี้ -->
             <div id="cart-items-list" class="overflow-y-auto space-y-3 pr-1 divide-y divide-neutral-800/60 flex-1">
                 <!-- Data injected by JS -->
             </div>
@@ -188,6 +187,46 @@
         </div>
     </div>
 
+    <!-- Modal 2: หน้าต่างยืนยันก่อนสั่งซื้อ (Checkout Summary Modal) -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <h3 class="font-bold text-base text-red-500 flex items-center gap-2">📋 ยืนยันคำสั่งซื้อของคุณ</h3>
+                <button onclick="toggleCheckoutModal()" class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
+            </div>
+            
+            <!-- ข้อมูลสรุปผู้ซื้อ -->
+            <div class="bg-neutral-950 p-3 rounded-xl border border-neutral-800 text-xs space-y-1 text-neutral-300">
+                <p><span class="text-neutral-500">ชื่อผู้สั่ง:</span> <span id="summary-name" class="font-semibold text-white"></span></p>
+                <p><span class="text-neutral-500">เบอร์โทร:</span> <span id="summary-phone" class="font-semibold text-white"></span></p>
+            </div>
+
+            <!-- รายการอาหารที่สั่ง -->
+            <div>
+                <p class="text-xs font-semibold text-neutral-400 mb-2">รายการอาหาร:</p>
+                <div id="checkout-items-list" class="max-h-40 overflow-y-auto space-y-2 text-xs divide-y divide-neutral-800/40 pr-1">
+                    <!-- Data injected by JS -->
+                </div>
+            </div>
+
+            <!-- ยอดรวม -->
+            <div class="border-t border-neutral-800 pt-3 flex justify-between items-center">
+                <span class="text-sm font-semibold text-neutral-300">ยอดชำระสุทธิทั้งสิ้น</span>
+                <span id="checkout-total-price" class="text-lg font-bold text-red-500">0 บาท</span>
+            </div>
+
+            <!-- ปุ่มยืนยัน / ยกเลิก -->
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button onclick="toggleCheckoutModal()" class="bg-neutral-800 hover:bg-neutral-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">
+                    แก้ไขข้อมูล
+                </button>
+                <button onclick="confirmAndSendOrder()" class="bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30">
+                    ยืนยันส่งออเดอร์ 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Bottom Cart Bar (แถบบาร์ด้านล่าง) -->
     <div class="fixed bottom-0 left-0 right-0 bg-neutral-900/95 backdrop-blur border-t border-red-900/40 p-4 z-40 shadow-2xl">
         <div class="max-w-md mx-auto flex items-center justify-between gap-3">
@@ -198,7 +237,7 @@
                 </div>
                 <span class="text-xs bg-red-600/20 text-red-400 px-2.5 py-1 rounded-lg font-semibold border border-red-900/30">ดูตะกร้า 🛒</span>
             </div>
-            <button onclick="submitOrder()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30 whitespace-nowrap">
+            <button onclick="openCheckoutModal()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30 whitespace-nowrap">
                 🚀 สั่งซื้อ
             </button>
         </div>
@@ -256,13 +295,65 @@
             return total;
         }
 
-        // เปิด-ปิด Modal สรุปตะกร้าสินค้า
+        // เปิด-ปิด Modal ตะกร้าปกติ
         function toggleCartModal() {
             const modal = document.getElementById('cart-modal');
             modal.classList.toggle('hidden');
         }
 
-        // อัปเดตรายการสินค้าภายใน Modal
+        // เปิด-ปิด Modal ยืนยันการสั่งซื้อ
+        function toggleCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // ตรวจสอบข้อมูลก่อนเปิดหน้าต่างสรุปการสั่งซื้อ
+        function openCheckoutModal() {
+            const name = document.getElementById('customer-name').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+
+            if (!name || !phone) {
+                alert('กรุณากรอกชื่อและเบอร์โทรศัพท์ให้ครบถ้วนก่อนสั่งซื้อครับ!');
+                return;
+            }
+
+            let totalAmount = 0;
+            let hasItems = false;
+            const checkoutList = document.getElementById('checkout-items-list');
+            checkoutList.innerHTML = '';
+
+            for (let id in cart) {
+                if (cart[id] > 0) {
+                    hasItems = true;
+                    const item = menuData[id];
+                    const subTotal = cart[id] * item.price;
+                    totalAmount += subTotal;
+
+                    const row = document.createElement('div');
+                    row.className = 'flex justify-between items-center pt-2 first:pt-0 text-neutral-300';
+                    row.innerHTML = `
+                        <span>${item.name} x ${cart[id]}</span>
+                        <span class="font-semibold text-white">${subTotal} บาท</span>
+                    `;
+                    checkoutList.appendChild(row);
+                }
+            }
+
+            if (!hasItems) {
+                alert('กรุณาเลือกสินค้าอย่างน้อย 1 รายการครับ!');
+                return;
+            }
+
+            // แสดงข้อมูลใน Modal ยืนยัน
+            document.getElementById('summary-name').innerText = name;
+            document.getElementById('summary-phone').innerText = phone;
+            document.getElementById('checkout-total-price').innerText = totalAmount + ' บาท';
+
+            // เปิด Modal ยืนยัน
+            toggleCheckoutModal();
+        }
+
+        // อัปเดตรายการสินค้าภายใน Modal ตะกร้าปกติ
         function updateCartModalList() {
             const listContainer = document.getElementById('cart-items-list');
             listContainer.innerHTML = '';
@@ -303,14 +394,10 @@
             }
         }
 
-        async function submitOrder() {
+        // กดยืนยันส่งข้อมูลจริงไปยัง n8n Webhook
+        async function confirmAndSendOrder() {
             const name = document.getElementById('customer-name').value.trim();
             const phone = document.getElementById('customer-phone').value.trim();
-
-            if (!name || !phone) {
-                alert('กรุณากรอกชื่อและเบอร์โทรศัพท์ให้ครบถ้วนครับ!');
-                return;
-            }
 
             let itemsOrdered = [];
             let totalAmount = 0;
@@ -326,11 +413,6 @@
                     });
                     totalAmount += subTotal;
                 }
-            }
-
-            if (itemsOrdered.length === 0) {
-                alert('กรุณาเลือกสินค้าอย่างน้อย 1 รายการครับ!');
-                return;
             }
 
             const payload = {
@@ -353,6 +435,7 @@
 
                 if (response.ok) {
                     alert('ส่งออเดอร์สำเร็จ! ข้อมูลถูกส่งเข้า n8n เรียบร้อยแล้วครับ 🎉');
+                    toggleCheckoutModal(); // ปิดหน้าต่างยืนยัน
                     cart = {};
                     document.querySelectorAll('[id^="qty-"]').forEach(el => el.innerText = '0');
                     document.getElementById('customer-name').value = '';
