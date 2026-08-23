@@ -17,15 +17,34 @@
 
     <!-- Header / Banner -->
     <header class="bg-neutral-900 border-b border-red-900/40 sticky top-0 z-40 shadow-lg">
-        <div class="max-w-md mx-auto px-4 py-4 text-center">
-            <h1 class="text-2xl font-bold text-red-500 tracking-wide">🍟 ร้านเฟรนฟรายตังค์ตังค์</h1>
-            <p class="text-xs text-neutral-400 mt-1">กรอบนอก นุ่มใน อร่อยทุกคำ! ส่งตรงถึงมือคุณ</p>
+        <div class="max-w-md mx-auto px-4 py-3 text-center">
+            <h1 class="text-xl font-bold text-red-500 tracking-wide">🍟 ร้านเฟรนฟรายตังค์ตังค์</h1>
+            <p class="text-[11px] text-neutral-400">กรอบนอก นุ่มใน อร่อยทุกคำ! ส่งตรงถึงมือคุณ</p>
         </div>
     </header>
 
+    <!-- Dynamic Category Banner (รูปภาพแยกตามหมวดหมู่ 1 รูปหลัก) -->
+    <div class="max-w-md mx-auto px-4 pt-4 space-y-2">
+        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-neutral-800 aspect-[16/9] bg-neutral-900">
+            <!-- รูปหมวดเฟรนฟราย -->
+            <img id="banner-fries" class="category-banner w-full h-full object-contain bg-neutral-900" src="images/เฟรนฟรายทอด.jpg" alt="เฟรนฟราย & ท็อปปิ้ง">
+
+            <!-- รูปหมวดข้าวกล่อง (ซ่อนไว้ก่อน จะแสดงเมื่อกดแท็บข้าว) -->
+            <img id="banner-rice" class="category-banner w-full h-full object-contain bg-neutral-900 hidden" src="images/เมนูข้าวกล่อง.jpg" alt="ข้าวกล่อง">
+            
+            <!-- รูปหมวดเครื่องดื่ม (ซ่อนไว้ก่อน จะแสดงเมื่อกดแท็บเครื่องดื่ม) -->
+            <img id="banner-drink" class="category-banner w-full h-full object-contain bg-neutral-900 hidden" src="images/เมนูเครื่องดื่ม.jpg" alt="เครื่องดื่ม">
+        </div>
+
+        <!-- ป้ายข้อความอยู่ด้านนอกรูป ไม่บังเนื้อหา -->
+        <div class="text-center">
+            <span id="banner-text" class="inline-block text-xs font-semibold bg-red-600/90 text-white px-3 py-1.5 rounded-xl shadow-md backdrop-blur">🔥 เมนูเฟรนฟราย & ท็อปปิ้งสุดฟิน</span>
+        </div>
+    </div>
+
     <!-- Navigation Tabs -->
-    <nav class="sticky top-[73px] z-30 bg-neutral-950/90 backdrop-blur border-b border-neutral-800">
-        <div class="max-w-md mx-auto flex overflow-x-auto no-scrollbar px-2 py-2 gap-2">
+    <nav class="sticky top-[57px] z-30 bg-neutral-950/90 backdrop-blur border-b border-neutral-800 mt-4">
+        <div class="max-w-md mx-auto flex overflow-x-auto no-scrollbar px-4 py-2 gap-2">
             <button onclick="switchTab('fries')" id="tab-btn-fries" class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-red-600 text-white transition-all shadow-md">🍟 เฟรนฟราย & ท็อปปิ้ง</button>
             <button onclick="switchTab('rice')" id="tab-btn-rice" class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-neutral-900 text-neutral-300 hover:bg-neutral-800 transition-all">🍱 ข้าวกล่อง</button>
             <button onclick="switchTab('drink')" id="tab-btn-drink" class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-neutral-900 text-neutral-300 hover:bg-neutral-800 transition-all">🧋 เครื่องดื่ม</button>
@@ -40,14 +59,14 @@
             <!-- กลุ่มเฟรนฟรายหลัก -->
             <div>
                 <div class="flex items-center justify-between mb-3">
-                    <h2 class="font-bold text-lg text-white border-l-4 border-red-600 pl-2">เมนูเฟรนฟรายทอด (50 บาท)</h2>
+                    <h2 class="font-bold text-base text-white border-l-4 border-red-600 pl-2">เมนูเฟรนฟรายทอด (50 บาท)</h2>
                 </div>
                 <div class="space-y-3">
                     <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                         <div>
-                            <h3 class="font-semibold text-base text-white">เฟรนฟรายเส้นเล็ก</h3>
-                            <p class="text-xs text-neutral-400 mt-0.5">กรอบ อร่อย คลาสสิก!</p>
-                            <span class="inline-block mt-2 text-red-400 font-bold text-sm">50 บาท</span>
+                            <h3 class="font-semibold text-sm text-white">เฟรนฟรายเส้นเล็ก</h3>
+                            <p class="text-[11px] text-neutral-400 mt-0.5">กรอบ อร่อย คลาสสิก!</p>
+                            <span class="inline-block mt-2 text-red-400 font-bold text-xs">50 บาท</span>
                         </div>
                         <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
                             <button onclick="updateQty('fries_small', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
@@ -58,9 +77,9 @@
 
                     <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                         <div>
-                            <h3 class="font-semibold text-base text-white">เฟรนฟรายเส้นใหญ่</h3>
-                            <p class="text-xs text-neutral-400 mt-0.5">หยักกรอบ เคี้ยวเพลิน!</p>
-                            <span class="inline-block mt-2 text-red-400 font-bold text-sm">50 บาท</span>
+                            <h3 class="font-semibold text-sm text-white">เฟรนฟรายเส้นใหญ่</h3>
+                            <p class="text-[11px] text-neutral-400 mt-0.5">หยักกรอบ เคี้ยวเพลิน!</p>
+                            <span class="inline-block mt-2 text-red-400 font-bold text-xs">50 บาท</span>
                         </div>
                         <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
                             <button onclick="updateQty('fries_large', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
@@ -71,9 +90,9 @@
 
                     <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                         <div>
-                            <h3 class="font-semibold text-base text-white">เฟรนฟรายหน้ายิ้ม</h3>
-                            <p class="text-xs text-neutral-400 mt-0.5">น่ารัก กรอบมันส์!</p>
-                            <span class="inline-block mt-2 text-red-400 font-bold text-sm">50 บาท</span>
+                            <h3 class="font-semibold text-sm text-white">เฟรนฟรายหน้ายิ้ม</h3>
+                            <p class="text-[11px] text-neutral-400 mt-0.5">น่ารัก กรอบมันส์!</p>
+                            <span class="inline-block mt-2 text-red-400 font-bold text-xs">50 บาท</span>
                         </div>
                         <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
                             <button onclick="updateQty('fries_smile', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
@@ -84,9 +103,9 @@
 
                     <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                         <div>
-                            <h3 class="font-semibold text-base text-white">เฟรนฟรายปูอัด</h3>
-                            <p class="text-xs text-neutral-400 mt-0.5">กรอบอร่อย ไม่อมน้ำมัน</p>
-                            <span class="inline-block mt-2 text-red-400 font-bold text-sm">50 บาท</span>
+                            <h3 class="font-semibold text-sm text-white">เฟรนฟรายปูอัด</h3>
+                            <p class="text-[11px] text-neutral-400 mt-0.5">กรอบอร่อย ไม่อมน้ำมัน</p>
+                            <span class="inline-block mt-2 text-red-400 font-bold text-xs">50 บาท</span>
                         </div>
                         <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
                             <button onclick="updateQty('fries_crab', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
@@ -97,25 +116,24 @@
                 </div>
             </div>
 
-            <!-- กลุ่มผงโรยเพิ่ม (ปรับเป็น 2 คอลัมน์ ประหยัดพื้นที่) -->
+            <!-- กลุ่มผงโรยเพิ่ม (2 คอลัมน์) -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
                 <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
                     <h3 class="font-bold text-sm text-amber-400">✨ เลือกผงโรยเพิ่ม (ผงละ 5 บาท)</h3>
                     <span class="text-[10px] text-neutral-400">เลือกได้หลายรสชาติ</span>
                 </div>
-                <!-- ใช้ grid-cols-2 เพื่อแสดงผล 2 ฝั่งซ้าย-ขวา ประหยัดพื้นที่แนวตั้งลงครึ่งหนึ่ง -->
                 <div id="powder-list-container" class="grid grid-cols-2 gap-2">
-                    <!-- โหลดผ่าน Script ด้านล่าง -->
+                    <!-- โหลดผ่าน Script -->
                 </div>
             </div>
 
-            <!-- กลุ่มท็อปปิ้งดิป (4 แบบ 2 คอลัมน์เช่นกัน) -->
+            <!-- กลุ่มท็อปปิ้งดิป (2 คอลัมน์) -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
                 <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
                     <h3 class="font-bold text-sm text-amber-400">🍯 เพิ่มท็อปปิ้งดิป (กระปุกละ 10 บาท)</h3>
                 </div>
                 <div id="dip-list-container" class="grid grid-cols-2 gap-2">
-                    <!-- โหลดผ่าน Script ด้านล่าง -->
+                    <!-- โหลดผ่าน Script -->
                 </div>
             </div>
         </section>
@@ -124,9 +142,9 @@
         <section id="tab-rice" class="menu-section space-y-4 hidden">
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                 <div>
-                    <h3 class="font-semibold text-base text-white">ข้าวกล่องไก่สไปซี่</h3>
-                    <p class="text-xs text-neutral-400 mt-0.5">อร่อยจัดเต็ม คุ้มทุกคำ</p>
-                    <span class="inline-block mt-2 text-red-400 font-bold text-sm">65 บาท</span>
+                    <h3 class="font-semibold text-sm text-white">ข้าวกล่องไก่สไปซี่</h3>
+                    <p class="text-[11px] text-neutral-400 mt-0.5">อร่อยจัดเต็ม คุ้มทุกคำ</p>
+                    <span class="inline-block mt-2 text-red-400 font-bold text-xs">65 บาท</span>
                 </div>
                 <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
                     <button onclick="updateQty('rice_spicy_chicken', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
@@ -137,9 +155,9 @@
 
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                 <div>
-                    <h3 class="font-semibold text-base text-white">ข้าวกล่องไก่กรอบ</h3>
-                    <p class="text-xs text-neutral-400 mt-0.5">กรอบนอก นุ่มใน</p>
-                    <span class="inline-block mt-2 text-red-400 font-bold text-sm">65 บาท</span>
+                    <h3 class="font-semibold text-sm text-white">ข้าวกล่องไก่กรอบ</h3>
+                    <p class="text-[11px] text-neutral-400 mt-0.5">กรอบนอก นุ่มใน</p>
+                    <span class="inline-block mt-2 text-red-400 font-bold text-xs">65 บาท</span>
                 </div>
                 <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
                     <button onclick="updateQty('rice_crispy_chicken', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
@@ -153,9 +171,9 @@
         <section id="tab-drink" class="menu-section space-y-4 hidden">
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                 <div>
-                    <h3 class="font-semibold text-base text-white">ชาไทย</h3>
-                    <p class="text-xs text-neutral-400 mt-0.5">เข้มข้น หอมกลมกล่อม</p>
-                    <span class="inline-block mt-2 text-red-400 font-bold text-sm">35 บาท</span>
+                    <h3 class="font-semibold text-sm text-white">ชาไทย</h3>
+                    <p class="text-[11px] text-neutral-400 mt-0.5">เข้มข้น หอมกลมกล่อม</p>
+                    <span class="inline-block mt-2 text-red-400 font-bold text-xs">35 บาท</span>
                 </div>
                 <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
                     <button onclick="updateQty('drink_thai_tea', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
@@ -166,9 +184,9 @@
 
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                 <div>
-                    <h3 class="font-semibold text-base text-white">โกโก้</h3>
-                    <p class="text-xs text-neutral-400 mt-0.5">เข้มข้น หวานมันสะใจ</p>
-                    <span class="inline-block mt-2 text-red-400 font-bold text-sm">40 บาท</span>
+                    <h3 class="font-semibold text-sm text-white">โกโก้</h3>
+                    <p class="text-[11px] text-neutral-400 mt-0.5">เข้มข้น หวานมันสะใจ</p>
+                    <span class="inline-block mt-2 text-red-400 font-bold text-xs">40 บาท</span>
                 </div>
                 <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
                     <button onclick="updateQty('drink_cocoa', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
@@ -193,16 +211,14 @@
 
     </main>
 
-    <!-- Modal 1: ดูตะกร้าสินค้าปกติ -->
+    <!-- Modal ตะกร้าสินค้า -->
     <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-neutral-900 w-full max-w-md rounded-t-3xl sm:rounded-2xl border border-neutral-800 p-5 space-y-4 max-h-[80vh] flex flex-col shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-base text-white flex items-center gap-2">🛒 รายการสินค้าที่เลือก</h3>
                 <button onclick="toggleCartModal()" class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
             </div>
-            <div id="cart-items-list" class="overflow-y-auto space-y-3 pr-1 divide-y divide-neutral-800/60 flex-1">
-                <!-- Data injected by JS -->
-            </div>
+            <div id="cart-items-list" class="overflow-y-auto space-y-3 pr-1 divide-y divide-neutral-800/60 flex-1"></div>
             <div class="border-t border-neutral-800 pt-3 space-y-2">
                 <div class="flex justify-between text-sm">
                     <span class="text-neutral-400">จำนวนรวมทั้งหมด</span>
@@ -219,7 +235,7 @@
         </div>
     </div>
 
-    <!-- Modal 2: หน้าต่างยืนยันก่อนสั่งซื้อ -->
+    <!-- Modal ยืนยันคำสั่งซื้อ -->
     <div id="checkout-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -234,9 +250,7 @@
 
             <div>
                 <p class="text-xs font-semibold text-neutral-400 mb-2">รายการอาหาร:</p>
-                <div id="checkout-items-list" class="max-h-40 overflow-y-auto space-y-2 text-xs divide-y divide-neutral-800/40 pr-1">
-                    <!-- Data injected by JS -->
-                </div>
+                <div id="checkout-items-list" class="max-h-40 overflow-y-auto space-y-2 text-xs divide-y divide-neutral-800/40 pr-1"></div>
             </div>
 
             <div class="border-t border-neutral-800 pt-3 flex justify-between items-center">
@@ -372,10 +386,22 @@
                 btn.classList.add('bg-neutral-900', 'text-neutral-300');
             });
 
+            // ซ่อนรูปแบนเนอร์ทั้งหมดก่อน
+            document.querySelectorAll('.category-banner').forEach(img => img.classList.add('hidden'));
+
+            // แสดงเฉพาะแท็บและแบนเนอร์ที่เลือก
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            document.getElementById(`banner-${tabName}`).classList.remove('hidden');
+
             const activeBtn = document.getElementById(`tab-btn-${tabName}`);
             activeBtn.classList.remove('bg-neutral-900', 'text-neutral-300');
             activeBtn.classList.add('bg-red-600', 'text-white');
+
+            // เปลี่ยนข้อความป้ายกำกับรูปภาพตามหมวดหมู่
+            const bannerText = document.getElementById('banner-text');
+            if(tabName === 'fries') bannerText.innerText = '🔥 เมนูเฟรนฟราย & ท็อปปิ้งสุดฟิน';
+            else if(tabName === 'rice') bannerText.innerText = '🍱 เมนูข้าวกล่องร้อนๆ อร่อยคุ้ม';
+            else if(tabName === 'drink') bannerText.innerText = '🧋 เครื่องดื่มเย็นชื่นใจ แก้วต่อแก้ว';
         }
 
         function updateQty(itemId, change) {
