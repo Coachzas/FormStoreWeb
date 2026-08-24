@@ -139,7 +139,7 @@
             </div>
         </section>
 
-        <!-- หมวดที่ 2: ข้าวกล่อง (ดีไซน์ใหม่ 3 สเต็ปตามอินโฟกราฟิก) -->
+        <!-- หมวดที่ 2: ข้าวกล่อง -->
         <section id="tab-rice" class="menu-section space-y-5 hidden">
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 space-y-5 shadow-xl">
                 <div class="border-b border-neutral-800 pb-3 flex justify-between items-center">
@@ -189,7 +189,7 @@
                 </button>
             </div>
 
-            <!-- รายการข้าวกล่องที่ถูกจัดเซตไว้แล้วในตะกร้า -->
+            <!-- รายการข้าวกล่องในตะกร้า -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
                 <h3 class="font-bold text-sm text-white flex items-center gap-2">📋 ข้าวกล่องที่คุณเลือกไว้ในออเดอร์</h3>
                 <div id="rice-cart-summary-list" class="space-y-2 divide-y divide-neutral-800/60">
@@ -198,31 +198,117 @@
             </div>
         </section>
 
-        <!-- หมวดที่ 3: เครื่องดื่ม -->
-        <section id="tab-drink" class="menu-section space-y-4 hidden">
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
+        <!-- หมวดที่ 3: เครื่องดื่ม (6 หมวดหมู่ตามรูปภาพ) -->
+        <section id="tab-drink" class="menu-section space-y-5 hidden">
+            <!-- หัวข้อภาพรวมเครื่องดื่ม -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-2 shadow-md">
+                <h2 class="font-bold text-base text-white border-l-4 border-red-600 pl-2">🧋 เมนูเครื่องดื่ม (เย็น-ปั่น)</h2>
+                <p class="text-xs text-neutral-400">พิมพ์ชื่อเครื่องดื่มที่ต้องการ และระบุจำนวนแก้วได้เลยครับ</p>
+            </div>
+
+            <!-- ฟอร์มกรอกเครื่องดื่มทั้ง 6 หมวดหมู่ -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-4 shadow-md">
+                
+                <!-- 1. ผลไม้ -->
                 <div>
-                    <h3 class="font-semibold text-sm text-white">ชาไทย</h3>
-                    <p class="text-[11px] text-neutral-400 mt-0.5">เข้มข้น หอมกลมกล่อม</p>
-                    <span class="inline-block mt-2 text-red-400 font-bold text-xs">35 บาท</span>
+                    <h3 class="font-bold text-xs text-amber-400 mb-1">🍊 1. หมวดผลไม้ (เช่น น้ำส้ม, น้ำมะนาว, สตอเบอร์รี่)</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" id="drink_fruit_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
+                        <input type="number" id="drink_fruit_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
+                    </div>
                 </div>
-                <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
-                    <button onclick="updateQty('drink_thai_tea', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
-                    <span id="qty-drink_thai_tea" class="w-6 text-center font-semibold text-sm">0</span>
-                    <button onclick="updateQty('drink_thai_tea', 1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
+
+                <!-- 2. ชา -->
+                <div class="pt-2 border-t border-neutral-800">
+                    <h3 class="font-bold text-xs text-amber-400 mb-1">🍵 2. หมวดชา (เช่น ชาไทย, ชาเขียว, ชานม)</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" id="drink_tea_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
+                        <input type="number" id="drink_tea_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
+                    </div>
+                </div>
+
+                <!-- 3. นม -->
+                <div class="pt-2 border-t border-neutral-800">
+                    <h3 class="font-bold text-xs text-amber-400 mb-1">🥛 3. หมวดนม (เช่น นมสด, นมชมพู, มันม่วง)</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" id="drink_milk_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
+                        <input type="number" id="drink_milk_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
+                    </div>
+                </div>
+
+                <!-- 4. สมูทตี้ & โยเกิร์ต -->
+                <div class="pt-2 border-t border-neutral-800">
+                    <h3 class="font-bold text-xs text-amber-400 mb-1">🍓 4. หมวดสมูทตี้ & โยเกิร์ต (เช่น โยเกิร์ตปั่น)</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" id="drink_smoothie_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
+                        <input type="number" id="drink_smoothie_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
+                    </div>
+                </div>
+
+                <!-- 5. โซดา -->
+                <div class="pt-2 border-t border-neutral-800">
+                    <h3 class="font-bold text-xs text-amber-400 mb-1">🥤 5. หมวดโซดา (เช่น แดงโซดา, บลูฮาวายโซดา)</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" id="drink_soda_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
+                        <input type="number" id="drink_soda_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
+                    </div>
+                </div>
+
+                <!-- 6. โกโก้ & กาแฟ -->
+                <div class="pt-2 border-t border-neutral-800">
+                    <h3 class="font-bold text-xs text-amber-400 mb-1">☕ 6. หมวดโกโก้ & กาแฟ (เช่น โกโก้, กาแฟสด)</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" id="drink_coffee_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
+                        <input type="number" id="drink_coffee_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
+                    </div>
+                </div>
+
+                <!-- ปุ่มเพิ่มเครื่องดื่มเข้าตะกร้า -->
+                <button onclick="addCustomDrinkGroup()" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-xl text-xs transition-all shadow-md mt-3">
+                    ➕ บันทึกเครื่องดื่มทั้งหมดลงรายการ
+                </button>
+            </div>
+
+            <!-- ท็อปปิ้งเครื่องดื่มเสริม -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <h3 class="font-bold text-sm text-amber-400 border-b border-neutral-800 pb-2">✨ เพิ่มท็อปปิ้งเครื่องดื่ม</h3>
+                <div class="grid grid-cols-1 gap-2">
+                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="drink_topping_boba" class="w-4 h-4 accent-red-600 rounded">
+                            <span class="text-xs font-medium text-white">เพิ่มมุกทุกแก้ว</span>
+                        </div>
+                        <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
+                    </label>
+                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="drink_topping_oreo" class="w-4 h-4 accent-red-600 rounded">
+                            <span class="text-xs font-medium text-white">เพิ่มโอริโอ้</span>
+                        </div>
+                        <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
+                    </label>
+                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="drink_topping_cornflakes" class="w-4 h-4 accent-red-600 rounded">
+                            <span class="text-xs font-medium text-white">เพิ่มคอนเฟลค</span>
+                        </div>
+                        <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
+                    </label>
+                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="drink_topping_wipcream" class="w-4 h-4 accent-red-600 rounded">
+                            <span class="text-xs font-medium text-white">เพิ่มวิปครีม</span>
+                        </div>
+                        <span class="text-[10px] text-red-400 font-bold">+15 ฿</span>
+                    </label>
                 </div>
             </div>
 
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
-                <div>
-                    <h3 class="font-semibold text-sm text-white">โกโก้</h3>
-                    <p class="text-[11px] text-neutral-400 mt-0.5">เข้มข้น หวานมันสะใจ</p>
-                    <span class="inline-block mt-2 text-red-400 font-bold text-xs">40 บาท</span>
-                </div>
-                <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
-                    <button onclick="updateQty('drink_cocoa', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
-                    <span id="qty-drink_cocoa" class="w-6 text-center font-semibold text-sm">0</span>
-                    <button onclick="updateQty('drink_cocoa', 1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
+            <!-- รายการเครื่องดื่มที่บันทึกแล้ว -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <h3 class="font-bold text-sm text-white flex items-center gap-2">📋 เครื่องดื่มที่คุณเลือกไว้ในออเดอร์</h3>
+                <div id="drink-cart-summary-list" class="space-y-2 divide-y divide-neutral-800/60">
+                    <p class="text-xs text-neutral-500 text-center py-4">ยังไม่มีเครื่องดื่มในรายการ</p>
                 </div>
             </div>
         </section>
@@ -350,10 +436,7 @@
             'dip_cheese': { name: 'ดิปชีส', price: 10 },
             'dip_mayo': { name: 'ดิปมายองเนส', price: 10 },
             'dip_sour_cream': { name: 'ดิปชาวครีม', price: 10 },
-            'dip_wasabi': { name: 'ดิปวาซาบิ', price: 10 },
-
-            'drink_thai_tea': { name: 'ชาไทย', price: 35 },
-            'drink_cocoa': { name: 'โกโก้', price: 40 }
+            'dip_wasabi': { name: 'ดิปวาซาบิ', price: 10 }
         };
 
         const powders = [
@@ -404,6 +487,7 @@
 
         let cart = {};
         let riceBoxOrders = [];
+        let drinkOrders = [];
         let currentActiveBannerSrc = 'images/เฟรนฟรายทอด.jpg';
 
         function renderDynamicItems() {
@@ -438,7 +522,7 @@
             `).join('');
 
             const meatContainer = document.getElementById('rice-meat-container');
-            meatContainer.innerHTML = riceMeats.map((m, idx) => `
+            meatContainer.innerHTML = riceMeats.map((m) => `
                 <label class="flex items-center justify-between bg-neutral-950 px-3 py-2.5 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                     <div class="flex items-center gap-2">
                         <input type="radio" name="rice_meat" value="${m.name}" class="accent-red-600">
@@ -449,7 +533,7 @@
             `).join('');
 
             const sauceContainer = document.getElementById('rice-sauce-container');
-            sauceContainer.innerHTML = riceSauces.map((s, idx) => `
+            sauceContainer.innerHTML = riceSauces.map((s) => `
                 <label class="flex items-center gap-2 bg-neutral-950 px-3 py-2 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                     <input type="radio" name="rice_sauce" value="${s.name}" class="accent-red-600">
                     <span class="text-xs font-medium text-white truncate">${s.name}</span>
@@ -491,17 +575,8 @@
 
             riceBoxOrders.push(boxItem);
             
-            // ล้างตัวเลือกเนื้อสัตว์ทั้งหมด (เอาเครื่องหมายถูกออก)
-            document.querySelectorAll('input[name="rice_meat"]').forEach(input => {
-                input.checked = false;
-            });
-
-            // ล้างตัวเลือกซอสทั้งหมด (เอาเครื่องหมายถูกออก)
-            document.querySelectorAll('input[name="rice_sauce"]').forEach(input => {
-                input.checked = false;
-            });
-
-            // รีเซ็ตปุ่ม Add-on เพิ่มไข่ / เพิ่มซอส
+            document.querySelectorAll('input[name="rice_meat"]').forEach(input => input.checked = false);
+            document.querySelectorAll('input[name="rice_sauce"]').forEach(input => input.checked = false);
             document.getElementById('addon-egg').checked = false;
             document.getElementById('addon-extra-sauce').checked = false;
 
@@ -512,6 +587,56 @@
             riceBoxOrders[index].quantity += change;
             if (riceBoxOrders[index].quantity <= 0) {
                 riceBoxOrders.splice(index, 1);
+            }
+            calculateTotal();
+        }
+
+        function addCustomDrinkGroup() {
+            const categories = [
+                { idPrefix: 'drink_fruit', label: 'ผลไม้' },
+                { idPrefix: 'drink_tea', label: 'ชา' },
+                { idPrefix: 'drink_milk', label: 'นม' },
+                { idPrefix: 'drink_smoothie', label: 'สมูทตี้ & โยเกิร์ต' },
+                { idPrefix: 'drink_soda', label: 'โซดา' },
+                { idPrefix: 'drink_coffee', label: 'โกโก้ & กาแฟ' }
+            ];
+
+            let addedCount = 0;
+
+            categories.forEach(cat => {
+                const nameInput = document.getElementById(`${cat.idPrefix}_name`);
+                const qtyInput = document.getElementById(`${cat.idPrefix}_qty`);
+                
+                const drinkName = nameInput.value.trim();
+                const qty = parseInt(qtyInput.value) || 0;
+
+                if (drinkName && qty > 0) {
+                    addedCount++;
+                    drinkOrders.push({
+                        id: 'drink_' + Date.now() + '_' + Math.random(),
+                        name: `${drinkName} (${cat.label})`,
+                        price: 40, // ราคามาตรฐานอ้างอิง หรือปรับแก้ภายหลังได้
+                        quantity: qty
+                    });
+
+                    // เคลียร์ค่าหลังเพิ่มลงตะกร้า
+                    nameInput.value = '';
+                    qtyInput.value = '0';
+                }
+            });
+
+            if (addedCount === 0) {
+                alert('กรุณากรอกชื่อเครื่องดื่มและจำนวนอย่างน้อย 1 รายการครับ!');
+                return;
+            }
+
+            calculateTotal();
+        }
+
+        function updateDrinkOrderQty(index, change) {
+            drinkOrders[index].quantity += change;
+            if (drinkOrders[index].quantity <= 0) {
+                drinkOrders.splice(index, 1);
             }
             calculateTotal();
         }
@@ -576,12 +701,40 @@
                 totalQty += box.quantity;
             });
 
+            drinkOrders.forEach(drink => {
+                total += drink.price * drink.quantity;
+                totalQty += drink.quantity;
+            });
+
+            // คำนวณท็อปปิ้งเครื่องดื่มเพิ่มเติมตามจำนวนรวมแก้วเครื่องดื่ม
+            let totalDrinkQty = drinkOrders.reduce((sum, d) => sum + d.quantity, 0);
+            let drinkAddonsText = [];
+            if (totalDrinkQty > 0) {
+                if (document.getElementById('drink_topping_boba').checked) {
+                    total += 5 * totalDrinkQty;
+                    drinkAddonsText.push('เพิ่มมุกทุกแก้ว (+5)');
+                }
+                if (document.getElementById('drink_topping_oreo').checked) {
+                    total += 5 * totalDrinkQty;
+                    drinkAddonsText.push('เพิ่มโอริโอ้ (+5)');
+                }
+                if (document.getElementById('drink_topping_cornflakes').checked) {
+                    total += 5 * totalDrinkQty;
+                    drinkAddonsText.push('เพิ่มคอนเฟลค (+5)');
+                }
+                if (document.getElementById('drink_topping_wipcream').checked) {
+                    total += 15 * totalDrinkQty;
+                    drinkAddonsText.push('เพิ่มวิปครีม (+15)');
+                }
+            }
+
             document.getElementById('total-price').innerText = total + ' บาท';
             document.getElementById('modal-total-price').innerText = total + ' บาท';
             document.getElementById('modal-total-qty').innerText = totalQty + ' ชิ้น';
             
             updateCartModalList();
             updateRiceCartSummary();
+            updateDrinkCartSummary();
             return total;
         }
 
@@ -604,6 +757,31 @@
                             <button onclick="updateRiceBoxQty(${idx}, -1)" class="w-5 h-5 rounded bg-neutral-800 text-[10px] text-white font-bold hover:bg-red-600">-</button>
                             <span class="w-4 text-center text-xs font-semibold">${box.quantity}</span>
                             <button onclick="updateRiceBoxQty(${idx}, 1)" class="w-5 h-5 rounded bg-neutral-800 text-[10px] text-white font-bold hover:bg-red-600">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateDrinkCartSummary() {
+            const container = document.getElementById('drink-cart-summary-list');
+            if (drinkOrders.length === 0) {
+                container.innerHTML = `<p class="text-xs text-neutral-500 text-center py-4">ยังไม่มีเครื่องดื่มในรายการ</p>`;
+                return;
+            }
+
+            container.innerHTML = drinkOrders.map((drink, idx) => `
+                <div class="flex items-center justify-between pt-2 first:pt-0">
+                    <div>
+                        <h4 class="text-xs font-semibold text-white">${drink.name}</h4>
+                        <p class="text-[10px] text-neutral-400">แก้วละ ${drink.price} ฿</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-red-400">${drink.price * drink.quantity} ฿</span>
+                        <div class="flex items-center gap-1 bg-neutral-950 px-2 py-1 rounded-lg border border-neutral-800">
+                            <button onclick="updateDrinkOrderQty(${idx}, -1)" class="w-5 h-5 rounded bg-neutral-800 text-[10px] text-white font-bold hover:bg-red-600">-</button>
+                            <span class="w-4 text-center text-xs font-semibold">${drink.quantity}</span>
+                            <button onclick="updateDrinkOrderQty(${idx}, 1)" class="w-5 h-5 rounded bg-neutral-800 text-[10px] text-white font-bold hover:bg-red-600">+</button>
                         </div>
                     </div>
                 </div>
@@ -665,6 +843,53 @@
                 `;
                 checkoutList.appendChild(row);
             });
+
+            drinkOrders.forEach(drink => {
+                hasItems = true;
+                const subTotal = drink.price * drink.quantity;
+                totalAmount += subTotal;
+
+                const row = document.createElement('div');
+                row.className = 'flex justify-between items-center pt-2 first:pt-0 text-neutral-300';
+                row.innerHTML = `
+                    <span>${drink.name} x ${drink.quantity}</span>
+                    <span class="font-semibold text-white">${subTotal} บาท</span>
+                `;
+                checkoutList.appendChild(row);
+            });
+
+            // ตรวจสอบท็อปปิ้งเครื่องดื่มในสรุป
+            let totalDrinkQty = drinkOrders.reduce((sum, d) => sum + d.quantity, 0);
+            if (totalDrinkQty > 0) {
+                let drinkAddonsList = [];
+                if (document.getElementById('drink_topping_boba').checked) {
+                    let cost = 5 * totalDrinkQty;
+                    totalAmount += cost;
+                    drinkAddonsList.push(`เพิ่มมุกทุกแก้ว (${cost} ฿)`);
+                }
+                if (document.getElementById('drink_topping_oreo').checked) {
+                    let cost = 5 * totalDrinkQty;
+                    totalAmount += cost;
+                    drinkAddonsList.push(`เพิ่มโอริโอ้ (${cost} ฿)`);
+                }
+                if (document.getElementById('drink_topping_cornflakes').checked) {
+                    let cost = 5 * totalDrinkQty;
+                    totalAmount += cost;
+                    drinkAddonsList.push(`เพิ่มคอนเฟลค (${cost} ฿)`);
+                }
+                if (document.getElementById('drink_topping_wipcream').checked) {
+                    let cost = 15 * totalDrinkQty;
+                    totalAmount += cost;
+                    drinkAddonsList.push(`เพิ่มวิปครีม (${cost} ฿)`);
+                }
+
+                if (drinkAddonsList.length > 0) {
+                    const row = document.createElement('div');
+                    row.className = 'pt-2 text-amber-400 text-[11px]';
+                    row.innerHTML = `ท็อปปิ้งเครื่องดื่ม: ${drinkAddonsList.join(', ')}`;
+                    checkoutList.appendChild(row);
+                }
+            }
 
             if (!hasItems) {
                 alert('กรุณาเลือกสินค้าอย่างน้อย 1 รายการครับ!');
@@ -732,6 +957,28 @@
                 listContainer.appendChild(row);
             });
 
+            drinkOrders.forEach((drink, idx) => {
+                hasItems = true;
+                const subTotal = drink.price * drink.quantity;
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between pt-3 first:pt-0';
+                row.innerHTML = `
+                    <div>
+                        <h4 class="text-sm font-semibold text-white">${drink.name}</h4>
+                        <p class="text-[10px] text-neutral-400">แก้วละ ${drink.price} ฿</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-bold text-red-400">${subTotal} บาท</span>
+                        <div class="flex items-center gap-1 bg-neutral-950 px-2 py-1 rounded-lg border border-neutral-800">
+                            <button onclick="updateDrinkOrderQty(${idx}, -1)" class="w-6 h-6 rounded bg-neutral-800 text-xs text-white font-bold hover:bg-red-600">-</button>
+                            <span class="w-5 text-center text-xs font-semibold">${drink.quantity}</span>
+                            <button onclick="updateDrinkOrderQty(${idx}, 1)" class="w-6 h-6 rounded bg-neutral-800 text-xs text-white font-bold hover:bg-red-600">+</button>
+                        </div>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+
             if (!hasItems) {
                 listContainer.innerHTML = `
                     <div class="text-center py-8 text-neutral-500 text-sm">
@@ -774,6 +1021,42 @@
                 totalAmount += subTotal;
             });
 
+            drinkOrders.forEach(drink => {
+                const subTotal = drink.price * drink.quantity;
+                itemsOrdered.push({
+                    itemId: drink.id,
+                    name: drink.name,
+                    quantity: drink.quantity,
+                    price: drink.price,
+                    subTotal: subTotal
+                });
+                totalAmount += subTotal;
+            });
+
+            let totalDrinkQty = drinkOrders.reduce((sum, d) => sum + d.quantity, 0);
+            if (totalDrinkQty > 0) {
+                if (document.getElementById('drink_topping_boba').checked) {
+                    let cost = 5 * totalDrinkQty;
+                    totalAmount += cost;
+                    itemsOrdered.push({ itemId: 'topping_boba', name: 'ท็อปปิ้ง: มุกทุกแก้ว', quantity: totalDrinkQty, price: 5, subTotal: cost });
+                }
+                if (document.getElementById('drink_topping_oreo').checked) {
+                    let cost = 5 * totalDrinkQty;
+                    totalAmount += cost;
+                    itemsOrdered.push({ itemId: 'topping_oreo', name: 'ท็อปปิ้ง: โอริโอ้', quantity: totalDrinkQty, price: 5, subTotal: cost });
+                }
+                if (document.getElementById('drink_topping_cornflakes').checked) {
+                    let cost = 5 * totalDrinkQty;
+                    totalAmount += cost;
+                    itemsOrdered.push({ itemId: 'topping_cornflakes', name: 'ท็อปปิ้ง: คอนเฟลค', quantity: totalDrinkQty, price: 5, subTotal: cost });
+                }
+                if (document.getElementById('drink_topping_wipcream').checked) {
+                    let cost = 15 * totalDrinkQty;
+                    totalAmount += cost;
+                    itemsOrdered.push({ itemId: 'topping_wipcream', name: 'ท็อปปิ้ง: วิปครีม', quantity: totalDrinkQty, price: 15, subTotal: cost });
+                }
+            }
+
             const payload = {
                 store: "ร้านเฟรนฟรายตังค์ตังค์",
                 customerName: name,
@@ -797,6 +1080,7 @@
                     toggleCheckoutModal();
                     cart = {};
                     riceBoxOrders = [];
+                    drinkOrders = [];
                     document.querySelectorAll('[id^="qty-"]').forEach(el => el.innerText = '0');
                     document.getElementById('customer-name').value = '';
                     document.getElementById('customer-phone').value = '';
