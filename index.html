@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Prompt', sans-serif; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
+
 <body class="bg-neutral-950 text-neutral-100 min-h-screen pb-40">
 
     <!-- Header / Banner -->
@@ -25,34 +36,50 @@
 
     <!-- Dynamic Category Banner (คลิกที่รูปเพื่อขยายได้) -->
     <div class="max-w-md mx-auto px-4 pt-4 space-y-2">
-        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-neutral-800 aspect-[16/9] bg-neutral-900 cursor-pointer group" onclick="openLightbox(currentActiveBannerSrc)">
+        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-neutral-800 aspect-[16/9] bg-neutral-900 cursor-pointer group"
+            onclick="openLightbox(currentActiveBannerSrc)">
             <!-- รูปหมวดเฟรนฟราย -->
-            <img id="banner-fries" class="category-banner w-full h-full object-contain bg-neutral-900 transition-transform duration-300 group-hover:scale-105" src="images/เฟรนฟรายทอด.jpg" alt="เฟรนฟราย & ท็อปปิ้ง">
+            <img id="banner-fries"
+                class="category-banner w-full h-full object-contain bg-neutral-900 transition-transform duration-300 group-hover:scale-105"
+                src="images/เฟรนฟรายทอด.jpg" alt="เฟรนฟราย & ท็อปปิ้ง">
 
             <!-- รูปหมวดข้าวกล่อง -->
-            <img id="banner-rice" class="category-banner w-full h-full object-contain bg-neutral-900 hidden transition-transform duration-300 group-hover:scale-105" src="images/เมนูข้าวกล่อง.jpg" alt="ข้าวกล่อง">
-            
+            <img id="banner-rice"
+                class="category-banner w-full h-full object-contain bg-neutral-900 hidden transition-transform duration-300 group-hover:scale-105"
+                src="images/เมนูข้าวกล่อง.jpg" alt="ข้าวกล่อง">
+
             <!-- รูปหมวดเครื่องดื่ม -->
-            <img id="banner-drink" class="category-banner w-full h-full object-contain bg-neutral-900 hidden transition-transform duration-300 group-hover:scale-105" src="images/เมนูเครื่องดื่ม.jpg" alt="เครื่องดื่ม">
+            <img id="banner-drink"
+                class="category-banner w-full h-full object-contain bg-neutral-900 hidden transition-transform duration-300 group-hover:scale-105"
+                src="images/เมนูเครื่องดื่ม.jpg" alt="เครื่องดื่ม">
 
             <!-- ไอคอนบอกใบ้ว่ากดซูมได้ -->
-            <div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg opacity-80 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+            <div
+                class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg opacity-80 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                 🔍 คลิกเพื่อขยาย
             </div>
         </div>
 
         <!-- ป้ายข้อความอยู่ด้านนอกรูป ไม่บังเนื้อหา -->
         <div class="text-center">
-            <span id="banner-text" class="inline-block text-xs font-semibold bg-red-600/90 text-white px-3 py-1.5 rounded-xl shadow-md backdrop-blur">🔥 เมนูเฟรนฟราย & ท็อปปิ้งสุดฟิน</span>
+            <span id="banner-text"
+                class="inline-block text-xs font-semibold bg-red-600/90 text-white px-3 py-1.5 rounded-xl shadow-md backdrop-blur">🔥
+                เมนูเฟรนฟราย & ท็อปปิ้งสุดฟิน</span>
         </div>
     </div>
 
     <!-- Navigation Tabs -->
     <nav class="sticky top-[57px] z-30 bg-neutral-950/90 backdrop-blur border-b border-neutral-800 mt-4">
         <div class="max-w-md mx-auto flex overflow-x-auto no-scrollbar px-4 py-2 gap-2">
-            <button onclick="switchTab('fries')" id="tab-btn-fries" class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-red-600 text-white transition-all shadow-md">🍟 เฟรนฟราย & ท็อปปิ้ง</button>
-            <button onclick="switchTab('rice')" id="tab-btn-rice" class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-neutral-900 text-neutral-300 hover:bg-neutral-800 transition-all">🍱 ข้าวกล่อง</button>
-            <button onclick="switchTab('drink')" id="tab-btn-drink" class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-neutral-900 text-neutral-300 hover:bg-neutral-800 transition-all">🧋 เครื่องดื่ม</button>
+            <button onclick="switchTab('fries')" id="tab-btn-fries"
+                class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-red-600 text-white transition-all shadow-md">🍟
+                เฟรนฟราย & ท็อปปิ้ง</button>
+            <button onclick="switchTab('rice')" id="tab-btn-rice"
+                class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-neutral-900 text-neutral-300 hover:bg-neutral-800 transition-all">🍱
+                ข้าวกล่อง</button>
+            <button onclick="switchTab('drink')" id="tab-btn-drink"
+                class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-neutral-900 text-neutral-300 hover:bg-neutral-800 transition-all">🧋
+                เครื่องดื่ม</button>
         </div>
     </nav>
 
@@ -64,58 +91,75 @@
             <!-- กลุ่มเฟรนฟรายหลัก -->
             <div>
                 <div class="flex items-center justify-between mb-3">
-                    <h2 class="font-bold text-base text-white border-l-4 border-red-600 pl-2">เมนูเฟรนฟรายทอด (50 บาท)</h2>
+                    <h2 class="font-bold text-base text-white border-l-4 border-red-600 pl-2">เมนูเฟรนฟรายทอด (50 บาท)
+                    </h2>
                 </div>
                 <div class="space-y-3">
-                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
+                    <div
+                        class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                         <div>
                             <h3 class="font-semibold text-sm text-white">เฟรนฟรายเส้นเล็ก</h3>
                             <p class="text-[11px] text-neutral-400 mt-0.5">กรอบ อร่อย คลาสสิก!</p>
                             <span class="inline-block mt-2 text-red-400 font-bold text-xs">50 บาท</span>
                         </div>
-                        <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
-                            <button onclick="updateQty('fries_small', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
+                        <div
+                            class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
+                            <button onclick="updateQty('fries_small', -1)"
+                                class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
                             <span id="qty-fries_small" class="w-6 text-center font-semibold text-sm">0</span>
-                            <button onclick="updateQty('fries_small', 1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
+                            <button onclick="updateQty('fries_small', 1)"
+                                class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
                         </div>
                     </div>
 
-                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
+                    <div
+                        class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                         <div>
                             <h3 class="font-semibold text-sm text-white">เฟรนฟรายเส้นใหญ่</h3>
                             <p class="text-[11px] text-neutral-400 mt-0.5">หยักกรอบ เคี้ยวเพลิน!</p>
                             <span class="inline-block mt-2 text-red-400 font-bold text-xs">50 บาท</span>
                         </div>
-                        <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
-                            <button onclick="updateQty('fries_large', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
+                        <div
+                            class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
+                            <button onclick="updateQty('fries_large', -1)"
+                                class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
                             <span id="qty-fries_large" class="w-6 text-center font-semibold text-sm">0</span>
-                            <button onclick="updateQty('fries_large', 1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
+                            <button onclick="updateQty('fries_large', 1)"
+                                class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
                         </div>
                     </div>
 
-                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
+                    <div
+                        class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                         <div>
                             <h3 class="font-semibold text-sm text-white">เฟรนฟรายหน้ายิ้ม</h3>
                             <p class="text-[11px] text-neutral-400 mt-0.5">น่ารัก กรอบมันส์!</p>
                             <span class="inline-block mt-2 text-red-400 font-bold text-xs">50 บาท</span>
                         </div>
-                        <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
-                            <button onclick="updateQty('fries_smile', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
+                        <div
+                            class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
+                            <button onclick="updateQty('fries_smile', -1)"
+                                class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
                             <span id="qty-fries_smile" class="w-6 text-center font-semibold text-sm">0</span>
-                            <button onclick="updateQty('fries_smile', 1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
+                            <button onclick="updateQty('fries_smile', 1)"
+                                class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
                         </div>
                     </div>
 
-                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
+                    <div
+                        class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-md flex items-center justify-between">
                         <div>
                             <h3 class="font-semibold text-sm text-white">เฟรนฟรายปูอัด</h3>
                             <p class="text-[11px] text-neutral-400 mt-0.5">กรอบอร่อย ไม่อมน้ำมัน</p>
                             <span class="inline-block mt-2 text-red-400 font-bold text-xs">50 บาท</span>
                         </div>
-                        <div class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
-                            <button onclick="updateQty('fries_crab', -1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
+                        <div
+                            class="flex items-center gap-3 bg-neutral-950 px-3 py-1.5 rounded-xl border border-neutral-800">
+                            <button onclick="updateQty('fries_crab', -1)"
+                                class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">-</button>
                             <span id="qty-fries_crab" class="w-6 text-center font-semibold text-sm">0</span>
-                            <button onclick="updateQty('fries_crab', 1)" class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
+                            <button onclick="updateQty('fries_crab', 1)"
+                                class="w-7 h-7 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 transition-colors">+</button>
                         </div>
                     </div>
                 </div>
@@ -152,7 +196,8 @@
 
                 <!-- STEP 1: เลือกเนื้อสัตว์ -->
                 <div class="space-y-2">
-                    <label class="block text-xs font-bold text-amber-400">📌 STEP 1: เลือกเนื้อสัตว์ (เลือก 1 อย่าง)</label>
+                    <label class="block text-xs font-bold text-amber-400">📌 STEP 1: เลือกเนื้อสัตว์ (เลือก 1
+                        อย่าง)</label>
                     <div id="rice-meat-container" class="grid grid-cols-1 gap-2"></div>
                 </div>
 
@@ -164,16 +209,19 @@
 
                 <!-- STEP 3: เพิ่มท็อปปิ้งเสริม -->
                 <div class="space-y-2 pt-2 border-t border-neutral-800">
-                    <label class="block text-xs font-bold text-amber-400">📌 STEP 3: เพิ่มไข่ / เพิ่มซอส (ไม่บังคับ)</label>
+                    <label class="block text-xs font-bold text-amber-400">📌 STEP 3: เพิ่มไข่ / เพิ่มซอส
+                        (ไม่บังคับ)</label>
                     <div class="grid grid-cols-2 gap-2">
-                        <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                        <label
+                            class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                             <div class="flex items-center gap-2">
                                 <input type="checkbox" id="addon-egg" class="w-4 h-4 accent-red-600 rounded">
                                 <span class="text-xs font-medium text-white">เพิ่มไข่ดาว</span>
                             </div>
                             <span class="text-[10px] text-red-400 font-bold">+10 ฿</span>
                         </label>
-                        <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                        <label
+                            class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                             <div class="flex items-center gap-2">
                                 <input type="checkbox" id="addon-extra-sauce" class="w-4 h-4 accent-red-600 rounded">
                                 <span class="text-xs font-medium text-white">เพิ่มซอส x2</span>
@@ -184,14 +232,16 @@
                 </div>
 
                 <!-- ปุ่มกดเพิ่มข้าวกล่องลงตะกร้า -->
-                <button onclick="addCustomRiceBox()" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl text-sm transition-all shadow-lg shadow-red-600/30 flex items-center justify-center gap-2">
+                <button onclick="addCustomRiceBox()"
+                    class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl text-sm transition-all shadow-lg shadow-red-600/30 flex items-center justify-center gap-2">
                     🛒 เพิ่มข้าวกล่องนี้ลงตะกร้า
                 </button>
             </div>
 
             <!-- รายการข้าวกล่องในตะกร้า -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
-                <h3 class="font-bold text-sm text-white flex items-center gap-2">📋 ข้าวกล่องที่คุณเลือกไว้ในออเดอร์</h3>
+                <h3 class="font-bold text-sm text-white flex items-center gap-2">📋 ข้าวกล่องที่คุณเลือกไว้ในออเดอร์
+                </h3>
                 <div id="rice-cart-summary-list" class="space-y-2 divide-y divide-neutral-800/60">
                     <p class="text-xs text-neutral-500 text-center py-4">ยังไม่มีข้าวกล่องในรายการ</p>
                 </div>
@@ -202,8 +252,10 @@
         <section id="tab-drink" class="menu-section space-y-5 hidden">
             <!-- หัวข้อภาพรวมเครื่องดื่ม -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-2 shadow-md">
-                <h2 class="font-bold text-base text-white border-l-4 border-red-600 pl-2">🧋 เมนูเครื่องดื่ม (เย็น-ปั่น)</h2>
-                <p class="text-xs text-neutral-400">เลือกรายการเครื่องดื่มที่ต้องการ และระบุจำนวนแก้วได้เลยครับ[cite: 5]</p>
+                <h2 class="font-bold text-base text-white border-l-4 border-red-600 pl-2">🧋 เมนูเครื่องดื่ม (เย็น-ปั่น)
+                </h2>
+                <p class="text-xs text-neutral-400">เลือกรายการเครื่องดื่มที่ต้องการ และระบุจำนวนแก้วได้เลยครับ[cite: 5]
+                </p>
             </div>
 
             <!-- 1. หมวดผลไม้ (19 รายการ) -->
@@ -233,69 +285,71 @@
                 <div id="milk-drink-container" class="space-y-2.5"></div>
             </div>
 
-            <!-- หมวดอื่นๆ (สมูทตี้, โซดา, โกโก้ & กาแฟ - แบบพิมพ์ชื่อ) -->
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-4 shadow-md">
-                <h3 class="font-bold text-xs text-neutral-400">หมวดเครื่องดื่มอื่นๆ (พิมพ์ชื่อและจำนวน)</h3>
+            <!-- 4. สมูทตี้ & โยเกิร์ต (8 รายการ)-->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+                    <h3 class="font-bold text-sm text-amber-400">🍓 4. หมวดสมูทตี้ & โยเกิร์ต</h3>
+                    <span class="text-[10px] text-neutral-400">แก้วละ 35 บาท</span>
+                </div> 
+                <div id="smoothie-drink-container" class="space-y-2.5"></div>
+            </div>
 
-                <!-- 4. สมูทตี้ & โยเกิร์ต -->
-                <div class="pt-2 border-t border-neutral-800">
-                    <h3 class="font-bold text-xs text-amber-400 mb-1">🍓 4. หมวดสมูทตี้ & โยเกิร์ต (เช่น โยเกิร์ตปั่น)</h3>
-                    <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="drink_smoothie_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
-                        <input type="number" id="drink_smoothie_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
-                    </div>
-                </div>
+            <!-- 5. โซดา (10 รายการ)-->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+                    <h3 class="font-bold text-sm text-amber-400">🥤 5. หมวดโซดา</h3>
+                    <span class="text-[10px] text-neutral-400">แก้วละ 35 บาท</span>
+                </div> 
+                <div id="soda-drink-container" class="space-y-2.5"></div>
+            </div>
 
-                <!-- 5. โซดา -->
-                <div class="pt-2 border-t border-neutral-800">
-                    <h3 class="font-bold text-xs text-amber-400 mb-1">🥤 5. หมวดโซดา (เช่น แดงโซดา, บลูฮาวายโซดา)</h3>
-                    <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="drink_soda_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
-                        <input type="number" id="drink_soda_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
-                    </div>
-                </div>
+            <!-- 6. โกโก้ & กาแฟ (13 รายการ)-->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+                    <h3 class="font-bold text-sm text-amber-400">☕ 6. หมวดโกโก้ & กาแฟ</h3>
+                    <span class="text-[10px] text-neutral-400">แก้วละ 10-40 บาท</span>
+                </div> 
+                <div id="coffee-drink-container" class="space-y-2.5"></div>
+            </div>
 
-                <!-- 6. โกโก้ & กาแฟ -->
-                <div class="pt-2 border-t border-neutral-800">
-                    <h3 class="font-bold text-xs text-amber-400 mb-1">☕ 6. หมวดโกโก้ & กาแฟ (เช่น โกโก้, กาแฟสด)</h3>
-                    <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="drink_coffee_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
-                        <input type="number" id="drink_coffee_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
-                    </div>
-                </div>
-
-                <!-- ปุ่มเพิ่มเครื่องดื่มอื่นๆ ลงตะกร้า -->
-                <button onclick="addCustomDrinkGroup()" class="w-full bg-neutral-800 hover:bg-neutral-700 text-white font-semibold py-2.5 rounded-xl text-xs transition-all shadow-md mt-3">
-                    ➕ บันทึกเครื่องดื่มหมวดอื่นๆ ลงรายการ
-                </button>
+            <!-- ปุ่มเพิ่มเครื่องดื่มอื่นๆ ลงตะกร้า -->
+            <button onclick="addCustomDrinkGroup()"
+                class="w-full bg-neutral-800 hover:bg-neutral-700 text-white font-semibold py-2.5 rounded-xl text-xs transition-all shadow-md mt-3">
+                ➕ บันทึกเครื่องดื่มหมวดอื่นๆ ลงรายการ
+            </button>
             </div>
 
             <!-- ท็อปปิ้งเครื่องดื่มเสริม -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
-                <h3 class="font-bold text-sm text-amber-400 border-b border-neutral-800 pb-2">✨ เพิ่มท็อปปิ้งเครื่องดื่ม</h3>
+                <h3 class="font-bold text-sm text-amber-400 border-b border-neutral-800 pb-2">✨ เพิ่มท็อปปิ้งเครื่องดื่ม
+                </h3>
                 <div class="grid grid-cols-1 gap-2">
-                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                    <label
+                        class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                         <div class="flex items-center gap-2">
                             <input type="checkbox" id="drink_topping_boba" class="w-4 h-4 accent-red-600 rounded">
                             <span class="text-xs font-medium text-white">เพิ่มมุกทุกแก้ว</span>
                         </div>
                         <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
                     </label>
-                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                    <label
+                        class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                         <div class="flex items-center gap-2">
                             <input type="checkbox" id="drink_topping_oreo" class="w-4 h-4 accent-red-600 rounded">
                             <span class="text-xs font-medium text-white">เพิ่มโอริโอ้</span>
                         </div>
                         <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
                     </label>
-                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                    <label
+                        class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                         <div class="flex items-center gap-2">
                             <input type="checkbox" id="drink_topping_cornflakes" class="w-4 h-4 accent-red-600 rounded">
                             <span class="text-xs font-medium text-white">เพิ่มคอนเฟลค</span>
                         </div>
                         <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
                     </label>
-                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                    <label
+                        class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                         <div class="flex items-center gap-2">
                             <input type="checkbox" id="drink_topping_wipcream" class="w-4 h-4 accent-red-600 rounded">
                             <span class="text-xs font-medium text-white">เพิ่มวิปครีม</span>
@@ -307,7 +361,8 @@
 
             <!-- รายการเครื่องดื่มที่บันทึกแล้ว -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
-                <h3 class="font-bold text-sm text-white flex items-center gap-2">📋 เครื่องดื่มที่คุณเลือกไว้ในออเดอร์</h3>
+                <h3 class="font-bold text-sm text-white flex items-center gap-2">📋 เครื่องดื่มที่คุณเลือกไว้ในออเดอร์
+                </h3>
                 <div id="drink-cart-summary-list" class="space-y-2 divide-y divide-neutral-800/60">
                     <p class="text-xs text-neutral-500 text-center py-4">ยังไม่มีเครื่องดื่มในรายการ</p>
                 </div>
@@ -319,32 +374,43 @@
             <h3 class="font-semibold text-sm text-red-400">📝 ข้อมูลจัดส่งออเดอร์</h3>
             <div>
                 <label class="block text-xs text-neutral-400 mb-1">ชื่อผู้สั่ง</label>
-                <input type="text" id="customer-name" placeholder="ระบุชื่อของคุณ" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-red-600">
+                <input type="text" id="customer-name" placeholder="ระบุชื่อของคุณ"
+                    class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-red-600">
             </div>
             <div>
                 <label class="block text-xs text-neutral-400 mb-1">เบอร์โทรศัพท์</label>
-                <input type="tel" id="customer-phone" placeholder="08xxxxxxxx" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-red-600">
+                <input type="tel" id="customer-phone" placeholder="08xxxxxxxx"
+                    class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-red-600">
             </div>
         </div>
 
     </main>
 
     <!-- Modal ขยายรูปภาพ (Lightbox) -->
-    <div id="image-lightbox" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
-        <div class="relative max-w-3xl w-full max-h-[90vh] flex items-center justify-center" onclick="event.stopPropagation()">
-            <button onclick="closeLightbox()" class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-neutral-800 text-white hover:bg-red-600 flex items-center justify-center font-bold text-lg shadow-lg transition-colors">✕</button>
-            <img id="lightbox-img" src="" alt="ขยายรูปภาพ" class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-neutral-800">
+    <div id="image-lightbox"
+        class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4"
+        onclick="closeLightbox()">
+        <div class="relative max-w-3xl w-full max-h-[90vh] flex items-center justify-center"
+            onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()"
+                class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-neutral-800 text-white hover:bg-red-600 flex items-center justify-center font-bold text-lg shadow-lg transition-colors">✕</button>
+            <img id="lightbox-img" src="" alt="ขยายรูปภาพ"
+                class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-neutral-800">
         </div>
     </div>
 
     <!-- Modal ตะกร้าสินค้า -->
-    <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-        <div class="bg-neutral-900 w-full max-w-md rounded-t-3xl sm:rounded-2xl border border-neutral-800 p-5 space-y-4 max-h-[80vh] flex flex-col shadow-2xl">
+    <div id="cart-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div
+            class="bg-neutral-900 w-full max-w-md rounded-t-3xl sm:rounded-2xl border border-neutral-800 p-5 space-y-4 max-h-[80vh] flex flex-col shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-base text-white flex items-center gap-2">🛒 รายการสินค้าที่เลือก</h3>
-                <button onclick="toggleCartModal()" class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
+                <button onclick="toggleCartModal()"
+                    class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
             </div>
-            <div id="cart-items-list" class="overflow-y-auto space-y-3 pr-1 divide-y divide-neutral-800/60 flex-1"></div>
+            <div id="cart-items-list" class="overflow-y-auto space-y-3 pr-1 divide-y divide-neutral-800/60 flex-1">
+            </div>
             <div class="border-t border-neutral-800 pt-3 space-y-2">
                 <div class="flex justify-between text-sm">
                     <span class="text-neutral-400">จำนวนรวมทั้งหมด</span>
@@ -355,28 +421,34 @@
                     <span id="modal-total-price" class="text-red-500 text-lg">0 บาท</span>
                 </div>
             </div>
-            <button onclick="toggleCartModal()" class="w-full bg-neutral-800 hover:bg-neutral-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">
+            <button onclick="toggleCartModal()"
+                class="w-full bg-neutral-800 hover:bg-neutral-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">
                 กลับไปหน้าเมนู
             </button>
         </div>
     </div>
 
     <!-- Modal ยืนยันคำสั่งซื้อ -->
-    <div id="checkout-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div id="checkout-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-base text-red-500 flex items-center gap-2">📋 ยืนยันคำสั่งซื้อของคุณ</h3>
-                <button onclick="toggleCheckoutModal()" class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
+                <button onclick="toggleCheckoutModal()"
+                    class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
             </div>
-            
+
             <div class="bg-neutral-950 p-3 rounded-xl border border-neutral-800 text-xs space-y-1 text-neutral-300">
-                <p><span class="text-neutral-500">ชื่อผู้สั่ง:</span> <span id="summary-name" class="font-semibold text-white"></span></p>
-                <p><span class="text-neutral-500">เบอร์โทร:</span> <span id="summary-phone" class="font-semibold text-white"></span></p>
+                <p><span class="text-neutral-500">ชื่อผู้สั่ง:</span> <span id="summary-name"
+                        class="font-semibold text-white"></span></p>
+                <p><span class="text-neutral-500">เบอร์โทร:</span> <span id="summary-phone"
+                        class="font-semibold text-white"></span></p>
             </div>
 
             <div>
                 <p class="text-xs font-semibold text-neutral-400 mb-2">รายการอาหาร:</p>
-                <div id="checkout-items-list" class="max-h-40 overflow-y-auto space-y-2 text-xs divide-y divide-neutral-800/40 pr-1"></div>
+                <div id="checkout-items-list"
+                    class="max-h-40 overflow-y-auto space-y-2 text-xs divide-y divide-neutral-800/40 pr-1"></div>
             </div>
 
             <div class="border-t border-neutral-800 pt-3 flex justify-between items-center">
@@ -385,10 +457,12 @@
             </div>
 
             <div class="grid grid-cols-2 gap-3 pt-2">
-                <button onclick="toggleCheckoutModal()" class="bg-neutral-800 hover:bg-neutral-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">
+                <button onclick="toggleCheckoutModal()"
+                    class="bg-neutral-800 hover:bg-neutral-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">
                     แก้ไขข้อมูล
                 </button>
-                <button onclick="confirmAndSendOrder()" class="bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30">
+                <button onclick="confirmAndSendOrder()"
+                    class="bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30">
                     ยืนยันส่งออเดอร์ 🚀
                 </button>
             </div>
@@ -396,16 +470,21 @@
     </div>
 
     <!-- Bottom Cart Bar -->
-    <div class="fixed bottom-0 left-0 right-0 bg-neutral-900/95 backdrop-blur border-t border-red-900/40 p-4 z-40 shadow-2xl">
+    <div
+        class="fixed bottom-0 left-0 right-0 bg-neutral-900/95 backdrop-blur border-t border-red-900/40 p-4 z-40 shadow-2xl">
         <div class="max-w-md mx-auto flex items-center justify-between gap-3">
-            <div onclick="toggleCartModal()" class="cursor-pointer flex-1 bg-neutral-950 px-4 py-2.5 rounded-xl border border-neutral-800 flex items-center justify-between hover:border-red-600/50 transition-all">
+            <div onclick="toggleCartModal()"
+                class="cursor-pointer flex-1 bg-neutral-950 px-4 py-2.5 rounded-xl border border-neutral-800 flex items-center justify-between hover:border-red-600/50 transition-all">
                 <div>
                     <p class="text-[10px] text-neutral-400">ตะกร้าสินค้า (คลิกเพื่อดูรายการ)</p>
                     <p id="total-price" class="text-base font-bold text-red-500">0 บาท</p>
                 </div>
-                <span class="text-xs bg-red-600/20 text-red-400 px-2.5 py-1 rounded-lg font-semibold border border-red-900/30">ดูตะกร้า 🛒</span>
+                <span
+                    class="text-xs bg-red-600/20 text-red-400 px-2.5 py-1 rounded-lg font-semibold border border-red-900/30">ดูตะกร้า
+                    🛒</span>
             </div>
-            <button onclick="openCheckoutModal()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30 whitespace-nowrap">
+            <button onclick="openCheckoutModal()"
+                class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-red-600/30 whitespace-nowrap">
                 🚀 สั่งซื้อ
             </button>
         </div>
@@ -414,11 +493,13 @@
     <!-- JavaScript Logic -->
     <script>
         const menuData = {
+            // เฟรนฟราย 4 รายการ
             'fries_small': { name: 'เฟรนฟรายเส้นเล็ก', price: 50 },
             'fries_large': { name: 'เฟรนฟรายเส้นใหญ่', price: 50 },
             'fries_smile': { name: 'เฟรนฟรายหน้ายิ้ม', price: 50 },
             'fries_crab': { name: 'เฟรนฟรายปูอัด', price: 50 },
 
+            // ผง 14 รายการ
             'powder_cheese': { name: 'ผง: ชีส', price: 5 },
             'powder_seaweed': { name: 'ผง: สาหร่าย', price: 5 },
             'powder_salted_egg': { name: 'ผง: ไข่เค็ม', price: 5 },
@@ -434,6 +515,7 @@
             'powder_wingzabb': { name: 'ผง: วิงแซ่บ', price: 5 },
             'powder_hot_spicy': { name: 'ผง: ฮอต & สปิซี่', price: 5 },
 
+            // ทอปปิ้ง 4 รายการ
             'dip_cheese': { name: 'ดิปชีส', price: 10 },
             'dip_mayo': { name: 'ดิปมายองเนส', price: 10 },
             'dip_sour_cream': { name: 'ดิปชาวครีม', price: 10 },
@@ -484,7 +566,44 @@
             'milk_fresh_oreo': { name: 'นมสดโอรีโอ้', price: 35 },
             'milk_fresh_cornflakes': { name: 'นมสดคอนเฟลค', price: 35 },
             'milk_purple_sweet_potato': { name: 'มันม่วง', price: 35 },
-            'milk_taro': { name: 'เผือกหอม', price: 35 }
+            'milk_taro': { name: 'เผือกหอม', price: 35 },
+
+            // หมวดสมูทตี้ & โยเกิร์ต 8 รายการ
+            'smoothie_yogurt_blend': { name: 'โยเกิร์ตปั่น', price: 35 },
+            'smoothie_strawberry_yogurt': { name: 'สตรอว์เบอร์รี่โยเกิร์ต', price: 35 },
+            'smoothie_blueberry_yogurt': { name: 'บลูเบอร์รี่โยเกิร์ต', price: 35 },
+            'smoothie_mix_berry_yogurt': { name: 'มิกซ์เบอร์รี่โยเกิร์ต', price: 35 },
+            'smoothie_strawberry': { name: 'สตรอว์เบอร์รี่สมูทตี้', price: 35 },
+            'smoothie_blueberry': { name: 'บลูเบอร์รี่สมูทตี้', price: 35 },
+            'smoothie_kiwi': { name: 'กีวี่สมูทตี้', price: 35 },
+            'smoothie_mix_berry_blend': { name: 'มิกซ์เบอร์รี่ปั่น', price: 35 },
+
+            // หมวดโซดา 10 รายการ
+            'soda_red': { name: 'แดงโซดา', price: 35 },
+            'soda_green': { name: 'เขียวโซดา', price: 35 },
+            'soda_green_apple': { name: 'แอปเปิ้ลเขียวโซดา', price: 35 },
+            'soda_strawberry': { name: 'สตรอว์เบอร์รี่โซดา', price: 35 },
+            'soda_lychee': { name: 'ลิ้นจี่โซดา', price: 35 },
+            'soda_plum': { name: 'บ๊วยโซดา', price: 35 },
+            'soda_blue_hawaii': { name: 'บลูฮาวายโซดา', price: 35 },
+            'soda_lime': { name: 'มะนาวโซดา', price: 35 },
+            'soda_red_lime': { name: 'แดงมะนาวโซดา', price: 35 },
+            'soda_green_lime': { name: 'เขียวมะนาวโซดา', price: 35 },
+
+            // หมวดโซดา โกโก้ & กาแฟ 13 รายการ
+            'coffee_coco': { name: 'โกโก้', price: 40 },
+            'coffee_chocolate': { name: 'ช็อกโกแลต', price: 40 },
+            'coffee_caramel': { name: 'กาแฟคาราเมล', price: 40 },
+            'coffee_fresh_milk': { name: 'กาแฟนมสด', price: 35 },
+            'coffee_ovaltine': { name: 'โอวัลติน', price: 35 },
+            'coffee_milo': { name: 'ไมโล', price: 35 },
+            'coffee_malt': { name: 'ไวท์มอลต์', price: 35 },
+            'coffee_nesvita': { name: 'เนสวีต้า', price: 35 },
+            'coffee_volcano_ovaltine': { name: 'โอวัลตินภูเขาไฟ', price: 35 },
+            'coffee_soft_drink': { name: 'น้ำอัดลม', price: 25 },
+            'coffee_oishi': { name: 'โออิชิ', price: 25 },
+            'coffee_small_water': { name: 'น้ำเปล่า(แก้วเล็ก)', price: 10 },
+            'coffee_big_water': { name: 'น้ำเปล่า(แก้วใหญ่)', price: 15 }
         };
 
         const fruitDrinks = [
@@ -535,6 +654,46 @@
             { id: 'milk_fresh_cornflakes', name: 'นมสดคอนเฟลค', price: 35 },
             { id: 'milk_purple_sweet_potato', name: 'มันม่วง', price: 35 },
             { id: 'milk_taro', name: 'เผือกหอม', price: 35 }
+        ];
+
+        const smoothieYogurtDrinks = [
+            { id: 'smoothie_yogurt_blend', name: 'โยเกิร์ตปั่น', price: 35 },
+            { id: 'smoothie_strawberry_yogurt', name: 'สตรอว์เบอร์รี่โยเกิร์ต', price: 35 },
+            { id: 'smoothie_blueberry_yogurt', name: 'บลูเบอร์รี่โยเกิร์ต', price: 35 },
+            { id: 'smoothie_mix_berry_yogurt', name: 'มิกซ์เบอร์รี่โยเกิร์ต', price: 35 },
+            { id: 'smoothie_strawberry', name: 'สตรอว์เบอร์รี่สมูทตี้', price: 35 },
+            { id: 'smoothie_blueberry', name: 'บลูเบอร์รี่สมูทตี้', price: 35 },
+            { id: 'smoothie_kiwi', name: 'กีวี่สมูทตี้', price: 35 },
+            { id: 'smoothie_mix_berry_blend', name: 'มิกซ์เบอร์รี่ปั่น', price: 35 }
+        ];
+
+        const sodaDrinks = [
+            { id: 'soda_red', name: 'แดงโซดา', price: 35 },
+            { id: 'soda_green', name: 'เขียวโซดา', price: 35 },
+            { id: 'soda_green_apple', name: 'แอปเปิ้ลเขียวโซดา', price: 35 },
+            { id: 'soda_strawberry', name: 'สตรอว์เบอร์รี่โซดา', price: 35 },
+            { id: 'soda_lychee', name: 'ลิ้นจี่โซดา', price: 35 },
+            { id: 'soda_plum', name: 'บ๊วยโซดา', price: 35 },
+            { id: 'soda_blue_hawaii', name: 'บลูฮาวายโซดา', price: 35 },
+            { id: 'soda_lime', name: 'มะนาวโซดา', price: 35 },
+            { id: 'soda_red_lime', name: 'แดงมะนาวโซดา', price: 35 },
+            { id: 'soda_green_lime', name: 'เขียวมะนาวโซดา', price: 35 }
+        ];
+
+        const coffeeDrinks = [
+            { id: 'coffee_coco', name: 'โกโก้', price: 40 },
+            { id: 'coffee_chocolate', name: 'ช็อกโกแลต', price: 40 },
+            { id: 'coffee_caramel', name: 'กาแฟคาราเมล', price: 40 },
+            { id: 'coffee_fresh_milk', name: 'กาแฟนมสด', price: 35 },
+            { id: 'coffee_ovaltine', name: 'โอวัลติน', price: 35 },
+            { id: 'coffee_milo', name: 'ไมโล', price: 35 },
+            { id: 'coffee_malt', name: 'ไวท์มอลต์', price: 35 },
+            { id: 'coffee_nesvita', name: 'เนสวีต้า', price: 35 },
+            { id: 'coffee_volcano_ovaltine', name: 'โอวัลตินภูเขาไฟ', price: 35 },
+            { id: 'coffee_soft_drink', name: 'น้ำอัดลม', price: 25 },
+            { id: 'coffee_oishi', name: 'โออิชิ', price: 25 },
+            { id: 'coffee_small_water', name: 'น้ำเปล่า(แก้วเล็ก)', price: 10 },
+            { id: 'coffee_big_water', name: 'น้ำเปล่า(แก้วใหญ่)', price: 15 }
         ];
 
         const powders = [
@@ -589,6 +748,7 @@
         let currentActiveBannerSrc = 'images/เฟรนฟรายทอด.jpg';
 
         function renderDynamicItems() {
+            // เรนเดอร์หมวดผลไม้
             const fruitContainer = document.getElementById('fruit-drink-container');
             fruitContainer.innerHTML = fruitDrinks.map(f => `
                 <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
@@ -604,6 +764,7 @@
                 </div>
             `).join('');
 
+            // เรนเดอร์หมวดชา
             const teaContainer = document.getElementById('tea-drink-container');
             teaContainer.innerHTML = teaDrinks.map(t => `
                 <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
@@ -619,6 +780,7 @@
                 </div>
             `).join('');
 
+            // เรนเดอร์หมวดนม
             const milkContainer = document.getElementById('milk-drink-container');
             milkContainer.innerHTML = milkDrinks.map(m => `
                 <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
@@ -634,6 +796,61 @@
                 </div>
             `).join('');
 
+            // เรนเดอร์หมวดสมูทตี้ & โยเกิร์ส
+            const smoothieContainer = document.getElementById('smoothie-drink-container');
+            if (smoothieContainer) {
+                smoothieContainer.innerHTML = smoothieYogurtDrinks.map(s => `
+                    <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-xs text-white">${s.name}</h4>
+                            <span class="text-[10px] text-red-400 font-bold">${s.price} บาท</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
+                            <button onclick="updateQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                            <span id="qty-${s.id}" class="w-5 text-center font-semibold text-xs">0</span>
+                            <button onclick="updateQty('${s.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // เรนเดอร์หมวดโซดา
+            const sodaContainer = document.getElementById('soda-drink-container');
+            if (sodaContainer) {
+                sodaContainer.innerHTML = sodaDrinks.map(s => `
+                    <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-xs text-white">${s.name}</h4>
+                            <span class="text-[10px] text-red-400 font-bold">${s.price} บาท</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
+                            <button onclick="updateQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                            <span id="qty-${s.id}" class="w-5 text-center font-semibold text-xs">0</span>
+                            <button onclick="updateQty('${s.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // เรนเดอร์หมวดกาแฟ & โกโก้
+            const coffeeContainer = document.getElementById('coffee-drink-container');
+            if (coffeeContainer) {
+                coffeeContainer.innerHTML = coffeeDrinks.map(s => `
+                    <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-xs text-white">${s.name}</h4>
+                            <span class="text-[10px] text-red-400 font-bold">${s.price} บาท</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
+                            <button onclick="updateQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                            <span id="qty-${s.id}" class="w-5 text-center font-semibold text-xs">0</span>
+                            <button onclick="updateQty('${s.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // เรนเดอร์ผง
             const powderContainer = document.getElementById('powder-list-container');
             powderContainer.innerHTML = powders.map(p => `
                 <div class="flex items-center justify-between bg-neutral-950 px-2.5 py-2 rounded-xl border border-neutral-800">
@@ -649,6 +866,7 @@
                 </div>
             `).join('');
 
+            // เรนเดอร์ท็อปปิ้ง
             const dipContainer = document.getElementById('dip-list-container');
             dipContainer.innerHTML = dips.map(d => `
                 <div class="flex items-center justify-between bg-neutral-950 px-2.5 py-2 rounded-xl border border-neutral-800">
@@ -664,6 +882,7 @@
                 </div>
             `).join('');
 
+            // เรนเดอร์เนื้อสัตว์
             const meatContainer = document.getElementById('rice-meat-container');
             meatContainer.innerHTML = riceMeats.map((m) => `
                 <label class="flex items-center justify-between bg-neutral-950 px-3 py-2.5 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
@@ -675,6 +894,7 @@
                 </label>
             `).join('');
 
+            // เรนเดอร์ซอส
             const sauceContainer = document.getElementById('rice-sauce-container');
             sauceContainer.innerHTML = riceSauces.map((s) => `
                 <label class="flex items-center gap-2 bg-neutral-950 px-3 py-2 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
@@ -685,7 +905,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', renderDynamicItems);
-
+        // เลือกรายการข้าวกล่อง
         function addCustomRiceBox() {
             const selectedMeat = document.querySelector('input[name="rice_meat"]:checked');
             const selectedSauce = document.querySelector('input[name="rice_sauce"]:checked');
@@ -717,7 +937,7 @@
             };
 
             riceBoxOrders.push(boxItem);
-            
+
             document.querySelectorAll('input[name="rice_meat"]').forEach(input => input.checked = false);
             document.querySelectorAll('input[name="rice_sauce"]').forEach(input => input.checked = false);
             document.getElementById('addon-egg').checked = false;
@@ -746,7 +966,7 @@
             categories.forEach(cat => {
                 const nameInput = document.getElementById(`${cat.idPrefix}_name`);
                 const qtyInput = document.getElementById(`${cat.idPrefix}_qty`);
-                
+
                 const drinkName = nameInput.value.trim();
                 const qty = parseInt(qtyInput.value) || 0;
 
@@ -755,7 +975,7 @@
                     drinkOrders.push({
                         id: 'drink_' + Date.now() + '_' + Math.random(),
                         name: `${drinkName} (${cat.label})`,
-                        price: 40, 
+                        price: 40,
                         quantity: qty
                     });
 
@@ -792,7 +1012,7 @@
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
             const activeImg = document.getElementById(`banner-${tabName}`);
             activeImg.classList.remove('hidden');
-            
+
             currentActiveBannerSrc = activeImg.src;
 
             const activeBtn = document.getElementById(`tab-btn-${tabName}`);
@@ -800,9 +1020,9 @@
             activeBtn.classList.add('bg-red-600', 'text-white');
 
             const bannerText = document.getElementById('banner-text');
-            if(tabName === 'fries') bannerText.innerText = '🔥 เมนูเฟรนฟราย & ท็อปปิ้งสุดฟิน';
-            else if(tabName === 'rice') bannerText.innerText = '🍱 เมนูข้าวกล่องร้อนๆ อร่อยคุ้ม';
-            else if(tabName === 'drink') bannerText.innerText = '🧋 เครื่องดื่มเย็นชื่นใจ แก้วต่อแก้ว';
+            if (tabName === 'fries') bannerText.innerText = '🔥 เมนูเฟรนฟราย & ท็อปปิ้งสุดฟิน';
+            else if (tabName === 'rice') bannerText.innerText = '🍱 เมนูข้าวกล่องร้อนๆ อร่อยคุ้ม';
+            else if (tabName === 'drink') bannerText.innerText = '🧋 เครื่องดื่มเย็นชื่นใจ แก้วต่อแก้ว';
         }
 
         function openLightbox(imgSrc) {
@@ -829,7 +1049,7 @@
             let totalQty = 0;
 
             for (let id in cart) {
-                if(menuData[id]) {
+                if (menuData[id]) {
                     total += cart[id] * menuData[id].price;
                     totalQty += cart[id];
                 }
@@ -863,7 +1083,7 @@
             document.getElementById('total-price').innerText = total + ' บาท';
             document.getElementById('modal-total-price').innerText = total + ' บาท';
             document.getElementById('modal-total-qty').innerText = totalQty + ' ชิ้น';
-            
+
             updateCartModalList();
             updateRiceCartSummary();
             updateDrinkCartSummary();
@@ -991,9 +1211,9 @@
             });
 
             let totalDrinkQty = 0;
-            for (let id in cart) { 
+            for (let id in cart) {
                 if (id.startsWith('fruit_') || id.startsWith('tea_') || id.startsWith('milk_')) {
-                    totalDrinkQty += cart[id]; 
+                    totalDrinkQty += cart[id];
                 }
             }
             drinkOrders.forEach(d => totalDrinkQty += d.quantity);
@@ -1172,9 +1392,9 @@
             });
 
             let totalDrinkQty = 0;
-            for (let id in cart) { 
+            for (let id in cart) {
                 if (id.startsWith('fruit_') || id.startsWith('tea_') || id.startsWith('milk_')) {
-                    totalDrinkQty += cart[id]; 
+                    totalDrinkQty += cart[id];
                 }
             }
             drinkOrders.forEach(d => totalDrinkQty += d.quantity);
@@ -1213,7 +1433,7 @@
 
             try {
                 const webhookUrl = 'https://collar-comrade-backrest.ngrok-free.dev/webhook/Form-fries-order';
-                
+
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1240,4 +1460,5 @@
         }
     </script>
 </body>
+
 </html>
