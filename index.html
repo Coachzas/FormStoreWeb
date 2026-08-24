@@ -198,7 +198,7 @@
             </div>
         </section>
 
-        <!-- หมวดที่ 3: เครื่องดื่ม (6 หมวดหมู่ตามรูปภาพ) -->
+        <!-- หมวดที่ 3: เครื่องดื่ม -->
         <section id="tab-drink" class="menu-section space-y-5 hidden">
             <!-- หัวข้อภาพรวมเครื่องดื่ม -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-2 shadow-md">
@@ -215,27 +215,27 @@
                 <div id="fruit-drink-container" class="space-y-2.5"></div>
             </div>
 
-            <!-- หมวดอื่นๆ (ชา, นม, สมูทตี้, โซดา, โกโก้ & กาแฟ - แบบเดิม) -->
+            <!-- 2. หมวดชา (11 รายการ) -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+                    <h3 class="font-bold text-sm text-amber-400">🍵 2. หมวดชา</h3>
+                    <span class="text-[10px] text-neutral-400">แก้วละ 35 บาท</span>
+                </div>
+                <div id="tea-drink-container" class="space-y-2.5"></div>
+            </div>
+
+            <!-- 3. หมวดนม (11 รายการ) -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+                    <h3 class="font-bold text-sm text-amber-400">🥛 3. หมวดนม</h3>
+                    <span class="text-[10px] text-neutral-400">แก้วละ 35-40 บาท</span>
+                </div>
+                <div id="milk-drink-container" class="space-y-2.5"></div>
+            </div>
+
+            <!-- หมวดอื่นๆ (สมูทตี้, โซดา, โกโก้ & กาแฟ - แบบพิมพ์ชื่อ) -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-4 shadow-md">
                 <h3 class="font-bold text-xs text-neutral-400">หมวดเครื่องดื่มอื่นๆ (พิมพ์ชื่อและจำนวน)</h3>
-                
-                <!-- 2. ชา -->
-                <div>
-                    <h3 class="font-bold text-xs text-amber-400 mb-1">🍵 2. หมวดชา (เช่น ชาไทย, ชาเขียว, ชานม)</h3>
-                    <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="drink_tea_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
-                        <input type="number" id="drink_tea_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
-                    </div>
-                </div>
-
-                <!-- 3. นม -->
-                <div class="pt-2 border-t border-neutral-800">
-                    <h3 class="font-bold text-xs text-amber-400 mb-1">🥛 3. หมวดนม (เช่น นมสด, นมชมพู, มันม่วง)</h3>
-                    <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="drink_milk_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
-                        <input type="number" id="drink_milk_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
-                    </div>
-                </div>
 
                 <!-- 4. สมูทตี้ & โยเกิร์ต -->
                 <div class="pt-2 border-t border-neutral-800">
@@ -458,7 +458,33 @@
             'fruit_blueberry': { name: 'บลูเบอร์รี่ (ผลไม้)', price: 35 },
             'fruit_grape': { name: 'องุ่น (ผลไม้)', price: 35 },
             'fruit_red_punch': { name: 'พั้นซ์แดง (ผลไม้)', price: 35 },
-            'fruit_m150_pepo': { name: 'M-150 ปีโป้ (ผลไม้)', price: 35 }
+            'fruit_m150_pepo': { name: 'M-150 ปีโป้ (ผลไม้)', price: 35 },
+
+            // หมวดชา 11 รายการ
+            'tea_thai': { name: 'ชาไทย', price: 35 },
+            'tea_taiwan': { name: 'ชาไต้หวัน', price: 35 },
+            'tea_black': { name: 'ชาดำเย็น', price: 35 },
+            'tea_green_milk': { name: 'ชาเขียวนม', price: 35 },
+            'tea_green_jasmine': { name: 'ชาเขียวนมมะลิ', price: 35 },
+            'tea_milk_s': { name: 'ชานมสที', price: 35 },
+            'tea_lemon': { name: 'ชามะนาว', price: 35 },
+            'tea_fuu': { name: 'ชาฟื้น', price: 35 },
+            'tea_apple': { name: 'ชาแอปเปิ้ล', price: 35 },
+            'tea_oolong_kyo': { name: 'ชาอู่หลงเคียวโอ', price: 35 },
+            'tea_lychee': { name: 'ชาลิ้นจี่', price: 35 },
+
+            // หมวดนม 11 รายการ
+            'milk_caramel_oreo': { name: 'คาราเมลโอรีโอ้', price: 40 },
+            'milk_volcano': { name: 'นมหมีภูเขาไฟ', price: 40 },
+            'milk_fresh': { name: 'นมสด', price: 35 },
+            'milk_pink_green': { name: 'นมชมพู/เขียว', price: 35 },
+            'milk_fresh_caramel': { name: 'นมสดคาราเมล', price: 35 },
+            'milk_shake_pepo': { name: 'นมสดปั่นปีโป้', price: 35 },
+            'milk_sour_pepo': { name: 'นมเปรี้ยวปีโป้', price: 35 },
+            'milk_fresh_oreo': { name: 'นมสดโอรีโอ้', price: 35 },
+            'milk_fresh_cornflakes': { name: 'นมสดคอนเฟลค', price: 35 },
+            'milk_purple_sweet_potato': { name: 'มันม่วง', price: 35 },
+            'milk_taro': { name: 'เผือกหอม', price: 35 }
         };
 
         const fruitDrinks = [
@@ -481,6 +507,34 @@
             { id: 'fruit_grape', name: 'องุ่น', price: 35 },
             { id: 'fruit_red_punch', name: 'พั้นซ์แดง', price: 35 },
             { id: 'fruit_m150_pepo', name: 'M-150 ปีโป้', price: 35 }
+        ];
+
+        const teaDrinks = [
+            { id: 'tea_thai', name: 'ชาไทย', price: 35 },
+            { id: 'tea_taiwan', name: 'ชาไต้หวัน', price: 35 },
+            { id: 'tea_black', name: 'ชาดำเย็น', price: 35 },
+            { id: 'tea_green_milk', name: 'ชาเขียวนม', price: 35 },
+            { id: 'tea_green_jasmine', name: 'ชาเขียวนมมะลิ', price: 35 },
+            { id: 'tea_milk_s', name: 'ชานมสที', price: 35 },
+            { id: 'tea_lemon', name: 'ชามะนาว', price: 35 },
+            { id: 'tea_fuu', name: 'ชาฟื้น', price: 35 },
+            { id: 'tea_apple', name: 'ชาแอปเปิ้ล', price: 35 },
+            { id: 'tea_oolong_kyo', name: 'ชาอู่หลงเคียวโอ', price: 35 },
+            { id: 'tea_lychee', name: 'ชาลิ้นจี่', price: 35 }
+        ];
+
+        const milkDrinks = [
+            { id: 'milk_caramel_oreo', name: 'คาราเมลโอรีโอ้', price: 40 },
+            { id: 'milk_volcano', name: 'นมหมีภูเขาไฟ', price: 40 },
+            { id: 'milk_fresh', name: 'นมสด', price: 35 },
+            { id: 'milk_pink_green', name: 'นมชมพู/เขียว', price: 35 },
+            { id: 'milk_fresh_caramel', name: 'นมสดคาราเมล', price: 35 },
+            { id: 'milk_shake_pepo', name: 'นมสดปั่นปีโป้', price: 35 },
+            { id: 'milk_sour_pepo', name: 'นมเปรี้ยวปีโป้', price: 35 },
+            { id: 'milk_fresh_oreo', name: 'นมสดโอรีโอ้', price: 35 },
+            { id: 'milk_fresh_cornflakes', name: 'นมสดคอนเฟลค', price: 35 },
+            { id: 'milk_purple_sweet_potato', name: 'มันม่วง', price: 35 },
+            { id: 'milk_taro', name: 'เผือกหอม', price: 35 }
         ];
 
         const powders = [
@@ -546,6 +600,36 @@
                         <button onclick="updateQty('${f.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
                         <span id="qty-${f.id}" class="w-5 text-center font-semibold text-xs">0</span>
                         <button onclick="updateQty('${f.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const teaContainer = document.getElementById('tea-drink-container');
+            teaContainer.innerHTML = teaDrinks.map(t => `
+                <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-semibold text-xs text-white">${t.name}</h4>
+                        <span class="text-[10px] text-red-400 font-bold">${t.price} บาท</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
+                        <button onclick="updateQty('${t.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                        <span id="qty-${t.id}" class="w-5 text-center font-semibold text-xs">0</span>
+                        <button onclick="updateQty('${t.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const milkContainer = document.getElementById('milk-drink-container');
+            milkContainer.innerHTML = milkDrinks.map(m => `
+                <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-semibold text-xs text-white">${m.name}</h4>
+                        <span class="text-[10px] text-red-400 font-bold">${m.price} บาท</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
+                        <button onclick="updateQty('${m.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                        <span id="qty-${m.id}" class="w-5 text-center font-semibold text-xs">0</span>
+                        <button onclick="updateQty('${m.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                     </div>
                 </div>
             `).join('');
@@ -652,8 +736,6 @@
 
         function addCustomDrinkGroup() {
             const categories = [
-                { idPrefix: 'drink_tea', label: 'ชา' },
-                { idPrefix: 'drink_milk', label: 'นม' },
                 { idPrefix: 'drink_smoothie', label: 'สมูทตี้ & โยเกิร์ต' },
                 { idPrefix: 'drink_soda', label: 'โซดา' },
                 { idPrefix: 'drink_coffee', label: 'โกโก้ & กาแฟ' }
@@ -764,9 +846,8 @@
             });
 
             let totalDrinkQty = 0;
-            // นับจำนวนแก้วรวมเครื่องดื่มทั้งหมด (รวมหมวดผลไม้ใน cart และ drinkOrders)
             for (let id in cart) {
-                if (id.startsWith('fruit_')) {
+                if (id.startsWith('fruit_') || id.startsWith('tea_') || id.startsWith('milk_')) {
                     totalDrinkQty += cart[id];
                 }
             }
@@ -910,7 +991,11 @@
             });
 
             let totalDrinkQty = 0;
-            for (let id in cart) { if (id.startsWith('fruit_')) totalDrinkQty += cart[id]; }
+            for (let id in cart) { 
+                if (id.startsWith('fruit_') || id.startsWith('tea_') || id.startsWith('milk_')) {
+                    totalDrinkQty += cart[id]; 
+                }
+            }
             drinkOrders.forEach(d => totalDrinkQty += d.quantity);
 
             if (totalDrinkQty > 0) {
@@ -1087,7 +1172,11 @@
             });
 
             let totalDrinkQty = 0;
-            for (let id in cart) { if (id.startsWith('fruit_')) totalDrinkQty += cart[id]; }
+            for (let id in cart) { 
+                if (id.startsWith('fruit_') || id.startsWith('tea_') || id.startsWith('milk_')) {
+                    totalDrinkQty += cart[id]; 
+                }
+            }
             drinkOrders.forEach(d => totalDrinkQty += d.quantity);
 
             if (totalDrinkQty > 0) {
