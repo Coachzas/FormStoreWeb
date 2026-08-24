@@ -491,18 +491,21 @@
 
             riceBoxOrders.push(boxItem);
             
-            // รีเซ็ตตัวเลือกข้าวกล่องให้กลับเป็นค่าเริ่มต้น
-            const meatInputs = document.querySelectorAll('input[name="rice_meat"]');
-            if (meatInputs.length > 0) meatInputs[0].checked = true;
+            // ล้างตัวเลือกเนื้อสัตว์ทั้งหมด (เอาเครื่องหมายถูกออก)
+            document.querySelectorAll('input[name="rice_meat"]').forEach(input => {
+                input.checked = false;
+            });
 
-            const sauceInputs = document.querySelectorAll('input[name="rice_sauce"]');
-            if (sauceInputs.length > 0) sauceInputs[0].checked = true;
+            // ล้างตัวเลือกซอสทั้งหมด (เอาเครื่องหมายถูกออก)
+            document.querySelectorAll('input[name="rice_sauce"]').forEach(input => {
+                input.checked = false;
+            });
 
+            // รีเซ็ตปุ่ม Add-on เพิ่มไข่ / เพิ่มซอส
             document.getElementById('addon-egg').checked = false;
             document.getElementById('addon-extra-sauce').checked = false;
 
             calculateTotal();
-            // เอา alert ออกตามต้องการ ให้ทำงานเงียบๆ ไหลลื่น
         }
 
         function updateRiceBoxQty(index, change) {
