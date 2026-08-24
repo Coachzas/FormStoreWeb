@@ -203,23 +203,24 @@
             <!-- หัวข้อภาพรวมเครื่องดื่ม -->
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-2 shadow-md">
                 <h2 class="font-bold text-base text-white border-l-4 border-red-600 pl-2">🧋 เมนูเครื่องดื่ม (เย็น-ปั่น)</h2>
-                <p class="text-xs text-neutral-400">พิมพ์ชื่อเครื่องดื่มที่ต้องการ และระบุจำนวนแก้วได้เลยครับ</p>
+                <p class="text-xs text-neutral-400">เลือกรายการเครื่องดื่มที่ต้องการ และระบุจำนวนแก้วได้เลยครับ[cite: 5]</p>
             </div>
 
-            <!-- ฟอร์มกรอกเครื่องดื่มทั้ง 6 หมวดหมู่ -->
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-4 shadow-md">
-                
-                <!-- 1. ผลไม้ -->
-                <div>
-                    <h3 class="font-bold text-xs text-amber-400 mb-1">🍊 1. หมวดผลไม้ (เช่น น้ำส้ม, น้ำมะนาว, สตอเบอร์รี่)</h3>
-                    <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="drink_fruit_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
-                        <input type="number" id="drink_fruit_qty" min="0" value="0" placeholder="จำนวน" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-red-600">
-                    </div>
+            <!-- 1. หมวดผลไม้ (19 รายการ) -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md">
+                <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+                    <h3 class="font-bold text-sm text-amber-400">🍊 1. หมวดผลไม้</h3>
+                    <span class="text-[10px] text-neutral-400">แก้วละ 35-40 บาท</span>
                 </div>
+                <div id="fruit-drink-container" class="space-y-2.5"></div>
+            </div>
 
+            <!-- หมวดอื่นๆ (ชา, นม, สมูทตี้, โซดา, โกโก้ & กาแฟ - แบบเดิม) -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-4 shadow-md">
+                <h3 class="font-bold text-xs text-neutral-400">หมวดเครื่องดื่มอื่นๆ (พิมพ์ชื่อและจำนวน)</h3>
+                
                 <!-- 2. ชา -->
-                <div class="pt-2 border-t border-neutral-800">
+                <div>
                     <h3 class="font-bold text-xs text-amber-400 mb-1">🍵 2. หมวดชา (เช่น ชาไทย, ชาเขียว, ชานม)</h3>
                     <div class="grid grid-cols-3 gap-2">
                         <input type="text" id="drink_tea_name" placeholder="ชื่อเครื่องดื่ม" class="col-span-2 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
@@ -263,9 +264,9 @@
                     </div>
                 </div>
 
-                <!-- ปุ่มเพิ่มเครื่องดื่มเข้าตะกร้า -->
-                <button onclick="addCustomDrinkGroup()" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-xl text-xs transition-all shadow-md mt-3">
-                    ➕ บันทึกเครื่องดื่มทั้งหมดลงรายการ
+                <!-- ปุ่มเพิ่มเครื่องดื่มอื่นๆ ลงตะกร้า -->
+                <button onclick="addCustomDrinkGroup()" class="w-full bg-neutral-800 hover:bg-neutral-700 text-white font-semibold py-2.5 rounded-xl text-xs transition-all shadow-md mt-3">
+                    ➕ บันทึกเครื่องดื่มหมวดอื่นๆ ลงรายการ
                 </button>
             </div>
 
@@ -436,8 +437,51 @@
             'dip_cheese': { name: 'ดิปชีส', price: 10 },
             'dip_mayo': { name: 'ดิปมายองเนส', price: 10 },
             'dip_sour_cream': { name: 'ดิปชาวครีม', price: 10 },
-            'dip_wasabi': { name: 'ดิปวาซาบิ', price: 10 }
+            'dip_wasabi': { name: 'ดิปวาซาบิ', price: 10 },
+
+            // หมวดผลไม้ 19 รายการ
+            'fruit_orange': { name: 'น้ำส้ม (ผลไม้)', price: 40 },
+            'fruit_orange_lime': { name: 'น้ำส้ม-มะนาว (ผลไม้)', price: 40 },
+            'fruit_lime': { name: 'น้ำมะนาว (ผลไม้)', price: 35 },
+            'fruit_butterfly_pea_lime': { name: 'อัญชันมะนาว (ผลไม้)', price: 35 },
+            'fruit_honey_lime': { name: 'น้ำผึ้งมะนาว (ผลไม้)', price: 35 },
+            'fruit_plum': { name: 'น้ำบ๊วย (ผลไม้)', price: 35 },
+            'fruit_green_apple': { name: 'แอปเปิ้ลเขียว (ผลไม้)', price: 35 },
+            'fruit_red_apple': { name: 'แอปเปิ้ลแดง (ผลไม้)', price: 35 },
+            'fruit_watermelon': { name: 'แตงโม (ผลไม้)', price: 35 },
+            'fruit_pineapple': { name: 'สับปะรด (ผลไม้)', price: 35 },
+            'fruit_lychee': { name: 'ลิ้นจี่ (ผลไม้)', price: 35 },
+            'fruit_cantaloupe': { name: 'แคนตาลูป (ผลไม้)', price: 35 },
+            'fruit_kiwi': { name: 'กีวี่ (ผลไม้)', price: 35 },
+            'fruit_passion_fruit': { name: 'เสาวรส (ผลไม้)', price: 35 },
+            'fruit_strawberry': { name: 'สตรอว์เบอร์รี่ (ผลไม้)', price: 35 },
+            'fruit_blueberry': { name: 'บลูเบอร์รี่ (ผลไม้)', price: 35 },
+            'fruit_grape': { name: 'องุ่น (ผลไม้)', price: 35 },
+            'fruit_red_punch': { name: 'พั้นซ์แดง (ผลไม้)', price: 35 },
+            'fruit_m150_pepo': { name: 'M-150 ปีโป้ (ผลไม้)', price: 35 }
         };
+
+        const fruitDrinks = [
+            { id: 'fruit_orange', name: 'น้ำส้ม', price: 40 },
+            { id: 'fruit_orange_lime', name: 'น้ำส้ม-มะนาว', price: 40 },
+            { id: 'fruit_lime', name: 'น้ำมะนาว', price: 35 },
+            { id: 'fruit_butterfly_pea_lime', name: 'อัญชันมะนาว', price: 35 },
+            { id: 'fruit_honey_lime', name: 'น้ำผึ้งมะนาว', price: 35 },
+            { id: 'fruit_plum', name: 'น้ำบ๊วย', price: 35 },
+            { id: 'fruit_green_apple', name: 'แอปเปิ้ลเขียว', price: 35 },
+            { id: 'fruit_red_apple', name: 'แอปเปิ้ลแดง', price: 35 },
+            { id: 'fruit_watermelon', name: 'แตงโม', price: 35 },
+            { id: 'fruit_pineapple', name: 'สับปะรด', price: 35 },
+            { id: 'fruit_lychee', name: 'ลิ้นจี่', price: 35 },
+            { id: 'fruit_cantaloupe', name: 'แคนตาลูป', price: 35 },
+            { id: 'fruit_kiwi', name: 'กีวี่', price: 35 },
+            { id: 'fruit_passion_fruit', name: 'เสาวรส', price: 35 },
+            { id: 'fruit_strawberry', name: 'สตรอว์เบอร์รี่', price: 35 },
+            { id: 'fruit_blueberry', name: 'บลูเบอร์รี่', price: 35 },
+            { id: 'fruit_grape', name: 'องุ่น', price: 35 },
+            { id: 'fruit_red_punch', name: 'พั้นซ์แดง', price: 35 },
+            { id: 'fruit_m150_pepo', name: 'M-150 ปีโป้', price: 35 }
+        ];
 
         const powders = [
             { id: 'powder_cheese', name: 'ชีส' },
@@ -491,6 +535,21 @@
         let currentActiveBannerSrc = 'images/เฟรนฟรายทอด.jpg';
 
         function renderDynamicItems() {
+            const fruitContainer = document.getElementById('fruit-drink-container');
+            fruitContainer.innerHTML = fruitDrinks.map(f => `
+                <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-semibold text-xs text-white">${f.name}</h4>
+                        <span class="text-[10px] text-red-400 font-bold">${f.price} บาท</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
+                        <button onclick="updateQty('${f.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                        <span id="qty-${f.id}" class="w-5 text-center font-semibold text-xs">0</span>
+                        <button onclick="updateQty('${f.id}', 1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
+                    </div>
+                </div>
+            `).join('');
+
             const powderContainer = document.getElementById('powder-list-container');
             powderContainer.innerHTML = powders.map(p => `
                 <div class="flex items-center justify-between bg-neutral-950 px-2.5 py-2 rounded-xl border border-neutral-800">
@@ -593,7 +652,6 @@
 
         function addCustomDrinkGroup() {
             const categories = [
-                { idPrefix: 'drink_fruit', label: 'ผลไม้' },
                 { idPrefix: 'drink_tea', label: 'ชา' },
                 { idPrefix: 'drink_milk', label: 'นม' },
                 { idPrefix: 'drink_smoothie', label: 'สมูทตี้ & โยเกิร์ต' },
@@ -615,18 +673,17 @@
                     drinkOrders.push({
                         id: 'drink_' + Date.now() + '_' + Math.random(),
                         name: `${drinkName} (${cat.label})`,
-                        price: 40, // ราคามาตรฐานอ้างอิง หรือปรับแก้ภายหลังได้
+                        price: 40, 
                         quantity: qty
                     });
 
-                    // เคลียร์ค่าหลังเพิ่มลงตะกร้า
                     nameInput.value = '';
                     qtyInput.value = '0';
                 }
             });
 
             if (addedCount === 0) {
-                alert('กรุณากรอกชื่อเครื่องดื่มและจำนวนอย่างน้อย 1 รายการครับ!');
+                alert('กรุณากรอกชื่อเครื่องดื่มและจำนวนในหมวดอื่นๆ อย่างน้อย 1 รายการครับ!');
                 return;
             }
 
@@ -706,26 +763,20 @@
                 totalQty += drink.quantity;
             });
 
-            // คำนวณท็อปปิ้งเครื่องดื่มเพิ่มเติมตามจำนวนรวมแก้วเครื่องดื่ม
-            let totalDrinkQty = drinkOrders.reduce((sum, d) => sum + d.quantity, 0);
-            let drinkAddonsText = [];
+            let totalDrinkQty = 0;
+            // นับจำนวนแก้วรวมเครื่องดื่มทั้งหมด (รวมหมวดผลไม้ใน cart และ drinkOrders)
+            for (let id in cart) {
+                if (id.startsWith('fruit_')) {
+                    totalDrinkQty += cart[id];
+                }
+            }
+            drinkOrders.forEach(d => totalDrinkQty += d.quantity);
+
             if (totalDrinkQty > 0) {
-                if (document.getElementById('drink_topping_boba').checked) {
-                    total += 5 * totalDrinkQty;
-                    drinkAddonsText.push('เพิ่มมุกทุกแก้ว (+5)');
-                }
-                if (document.getElementById('drink_topping_oreo').checked) {
-                    total += 5 * totalDrinkQty;
-                    drinkAddonsText.push('เพิ่มโอริโอ้ (+5)');
-                }
-                if (document.getElementById('drink_topping_cornflakes').checked) {
-                    total += 5 * totalDrinkQty;
-                    drinkAddonsText.push('เพิ่มคอนเฟลค (+5)');
-                }
-                if (document.getElementById('drink_topping_wipcream').checked) {
-                    total += 15 * totalDrinkQty;
-                    drinkAddonsText.push('เพิ่มวิปครีม (+15)');
-                }
+                if (document.getElementById('drink_topping_boba').checked) total += 5 * totalDrinkQty;
+                if (document.getElementById('drink_topping_oreo').checked) total += 5 * totalDrinkQty;
+                if (document.getElementById('drink_topping_cornflakes').checked) total += 5 * totalDrinkQty;
+                if (document.getElementById('drink_topping_wipcream').checked) total += 15 * totalDrinkQty;
             }
 
             document.getElementById('total-price').innerText = total + ' บาท';
@@ -858,8 +909,10 @@
                 checkoutList.appendChild(row);
             });
 
-            // ตรวจสอบท็อปปิ้งเครื่องดื่มในสรุป
-            let totalDrinkQty = drinkOrders.reduce((sum, d) => sum + d.quantity, 0);
+            let totalDrinkQty = 0;
+            for (let id in cart) { if (id.startsWith('fruit_')) totalDrinkQty += cart[id]; }
+            drinkOrders.forEach(d => totalDrinkQty += d.quantity);
+
             if (totalDrinkQty > 0) {
                 let drinkAddonsList = [];
                 if (document.getElementById('drink_topping_boba').checked) {
@@ -1033,7 +1086,10 @@
                 totalAmount += subTotal;
             });
 
-            let totalDrinkQty = drinkOrders.reduce((sum, d) => sum + d.quantity, 0);
+            let totalDrinkQty = 0;
+            for (let id in cart) { if (id.startsWith('fruit_')) totalDrinkQty += cart[id]; }
+            drinkOrders.forEach(d => totalDrinkQty += d.quantity);
+
             if (totalDrinkQty > 0) {
                 if (document.getElementById('drink_topping_boba').checked) {
                     let cost = 5 * totalDrinkQty;
