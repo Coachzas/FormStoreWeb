@@ -21,6 +21,22 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        .tab-btn.tab-active {
+            background-color: #dc2626 !important;
+            color: #ffffff !important;
+        }
+
+        input[type="number"] {
+            appearance: textfield;
+            -moz-appearance: textfield;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -72,7 +88,7 @@
     <nav class="sticky top-[57px] z-30 bg-neutral-950/90 backdrop-blur border-b border-neutral-800 mt-4">
         <div class="max-w-md mx-auto flex overflow-x-auto no-scrollbar px-4 py-2 gap-2">
             <button onclick="switchTab('fries')" id="tab-btn-fries"
-                class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-red-600 text-white transition-all shadow-md">🍟
+                class="tab-btn tab-active whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-red-600 text-white transition-all shadow-md">🍟
                 เฟรนฟราย & ท็อปปิ้ง</button>
             <button onclick="switchTab('rice')" id="tab-btn-rice"
                 class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-neutral-900 text-neutral-300 hover:bg-neutral-800 transition-all">🍱
@@ -349,8 +365,14 @@
                 </div>
             </div>
             <label class="block text-xs font-bold text-amber-400">จำนวนกล่อง
-                <input id="rice-customizer-quantity" type="number" min="1" value="1" onchange="updateRiceCustomizerPrice()"
-                    class="mt-1 w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white">
+                <div class="mt-1 flex items-center gap-2">
+                    <button type="button" onclick="updateRiceCustomizerQuantity(-1)"
+                        class="w-11 h-11 rounded-xl bg-neutral-800 text-white text-xl font-bold hover:bg-red-600">−</button>
+                    <input id="rice-customizer-quantity" type="number" min="1" value="1" onchange="updateRiceCustomizerPrice()"
+                        class="flex-1 h-11 text-center bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white">
+                    <button type="button" onclick="updateRiceCustomizerQuantity(1)"
+                        class="w-11 h-11 rounded-xl bg-neutral-800 text-white text-xl font-bold hover:bg-red-600">+</button>
+                </div>
             </label>
             <div class="flex items-center justify-between bg-red-950/30 border border-red-900/40 rounded-xl px-3 py-2">
                 <span class="text-xs text-neutral-300">ราคารวมรายการนี้</span>
@@ -378,8 +400,14 @@
                 <p id="customizer-drink-price" class="text-xs text-red-400"></p>
             </div>
             <label class="block text-xs font-bold text-amber-400">จำนวนแก้ว
-                <input id="customizer-drink-quantity" type="number" min="1" value="1"
-                    class="mt-1 w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white">
+                <div class="mt-1 flex items-center gap-2">
+                    <button type="button" onclick="updateDrinkCustomizerQuantity(-1)"
+                        class="w-11 h-11 rounded-xl bg-neutral-800 text-white text-xl font-bold hover:bg-red-600">−</button>
+                    <input id="customizer-drink-quantity" type="number" min="1" value="1"
+                        class="flex-1 h-11 text-center bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white">
+                    <button type="button" onclick="updateDrinkCustomizerQuantity(1)"
+                        class="w-11 h-11 rounded-xl bg-neutral-800 text-white text-xl font-bold hover:bg-red-600">+</button>
+                </div>
             </label>
             <div class="space-y-2 pt-2 border-t border-neutral-800">
                 <p class="text-xs font-bold text-amber-400">✨ เพิ่มท็อปปิ้ง (ไม่บังคับ)</p>
@@ -897,7 +925,7 @@
             meatContainer.innerHTML = riceMeats.map((m) => `
                 <label class="flex items-center justify-between bg-neutral-950 px-3 py-2.5 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                     <div class="flex items-center gap-2">
-                        <input type="radio" name="rice_meat" value="${m.name}" onchange="updateRiceCustomizerPrice()" class="accent-red-600">
+                        <input type="radio" name="rice_meat" value="${m.name}" onclick="toggleRiceRadio(this)" class="accent-red-600">
                         <span class="text-xs font-medium text-white">${m.name}</span>
                     </div>
                     <span class="text-[10px] text-neutral-400">65 ฿</span>
@@ -908,7 +936,7 @@
             const sauceContainer = document.getElementById('rice-modal-sauce-container');
             sauceContainer.innerHTML = riceSauces.map((s) => `
                 <label class="flex items-center gap-2 bg-neutral-950 px-3 py-2 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
-                    <input type="radio" name="rice_sauce" value="${s.name}" onchange="updateRiceCustomizerPrice()" class="accent-red-600">
+                    <input type="radio" name="rice_sauce" value="${s.name}" onclick="toggleRiceRadio(this)" class="accent-red-600">
                     <span class="text-xs font-medium text-white truncate">${s.name}</span>
                 </label>
             `).join('');
@@ -966,8 +994,16 @@
             calculateTotal();
         }
 
+        function updateDrinkCustomizerQuantity(change) {
+            const input = document.getElementById('customizer-drink-quantity');
+            input.value = Math.max(1, (parseInt(input.value, 10) || 1) + change);
+        }
+
         function openRiceCustomizer() {
-            document.querySelectorAll('input[name="rice_meat"], input[name="rice_sauce"]').forEach(input => input.checked = false);
+            document.querySelectorAll('input[name="rice_meat"], input[name="rice_sauce"]').forEach(input => {
+                input.checked = false;
+                input.dataset.selected = 'false';
+            });
             document.getElementById('rice-addon-egg').checked = false;
             document.getElementById('rice-addon-extra-sauce').checked = false;
             document.getElementById('rice-customizer-quantity').value = '1';
@@ -984,6 +1020,30 @@
             const addonPrice = (document.getElementById('rice-addon-egg').checked ? 10 : 0)
                 + (document.getElementById('rice-addon-extra-sauce').checked ? 10 : 0);
             document.getElementById('rice-customizer-total').innerText = `${(65 + addonPrice) * quantity} บาท`;
+        }
+
+        function updateRiceCustomizerQuantity(change) {
+            const input = document.getElementById('rice-customizer-quantity');
+            input.value = Math.max(1, (parseInt(input.value, 10) || 1) + change);
+            updateRiceCustomizerPrice();
+        }
+
+        function toggleRiceRadio(input) {
+            const group = document.querySelectorAll(`input[name="${input.name}"]`);
+            const shouldUncheck = input.dataset.selected === 'true';
+
+            if (shouldUncheck) {
+                setTimeout(() => {
+                    input.checked = false;
+                    input.dataset.selected = 'false';
+                    updateRiceCustomizerPrice();
+                }, 0);
+                return;
+            }
+
+            group.forEach(radio => radio.dataset.selected = 'false');
+            input.dataset.selected = 'true';
+            updateRiceCustomizerPrice();
         }
 
         function addCustomRiceBox() {
@@ -1044,7 +1104,7 @@
         function switchTab(tabName) {
             document.querySelectorAll('.menu-section').forEach(sec => sec.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-red-600', 'text-white');
+                btn.classList.remove('bg-red-600', 'text-white', 'tab-active');
                 btn.classList.add('bg-neutral-900', 'text-neutral-300');
             });
 
@@ -1058,7 +1118,7 @@
 
             const activeBtn = document.getElementById(`tab-btn-${tabName}`);
             activeBtn.classList.remove('bg-neutral-900', 'text-neutral-300');
-            activeBtn.classList.add('bg-red-600', 'text-white');
+            activeBtn.classList.add('bg-red-600', 'text-white', 'tab-active');
 
             const bannerText = document.getElementById('banner-text');
             if (tabName === 'fries') bannerText.innerText = '🔥 เมนูเฟรนฟราย & ท็อปปิ้งสุดฟิน';
