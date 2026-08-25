@@ -193,48 +193,10 @@
                     </div>
                     <span class="bg-red-600 text-white font-bold text-xs px-3 py-1 rounded-xl">เริ่มต้น 65 บาท</span>
                 </div>
-
-                <!-- STEP 1: เลือกเนื้อสัตว์ -->
-                <div class="space-y-2">
-                    <label class="block text-xs font-bold text-amber-400">📌 STEP 1: เลือกเนื้อสัตว์ (เลือก 1
-                        อย่าง)</label>
-                    <div id="rice-meat-container" class="grid grid-cols-1 gap-2"></div>
-                </div>
-
-                <!-- STEP 2: เลือกซอส -->
-                <div class="space-y-2 pt-2 border-t border-neutral-800">
-                    <label class="block text-xs font-bold text-amber-400">📌 STEP 2: เลือกซอส (เลือก 1 อย่าง)</label>
-                    <div id="rice-sauce-container" class="grid grid-cols-2 gap-2"></div>
-                </div>
-
-                <!-- STEP 3: เพิ่มท็อปปิ้งเสริม -->
-                <div class="space-y-2 pt-2 border-t border-neutral-800">
-                    <label class="block text-xs font-bold text-amber-400">📌 STEP 3: เพิ่มไข่ / เพิ่มซอส
-                        (ไม่บังคับ)</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <label
-                            class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
-                            <div class="flex items-center gap-2">
-                                <input type="checkbox" id="addon-egg" class="w-4 h-4 accent-red-600 rounded">
-                                <span class="text-xs font-medium text-white">เพิ่มไข่ดาว</span>
-                            </div>
-                            <span class="text-[10px] text-red-400 font-bold">+10 ฿</span>
-                        </label>
-                        <label
-                            class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
-                            <div class="flex items-center gap-2">
-                                <input type="checkbox" id="addon-extra-sauce" class="w-4 h-4 accent-red-600 rounded">
-                                <span class="text-xs font-medium text-white">เพิ่มซอส x2</span>
-                            </div>
-                            <span class="text-[10px] text-red-400 font-bold">+10 ฿</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- ปุ่มกดเพิ่มข้าวกล่องลงตะกร้า -->
-                <button onclick="addCustomRiceBox()"
+                <p class="text-xs text-neutral-400">เลือกเนื้อสัตว์ ซอส และท็อปปิ้งในหน้าต่างถัดไป ระบบจะแสดงราคาก่อนเพิ่มลงตะกร้า</p>
+                <button type="button" onclick="openRiceCustomizer()"
                     class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl text-sm transition-all shadow-lg shadow-red-600/30 flex items-center justify-center gap-2">
-                    🛒 เพิ่มข้าวกล่องนี้ลงตะกร้า
+                    🍱 เลือกและปรับแต่งข้าวกล่อง
                 </button>
             </div>
 
@@ -349,6 +311,55 @@
                 class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-neutral-800 text-white hover:bg-red-600 flex items-center justify-center font-bold text-lg shadow-lg transition-colors">✕</button>
             <img id="lightbox-img" src="" alt="ขยายรูปภาพ"
                 class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-neutral-800">
+        </div>
+    </div>
+
+    <!-- Modal เลือกข้าวกล่องและท็อปปิ้ง -->
+    <div id="rice-customizer-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <h3 class="font-bold text-base text-white">🍱 ปรับแต่งข้าวกล่อง</h3>
+                <button type="button" onclick="closeRiceCustomizer()"
+                    class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
+            </div>
+            <div class="bg-neutral-950 p-3 rounded-xl border border-neutral-800">
+                <p class="text-xs text-neutral-400">ราคาข้าวกล่องเริ่มต้น</p>
+                <p class="font-semibold text-white">65 บาท / กล่อง</p>
+            </div>
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-amber-400">📌 STEP 1: เลือกเนื้อสัตว์ (เลือก 1 อย่าง)</label>
+                <div id="rice-modal-meat-container" class="grid grid-cols-1 gap-2"></div>
+            </div>
+            <div class="space-y-2 pt-2 border-t border-neutral-800">
+                <label class="block text-xs font-bold text-amber-400">📌 STEP 2: เลือกซอส (เลือก 1 อย่าง)</label>
+                <div id="rice-modal-sauce-container" class="grid grid-cols-2 gap-2"></div>
+            </div>
+            <div class="space-y-2 pt-2 border-t border-neutral-800">
+                <label class="block text-xs font-bold text-amber-400">📌 STEP 3: เพิ่มไข่ / เพิ่มซอส (ไม่บังคับ)</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="rice-addon-egg" onchange="updateRiceCustomizerPrice()" class="w-4 h-4 accent-red-600 rounded">เพิ่มไข่ดาว</span>
+                        <span class="text-[10px] text-red-400 font-bold">+10 ฿</span>
+                    </label>
+                    <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
+                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="rice-addon-extra-sauce" onchange="updateRiceCustomizerPrice()" class="w-4 h-4 accent-red-600 rounded">เพิ่มซอส x2</span>
+                        <span class="text-[10px] text-red-400 font-bold">+10 ฿</span>
+                    </label>
+                </div>
+            </div>
+            <label class="block text-xs font-bold text-amber-400">จำนวนกล่อง
+                <input id="rice-customizer-quantity" type="number" min="1" value="1" onchange="updateRiceCustomizerPrice()"
+                    class="mt-1 w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white">
+            </label>
+            <div class="flex items-center justify-between bg-red-950/30 border border-red-900/40 rounded-xl px-3 py-2">
+                <span class="text-xs text-neutral-300">ราคารวมรายการนี้</span>
+                <span id="rice-customizer-total" class="text-lg font-bold text-red-400">65 บาท</span>
+            </div>
+            <button type="button" onclick="addCustomRiceBox()"
+                class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl text-sm transition-all shadow-lg shadow-red-600/30">
+                🛒 เพิ่มข้าวกล่องลงตะกร้า
+            </button>
         </div>
     </div>
 
@@ -882,11 +893,11 @@
             `).join('');
 
             // เรนเดอร์เนื้อสัตว์
-            const meatContainer = document.getElementById('rice-meat-container');
+            const meatContainer = document.getElementById('rice-modal-meat-container');
             meatContainer.innerHTML = riceMeats.map((m) => `
                 <label class="flex items-center justify-between bg-neutral-950 px-3 py-2.5 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
                     <div class="flex items-center gap-2">
-                        <input type="radio" name="rice_meat" value="${m.name}" class="accent-red-600">
+                        <input type="radio" name="rice_meat" value="${m.name}" onchange="updateRiceCustomizerPrice()" class="accent-red-600">
                         <span class="text-xs font-medium text-white">${m.name}</span>
                     </div>
                     <span class="text-[10px] text-neutral-400">65 ฿</span>
@@ -894,10 +905,10 @@
             `).join('');
 
             // เรนเดอร์ซอส
-            const sauceContainer = document.getElementById('rice-sauce-container');
+            const sauceContainer = document.getElementById('rice-modal-sauce-container');
             sauceContainer.innerHTML = riceSauces.map((s) => `
                 <label class="flex items-center gap-2 bg-neutral-950 px-3 py-2 rounded-xl border border-neutral-800 cursor-pointer hover:border-red-600 transition-all">
-                    <input type="radio" name="rice_sauce" value="${s.name}" class="accent-red-600">
+                    <input type="radio" name="rice_sauce" value="${s.name}" onchange="updateRiceCustomizerPrice()" class="accent-red-600">
                     <span class="text-xs font-medium text-white truncate">${s.name}</span>
                 </label>
             `).join('');
@@ -955,12 +966,32 @@
             calculateTotal();
         }
 
-        // เลือกรายการข้าวกล่อง
+        function openRiceCustomizer() {
+            document.querySelectorAll('input[name="rice_meat"], input[name="rice_sauce"]').forEach(input => input.checked = false);
+            document.getElementById('rice-addon-egg').checked = false;
+            document.getElementById('rice-addon-extra-sauce').checked = false;
+            document.getElementById('rice-customizer-quantity').value = '1';
+            updateRiceCustomizerPrice();
+            document.getElementById('rice-customizer-modal').classList.remove('hidden');
+        }
+
+        function closeRiceCustomizer() {
+            document.getElementById('rice-customizer-modal').classList.add('hidden');
+        }
+
+        function updateRiceCustomizerPrice() {
+            const quantity = Math.max(1, parseInt(document.getElementById('rice-customizer-quantity').value, 10) || 1);
+            const addonPrice = (document.getElementById('rice-addon-egg').checked ? 10 : 0)
+                + (document.getElementById('rice-addon-extra-sauce').checked ? 10 : 0);
+            document.getElementById('rice-customizer-total').innerText = `${(65 + addonPrice) * quantity} บาท`;
+        }
+
         function addCustomRiceBox() {
             const selectedMeat = document.querySelector('input[name="rice_meat"]:checked');
             const selectedSauce = document.querySelector('input[name="rice_sauce"]:checked');
-            const addEgg = document.getElementById('addon-egg').checked;
-            const addExtraSauce = document.getElementById('addon-extra-sauce').checked;
+            const addEgg = document.getElementById('rice-addon-egg').checked;
+            const addExtraSauce = document.getElementById('rice-addon-extra-sauce').checked;
+            const quantity = Math.max(1, parseInt(document.getElementById('rice-customizer-quantity').value, 10) || 1);
 
             if (!selectedMeat || !selectedSauce) {
                 alert('กรุณาเลือกเนื้อสัตว์และซอสอย่างละ 1 อย่างครับ!');
@@ -983,16 +1014,14 @@
                 name: `ข้าวกล่อง: ${selectedMeat.value} + ${selectedSauce.value}`,
                 details: addonsText.length > 0 ? `(${addonsText.join(', ')})` : '(ปกติ)',
                 price: price,
-                quantity: 1
+                quantity
             };
 
             riceBoxOrders.push(boxItem);
 
             document.querySelectorAll('input[name="rice_meat"]').forEach(input => input.checked = false);
             document.querySelectorAll('input[name="rice_sauce"]').forEach(input => input.checked = false);
-            document.getElementById('addon-egg').checked = false;
-            document.getElementById('addon-extra-sauce').checked = false;
-
+            closeRiceCustomizer();
             calculateTotal();
         }
 
