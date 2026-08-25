@@ -301,7 +301,7 @@
         </section>
 
         <!-- ข้อมูลลูกค้า -->
-        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md mt-6">
+        <div id="customer-info-section" class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md mt-6 transition-shadow">
             <h3 class="font-semibold text-sm text-red-400">📝 ข้อมูลจัดส่งออเดอร์</h3>
             <div>
                 <label class="block text-xs text-neutral-400 mb-1">ชื่อผู้สั่ง</label>
@@ -1296,12 +1296,23 @@
             updateBodyScrollLock();
         }
 
+        function focusCustomerField(fieldId) {
+            const section = document.getElementById('customer-info-section');
+            const field = document.getElementById(fieldId);
+
+            section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            section.classList.add('ring-2', 'ring-red-600');
+            field.focus();
+            setTimeout(() => section.classList.remove('ring-2', 'ring-red-600'), 2000);
+        }
+
         function openCheckoutModal() {
             const name = document.getElementById('customer-name').value.trim();
             const phone = document.getElementById('customer-phone').value.trim();
 
             if (!name || !phone) {
                 alert('กรุณากรอกชื่อและเบอร์โทรศัพท์ให้ครบถ้วนก่อนสั่งซื้อครับ!');
+                focusCustomerField(!name ? 'customer-name' : 'customer-phone');
                 return;
             }
 
