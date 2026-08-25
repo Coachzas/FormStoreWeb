@@ -333,7 +333,7 @@
     <!-- Modal เลือกข้าวกล่องและท็อปปิ้ง -->
     <div id="rice-customizer-modal"
         class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+        <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto overscroll-contain">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-base text-white">🍱 ปรับแต่งข้าวกล่อง</h3>
                 <button type="button" onclick="closeRiceCustomizer()"
@@ -388,7 +388,7 @@
     <!-- Modal เลือกเครื่องดื่มและท็อปปิ้งรายแก้ว -->
     <div id="drink-customizer-modal"
         class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl">
+        <div class="bg-neutral-900 w-full max-w-md rounded-2xl border border-red-900/50 p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto overscroll-contain">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-base text-white">🧋 ปรับแต่งเครื่องดื่ม</h3>
                 <button type="button" onclick="closeDrinkCustomizer()"
@@ -447,7 +447,7 @@
                 <button onclick="toggleCartModal()"
                     class="w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center font-bold">✕</button>
             </div>
-            <div id="cart-items-list" class="overflow-y-auto space-y-3 pr-1 divide-y divide-neutral-800/60 flex-1">
+            <div id="cart-items-list" class="overflow-y-auto overscroll-contain space-y-3 pr-1 divide-y divide-neutral-800/60 flex-1">
             </div>
             <div class="border-t border-neutral-800 pt-3 space-y-2">
                 <div class="flex justify-between text-sm">
@@ -784,6 +784,12 @@
         let riceBoxOrders = [];
         let drinkOrders = [];
         let currentActiveBannerSrc = 'images/เฟรนฟรายทอด.jpg';
+        const modalIds = ['image-lightbox', 'rice-customizer-modal', 'drink-customizer-modal', 'cart-modal', 'checkout-modal'];
+
+        function updateBodyScrollLock() {
+            const hasOpenModal = modalIds.some(id => !document.getElementById(id).classList.contains('hidden'));
+            document.body.style.overflow = hasOpenModal ? 'hidden' : '';
+        }
 
         function renderDynamicItems() {
             // เรนเดอร์หมวดผลไม้
@@ -958,11 +964,13 @@
                 document.getElementById(`customizer-topping-${id}`).checked = false;
             });
             document.getElementById('drink-customizer-modal').classList.remove('hidden');
+            updateBodyScrollLock();
         }
 
         function closeDrinkCustomizer() {
             selectedDrinkId = null;
             document.getElementById('drink-customizer-modal').classList.add('hidden');
+            updateBodyScrollLock();
         }
 
         function addCustomDrink() {
@@ -1035,10 +1043,12 @@
             document.getElementById('rice-customizer-quantity').value = '1';
             updateRiceCustomizerPrice();
             document.getElementById('rice-customizer-modal').classList.remove('hidden');
+            updateBodyScrollLock();
         }
 
         function closeRiceCustomizer() {
             document.getElementById('rice-customizer-modal').classList.add('hidden');
+            updateBodyScrollLock();
         }
 
         function updateRiceCustomizerPrice() {
@@ -1155,10 +1165,12 @@
         function openLightbox(imgSrc) {
             document.getElementById('lightbox-img').src = imgSrc;
             document.getElementById('image-lightbox').classList.remove('hidden');
+            updateBodyScrollLock();
         }
 
         function closeLightbox() {
             document.getElementById('image-lightbox').classList.add('hidden');
+            updateBodyScrollLock();
         }
 
         function updateQty(itemId, change) {
@@ -1254,10 +1266,12 @@
 
         function toggleCartModal() {
             document.getElementById('cart-modal').classList.toggle('hidden');
+            updateBodyScrollLock();
         }
 
         function toggleCheckoutModal() {
             document.getElementById('checkout-modal').classList.toggle('hidden');
+            updateBodyScrollLock();
         }
 
         function openCheckoutModal() {
