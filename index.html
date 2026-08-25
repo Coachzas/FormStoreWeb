@@ -1342,6 +1342,20 @@
             listContainer.innerHTML = '';
 
             let hasItems = false;
+            let hasCategory = false;
+
+            function appendCategoryHeader(title) {
+                const header = document.createElement('div');
+                header.className = hasCategory
+                    ? 'flex items-center gap-2 pt-4 mt-3 border-t border-neutral-800 text-xs font-bold text-amber-400'
+                    : 'flex items-center gap-2 text-xs font-bold text-amber-400';
+                header.innerText = title;
+                listContainer.appendChild(header);
+                hasCategory = true;
+            }
+
+            const hasCartItems = Object.keys(cart).some(id => cart[id] > 0 && menuData[id]);
+            if (hasCartItems) appendCategoryHeader('🍟 เฟรนฟราย & ท็อปปิ้ง');
 
             for (let id in cart) {
                 if (cart[id] > 0 && menuData[id]) {
@@ -1369,6 +1383,7 @@
                 }
             }
 
+            if (riceBoxOrders.length > 0) appendCategoryHeader('🍱 ข้าวกล่อง');
             riceBoxOrders.forEach((box, idx) => {
                 hasItems = true;
                 const subTotal = box.price * box.quantity;
@@ -1391,6 +1406,7 @@
                 listContainer.appendChild(row);
             });
 
+            if (drinkOrders.length > 0) appendCategoryHeader('🧋 เครื่องดื่ม');
             drinkOrders.forEach((drink, idx) => {
                 hasItems = true;
                 const subTotal = drink.price * drink.quantity;
