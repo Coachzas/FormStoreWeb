@@ -37,6 +37,19 @@
             -webkit-appearance: none;
             margin: 0;
         }
+
+        .customer-info-attention {
+            animation: customer-info-blink 0.7s ease-in-out 3;
+        }
+
+        @keyframes customer-info-blink {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgb(220 38 38 / 0%);
+            }
+            50% {
+                box-shadow: 0 0 0 3px rgb(220 38 38 / 90%);
+            }
+        }
     </style>
 </head>
 
@@ -1296,14 +1309,14 @@
             updateBodyScrollLock();
         }
 
-        function focusCustomerField(fieldId) {
+        function highlightCustomerInfo() {
             const section = document.getElementById('customer-info-section');
-            const field = document.getElementById(fieldId);
 
             section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            section.classList.add('ring-2', 'ring-red-600');
-            field.focus();
-            setTimeout(() => section.classList.remove('ring-2', 'ring-red-600'), 2000);
+            section.classList.remove('customer-info-attention');
+            void section.offsetWidth;
+            section.classList.add('customer-info-attention');
+            setTimeout(() => section.classList.remove('customer-info-attention'), 2200);
         }
 
         function openCheckoutModal() {
@@ -1312,7 +1325,7 @@
 
             if (!name || !phone) {
                 alert('กรุณากรอกชื่อและเบอร์โทรศัพท์ให้ครบถ้วนก่อนสั่งซื้อครับ!');
-                focusCustomerField(!name ? 'customer-name' : 'customer-phone');
+                highlightCustomerInfo();
                 return;
             }
 
