@@ -403,7 +403,7 @@
                 <div class="mt-1 flex items-center gap-2">
                     <button type="button" onclick="updateDrinkCustomizerQuantity(-1)"
                         class="w-11 h-11 rounded-xl bg-neutral-800 text-white text-xl font-bold hover:bg-red-600">−</button>
-                    <input id="customizer-drink-quantity" type="number" min="1" value="1"
+                    <input id="customizer-drink-quantity" type="number" min="1" value="1" onchange="updateDrinkCustomizerPrice()"
                         class="flex-1 h-11 text-center bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-white">
                     <button type="button" onclick="updateDrinkCustomizerQuantity(1)"
                         class="w-11 h-11 rounded-xl bg-neutral-800 text-white text-xl font-bold hover:bg-red-600">+</button>
@@ -413,22 +413,26 @@
                 <p class="text-xs font-bold text-amber-400">✨ เพิ่มท็อปปิ้ง (ไม่บังคับ)</p>
                 <div class="grid grid-cols-2 gap-2">
                     <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer">
-                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="customizer-topping-boba" class="accent-red-600">มุก</span>
+                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="customizer-topping-boba" onchange="updateDrinkCustomizerPrice()" class="accent-red-600">มุก</span>
                         <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
                     </label>
                     <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer">
-                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="customizer-topping-oreo" class="accent-red-600">โอริโอ้</span>
+                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="customizer-topping-oreo" onchange="updateDrinkCustomizerPrice()" class="accent-red-600">โอริโอ้</span>
                         <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
                     </label>
                     <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer">
-                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="customizer-topping-cornflakes" class="accent-red-600">คอนเฟลค</span>
+                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="customizer-topping-cornflakes" onchange="updateDrinkCustomizerPrice()" class="accent-red-600">คอนเฟลค</span>
                         <span class="text-[10px] text-red-400 font-bold">+5 ฿</span>
                     </label>
                     <label class="flex items-center justify-between bg-neutral-950 p-3 rounded-xl border border-neutral-800 cursor-pointer">
-                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="customizer-topping-wipcream" class="accent-red-600">วิปครีม</span>
+                        <span class="flex items-center gap-2 text-xs text-white"><input type="checkbox" id="customizer-topping-wipcream" onchange="updateDrinkCustomizerPrice()" class="accent-red-600">วิปครีม</span>
                         <span class="text-[10px] text-red-400 font-bold">+15 ฿</span>
                     </label>
                 </div>
+            </div>
+            <div class="flex items-center justify-between bg-red-950/30 border border-red-900/40 rounded-xl px-3 py-2">
+                <span class="text-xs text-neutral-300">ราคารวมรายการนี้</span>
+                <span id="customizer-drink-total" class="text-lg font-bold text-red-400">0 บาท</span>
             </div>
             <button type="button" onclick="addCustomDrink()"
                 class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl text-sm transition-all shadow-lg shadow-red-600/30">
@@ -963,6 +967,7 @@
             ['boba', 'oreo', 'cornflakes', 'wipcream'].forEach(id => {
                 document.getElementById(`customizer-topping-${id}`).checked = false;
             });
+            updateDrinkCustomizerPrice();
             document.getElementById('drink-customizer-modal').classList.remove('hidden');
             updateBodyScrollLock();
         }
@@ -1003,6 +1008,22 @@
             calculateTotal();
         }
 
+        function updateDrinkCustomizerPrice() {
+            if (!selectedDrinkId || !menuData[selectedDrinkId]) return;
+
+            const quantity = Math.max(1, parseInt(document.getElementById('customizer-drink-quantity').value, 10) || 1);
+            const toppingPrice = [
+                { id: 'boba', price: 5 },
+                { id: 'oreo', price: 5 },
+                { id: 'cornflakes', price: 5 },
+                { id: 'wipcream', price: 15 }
+            ].reduce((total, topping) => total + (
+                document.getElementById(`customizer-topping-${topping.id}`).checked ? topping.price : 0
+            ), 0);
+
+            document.getElementById('customizer-drink-total').innerText = `${(menuData[selectedDrinkId].price + toppingPrice) * quantity} บาท`;
+        }
+
         function updateDrinkQtyDisplay(itemId) {
             const quantity = drinkOrders
                 .filter(drink => drink.itemId === itemId)
@@ -1031,6 +1052,7 @@
         function updateDrinkCustomizerQuantity(change) {
             const input = document.getElementById('customizer-drink-quantity');
             input.value = Math.max(1, (parseInt(input.value, 10) || 1) + change);
+            updateDrinkCustomizerPrice();
         }
 
         function openRiceCustomizer() {
@@ -1285,8 +1307,22 @@
 
             let totalAmount = 0;
             let hasItems = false;
+            let hasCategory = false;
             const checkoutList = document.getElementById('checkout-items-list');
             checkoutList.innerHTML = '';
+
+            function appendCheckoutCategoryHeader(title) {
+                const header = document.createElement('div');
+                header.className = hasCategory
+                    ? 'flex items-center gap-2 pt-3 mt-2 border-t border-neutral-800 text-[11px] font-bold text-amber-400'
+                    : 'flex items-center gap-2 text-[11px] font-bold text-amber-400';
+                header.innerText = title;
+                checkoutList.appendChild(header);
+                hasCategory = true;
+            }
+
+            const hasCartItems = Object.keys(cart).some(id => cart[id] > 0 && menuData[id]);
+            if (hasCartItems) appendCheckoutCategoryHeader('🍟 เฟรนฟราย & ท็อปปิ้ง');
 
             for (let id in cart) {
                 if (cart[id] > 0 && menuData[id]) {
@@ -1305,6 +1341,7 @@
                 }
             }
 
+            if (riceBoxOrders.length > 0) appendCheckoutCategoryHeader('🍱 ข้าวกล่อง');
             riceBoxOrders.forEach(box => {
                 hasItems = true;
                 const subTotal = box.price * box.quantity;
@@ -1322,6 +1359,7 @@
                 checkoutList.appendChild(row);
             });
 
+            if (drinkOrders.length > 0) appendCheckoutCategoryHeader('🧋 เครื่องดื่ม');
             drinkOrders.forEach(drink => {
                 hasItems = true;
                 const subTotal = drink.price * drink.quantity;
