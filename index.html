@@ -795,7 +795,7 @@
                         <span class="text-[10px] text-red-400 font-bold">${f.price} บาท</span>
                     </div>
                     <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
-                        <button onclick="updateQty('${f.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                        <button onclick="updateDrinkMenuQty('${f.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
                         <span id="qty-${f.id}" class="w-5 text-center font-semibold text-xs">0</span>
                         <button onclick="openDrinkCustomizer('${f.id}')" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                     </div>
@@ -811,7 +811,7 @@
                         <span class="text-[10px] text-red-400 font-bold">${t.price} บาท</span>
                     </div>
                     <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
-                        <button onclick="updateQty('${t.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                        <button onclick="updateDrinkMenuQty('${t.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
                         <span id="qty-${t.id}" class="w-5 text-center font-semibold text-xs">0</span>
                         <button onclick="openDrinkCustomizer('${t.id}')" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                     </div>
@@ -827,7 +827,7 @@
                         <span class="text-[10px] text-red-400 font-bold">${m.price} บาท</span>
                     </div>
                     <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
-                        <button onclick="updateQty('${m.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                        <button onclick="updateDrinkMenuQty('${m.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
                         <span id="qty-${m.id}" class="w-5 text-center font-semibold text-xs">0</span>
                         <button onclick="openDrinkCustomizer('${m.id}')" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                     </div>
@@ -844,7 +844,7 @@
                             <span class="text-[10px] text-red-400 font-bold">${s.price} บาท</span>
                         </div>
                         <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
-                            <button onclick="updateQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                            <button onclick="updateDrinkMenuQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
                             <span id="qty-${s.id}" class="w-5 text-center font-semibold text-xs">0</span>
                             <button onclick="openDrinkCustomizer('${s.id}')" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                         </div>
@@ -862,7 +862,7 @@
                             <span class="text-[10px] text-red-400 font-bold">${s.price} บาท</span>
                         </div>
                         <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
-                            <button onclick="updateQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                            <button onclick="updateDrinkMenuQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
                             <span id="qty-${s.id}" class="w-5 text-center font-semibold text-xs">0</span>
                             <button onclick="openDrinkCustomizer('${s.id}')" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                         </div>
@@ -880,7 +880,7 @@
                             <span class="text-[10px] text-red-400 font-bold">${s.price} บาท</span>
                         </div>
                         <div class="flex items-center gap-2 bg-neutral-900 px-3 py-1.5 rounded-xl border border-neutral-800">
-                            <button onclick="updateQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
+                            <button onclick="updateDrinkMenuQty('${s.id}', -1)" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">-</button>
                             <span id="qty-${s.id}" class="w-5 text-center font-semibold text-xs">0</span>
                             <button onclick="openDrinkCustomizer('${s.id}')" class="w-6 h-6 rounded-lg bg-neutral-800 text-white font-bold flex items-center justify-center hover:bg-red-600 text-xs">+</button>
                         </div>
@@ -990,7 +990,33 @@
                 quantity
             });
 
+            updateDrinkQtyDisplay(selectedDrinkId);
             closeDrinkCustomizer();
+            calculateTotal();
+        }
+
+        function updateDrinkQtyDisplay(itemId) {
+            const quantity = drinkOrders
+                .filter(drink => drink.itemId === itemId)
+                .reduce((sum, drink) => sum + drink.quantity, 0);
+            const qtyEl = document.getElementById(`qty-${itemId}`);
+            if (qtyEl) qtyEl.innerText = quantity;
+        }
+
+        function updateDrinkMenuQty(itemId, change) {
+            if (change < 0) {
+                const orderIndex = [...drinkOrders].map((drink, index) => ({ drink, index }))
+                    .reverse()
+                    .find(({ drink }) => drink.itemId === itemId)?.index;
+
+                if (orderIndex === undefined) return;
+                drinkOrders[orderIndex].quantity += change;
+                if (drinkOrders[orderIndex].quantity <= 0) {
+                    drinkOrders.splice(orderIndex, 1);
+                }
+            }
+
+            updateDrinkQtyDisplay(itemId);
             calculateTotal();
         }
 
