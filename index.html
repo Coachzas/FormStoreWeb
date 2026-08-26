@@ -1006,15 +1006,25 @@
             );
             const toppingPrice = toppings.reduce((sum, topping) => sum + topping.price, 0);
             const drink = menuData[selectedDrinkId];
+            const detailsText = toppings.length > 0 ? `เพิ่ม${toppings.map(topping => topping.name).join(', ')}` : '(ปกติ)';
+            const detailsKey = toppings.map(topping => topping.id).sort().join('|');
+            const existingOrderIndex = drinkOrders.findIndex(order =>
+                order.itemId === selectedDrinkId && order.detailsKey === detailsKey
+            );
 
-            drinkOrders.push({
-                id: 'drink_' + Date.now() + '_' + Math.random(),
-                itemId: selectedDrinkId,
-                name: drink.name,
-                details: toppings.length > 0 ? `เพิ่ม${toppings.map(topping => topping.name).join(', ')}` : '(ปกติ)',
-                price: drink.price + toppingPrice,
-                quantity
-            });
+            if (existingOrderIndex >= 0) {
+                drinkOrders[existingOrderIndex].quantity += quantity;
+            } else {
+                drinkOrders.push({
+                    id: 'drink_' + Date.now() + '_' + Math.random(),
+                    itemId: selectedDrinkId,
+                    name: drink.name,
+                    details: detailsText,
+                    detailsKey,
+                    price: drink.price + toppingPrice,
+                    quantity
+                });
+            }
 
             updateDrinkQtyDisplay(selectedDrinkId);
             closeDrinkCustomizer();
@@ -1140,15 +1150,25 @@
                 addonsText.push('เพิ่มซอส x2');
             }
 
-            const boxItem = {
-                id: 'rice_box_' + Date.now(),
-                name: `ข้าวกล่อง: ${selectedMeat.value} + ${selectedSauce.value}`,
-                details: addonsText.length > 0 ? `(${addonsText.join(', ')})` : '(ปกติ)',
-                price: price,
-                quantity
-            };
+            const boxName = `ข้าวกล่อง: ${selectedMeat.value} + ${selectedSauce.value}`;
+            const detailsText = addonsText.length > 0 ? `(${addonsText.join(', ')})` : '(ปกติ)';
+            const detailsKey = `${selectedMeat.value}|${selectedSauce.value}|${addEgg ? 'egg' : 'no-egg'}|${addExtraSauce ? 'extra-sauce' : 'normal'}`;
+            const existingOrderIndex = riceBoxOrders.findIndex(order =>
+                order.name === boxName && order.detailsKey === detailsKey
+            );
 
-            riceBoxOrders.push(boxItem);
+            if (existingOrderIndex >= 0) {
+                riceBoxOrders[existingOrderIndex].quantity += quantity;
+            } else {
+                riceBoxOrders.push({
+                    id: 'rice_box_' + Date.now(),
+                    name: boxName,
+                    details: detailsText,
+                    detailsKey,
+                    price: price,
+                    quantity
+                });
+            }
 
             document.querySelectorAll('input[name="rice_meat"]').forEach(input => input.checked = false);
             document.querySelectorAll('input[name="rice_sauce"]').forEach(input => input.checked = false);
@@ -1578,7 +1598,7 @@
                 });
 
                 if (response.ok) {
-                    alert('ส่งออเดอร์สำเร็จ! ข้อมูลถูกส่งเข้า n8n เรียบร้อยแล้วครับ 🎉');
+                    alert('ส่งออเดอร์สำเร็จ! รายการถูกส่งให้แม่ค้าเรียบร้อยแล้วครับ 🎉');
                     toggleCheckoutModal();
                     cart = {};
                     riceBoxOrders = [];
