@@ -313,7 +313,7 @@
             </div>
         </section>
 
-        <!-- ข้อมูลลูกค้า -->
+        <!-- ข้อมูลจัดส่งลูกค้า -->
         <div id="customer-info-section" class="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 space-y-3 shadow-md mt-6 transition-shadow">
             <h3 class="font-semibold text-sm text-red-400">📝 ข้อมูลจัดส่งออเดอร์</h3>
             <div>
@@ -547,6 +547,9 @@
 
     <!-- JavaScript Logic -->
     <script>
+        // ==========================================================
+        // Section 1: Menu data และ product catalog
+        // ==========================================================
         const menuData = {
             // เฟรนฟราย 4 รายการ
             'fries_small': { name: 'เฟรนฟรายเส้นเล็ก', price: 50 },
@@ -576,7 +579,7 @@
             'dip_sour_cream': { name: 'ดิปชาวครีม', price: 10 },
             'dip_wasabi': { name: 'ดิปวาซาบิ', price: 10 },
 
-            // หมวดผลไม้ 19 รายการ
+            // หมวดน้ำผลไม้ 19 รายการ
             'fruit_orange': { name: 'น้ำส้ม (ผลไม้)', price: 40 },
             'fruit_orange_lime': { name: 'น้ำส้ม-มะนาว (ผลไม้)', price: 40 },
             'fruit_lime': { name: 'น้ำมะนาว (ผลไม้)', price: 35 },
@@ -965,10 +968,14 @@
             `).join('');
         }
 
+        // ==========================================================
+        // Section 2: Render menu items และ dynamic UI state
+        // ==========================================================
         window.addEventListener('DOMContentLoaded', renderDynamicItems);
 
         let selectedDrinkId = null;
 
+        // เปิด modal ปรับแต่งเครื่องดื่ม และ setค่าเริ่มต้น
         function openDrinkCustomizer(itemId) {
             const item = menuData[itemId];
             if (!item) return;
@@ -985,12 +992,14 @@
             updateBodyScrollLock();
         }
 
+        // ปิด modal ปรับแต่งเครื่องดื่ม
         function closeDrinkCustomizer() {
             selectedDrinkId = null;
             document.getElementById('drink-customizer-modal').classList.add('hidden');
             updateBodyScrollLock();
         }
 
+        // เพิ่มเครื่องดื่มลงตะกร้า ตามรายการและท็อปปิ้งที่เลือก
         function addCustomDrink() {
             if (!selectedDrinkId || !menuData[selectedDrinkId]) return;
 
@@ -1031,6 +1040,7 @@
             calculateTotal();
         }
 
+        // คำนวณราคารวมของเครื่องดื่มตอนปรับแต่ง
         function updateDrinkCustomizerPrice() {
             if (!selectedDrinkId || !menuData[selectedDrinkId]) return;
 
@@ -1047,6 +1057,7 @@
             document.getElementById('customizer-drink-total').innerText = `${(menuData[selectedDrinkId].price + toppingPrice) * quantity} บาท`;
         }
 
+        // อัปเดตจำนวนเครื่องดื่มที่แสดงข้างเมนู
         function updateDrinkQtyDisplay(itemId) {
             const quantity = drinkOrders
                 .filter(drink => drink.itemId === itemId)
@@ -1055,6 +1066,7 @@
             if (qtyEl) qtyEl.innerText = quantity;
         }
 
+        // ปรับจำนวนเครื่องดื่มแบบเร็วจากเมนูหลัก
         function updateDrinkMenuQty(itemId, change) {
             if (change < 0) {
                 const orderIndex = [...drinkOrders].map((drink, index) => ({ drink, index }))
@@ -1072,12 +1084,14 @@
             calculateTotal();
         }
 
+        // เปลี่ยนจำนวนแก้วใน modal เครื่องดื่ม
         function updateDrinkCustomizerQuantity(change) {
             const input = document.getElementById('customizer-drink-quantity');
             input.value = Math.max(1, (parseInt(input.value, 10) || 1) + change);
             updateDrinkCustomizerPrice();
         }
 
+        // เปิด modal ปรับแต่งข้าวกล่อง
         function openRiceCustomizer() {
             document.querySelectorAll('input[name="rice_meat"], input[name="rice_sauce"]').forEach(input => {
                 input.checked = false;
@@ -1091,11 +1105,13 @@
             updateBodyScrollLock();
         }
 
+        // ปิด modal ปรับแต่งข้าวกล่อง
         function closeRiceCustomizer() {
             document.getElementById('rice-customizer-modal').classList.add('hidden');
             updateBodyScrollLock();
         }
 
+        // คำนวณราคารวมข้าวกล่องแบบ custom
         function updateRiceCustomizerPrice() {
             const quantity = Math.max(1, parseInt(document.getElementById('rice-customizer-quantity').value, 10) || 1);
             const addonPrice = (document.getElementById('rice-addon-egg').checked ? 10 : 0)
@@ -1103,12 +1119,14 @@
             document.getElementById('rice-customizer-total').innerText = `${(65 + addonPrice) * quantity} บาท`;
         }
 
+        // เปลี่ยนจำนวนกล่องใน modal ข้าวกล่อง
         function updateRiceCustomizerQuantity(change) {
             const input = document.getElementById('rice-customizer-quantity');
             input.value = Math.max(1, (parseInt(input.value, 10) || 1) + change);
             updateRiceCustomizerPrice();
         }
 
+        // เลือก/ยกเลิก radio ของเนื้อสัตว์หรือซอสแบบ single choice
         function toggleRiceRadio(input) {
             const group = document.querySelectorAll(`input[name="${input.name}"]`);
             const shouldUncheck = input.dataset.selected === 'true';
@@ -1127,6 +1145,7 @@
             updateRiceCustomizerPrice();
         }
 
+        // เพิ่มข้าวกล่องที่เลือกลงตะกร้า พร้อมคำนวณราคาและรายละเอียด
         function addCustomRiceBox() {
             const selectedMeat = document.querySelector('input[name="rice_meat"]:checked');
             const selectedSauce = document.querySelector('input[name="rice_sauce"]:checked');
@@ -1176,6 +1195,7 @@
             calculateTotal();
         }
 
+        // ปรับจำนวนข้าวกล่องใน summary
         function updateRiceBoxQty(index, change) {
             riceBoxOrders[index].quantity += change;
             if (riceBoxOrders[index].quantity <= 0) {
@@ -1184,6 +1204,7 @@
             calculateTotal();
         }
 
+        // ปรับจำนวนเครื่องดื่มใน summary
         function updateDrinkOrderQty(index, change) {
             drinkOrders[index].quantity += change;
             if (drinkOrders[index].quantity <= 0) {
@@ -1192,6 +1213,7 @@
             calculateTotal();
         }
 
+        // สลับ tab ของเมนูหลักและปรับ banner ให้ตรงกับหมวดที่เลือก
         function switchTab(tabName) {
             document.querySelectorAll('.menu-section').forEach(sec => sec.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1217,17 +1239,23 @@
             else if (tabName === 'drink') bannerText.innerText = '🧋 เครื่องดื่มเย็นชื่นใจ แก้วต่อแก้ว';
         }
 
+        // เปิดรูปภาพแบบ full screen modal
         function openLightbox(imgSrc) {
             document.getElementById('lightbox-img').src = imgSrc;
             document.getElementById('image-lightbox').classList.remove('hidden');
             updateBodyScrollLock();
         }
 
+        // ปิด lightbox หลังจากเปิดดูรูป
         function closeLightbox() {
             document.getElementById('image-lightbox').classList.add('hidden');
             updateBodyScrollLock();
         }
 
+        // ==========================================================
+        // Section 3: Cart logic และ total calculation
+        // ==========================================================
+        // เพิ่ม/ลดจำนวนสินค้าในตะกร้าทั่วไป
         function updateQty(itemId, change) {
             if (!cart[itemId]) cart[itemId] = 0;
             cart[itemId] += change;
@@ -1238,6 +1266,7 @@
             calculateTotal();
         }
 
+        // คำนวณยอดรวมทั้งหมดของตะกร้าและอัปเดต UI
         function calculateTotal() {
             let total = 0;
             let totalQty = 0;
@@ -1269,6 +1298,7 @@
             return total;
         }
 
+        // สร้าง summary ของข้าวกล่องที่เลือกไว้ในออเดอร์
         function updateRiceCartSummary() {
             const container = document.getElementById('rice-cart-summary-list');
             if (riceBoxOrders.length === 0) {
@@ -1294,6 +1324,7 @@
             `).join('');
         }
 
+        // สร้าง summary ของเครื่องดื่มที่เลือกไว้ในออเดอร์
         function updateDrinkCartSummary() {
             const container = document.getElementById('drink-cart-summary-list');
             if (drinkOrders.length === 0) {
@@ -1319,16 +1350,19 @@
             `).join('');
         }
 
+        // เปิด/ปิด modal ตะกร้าสินค้า
         function toggleCartModal() {
             document.getElementById('cart-modal').classList.toggle('hidden');
             updateBodyScrollLock();
         }
 
+        // เปิด/ปิด modal ยืนยันสั่งซื้อ
         function toggleCheckoutModal() {
             document.getElementById('checkout-modal').classList.toggle('hidden');
             updateBodyScrollLock();
         }
 
+        // ไฮไลต์พื้นที่กรอกข้อมูลลูกค้า เมื่อยังไม่กรอกครบ
         function highlightCustomerInfo() {
             const section = document.getElementById('customer-info-section');
 
@@ -1339,6 +1373,7 @@
             setTimeout(() => section.classList.remove('customer-info-attention'), 2200);
         }
 
+        // ตรวจสอบข้อมูลลูกค้าและเปิด modal ยืนยันสั่งซื้อ
         function openCheckoutModal() {
             const name = document.getElementById('customer-name').value.trim();
             const phone = document.getElementById('customer-phone').value.trim();
@@ -1433,6 +1468,10 @@
             toggleCheckoutModal();
         }
 
+        // ==========================================================
+        // Section 4: Cart modal และ checkout summary
+        // ==========================================================
+        // render รายการสินค้าใน modal ตะกร้าแบบแยกประเภท
         function updateCartModalList() {
             const listContainer = document.getElementById('cart-items-list');
             listContainer.innerHTML = '';
@@ -1534,6 +1573,10 @@
             }
         }
 
+        // ==========================================================
+        // Section 5: Confirm order และ send to webhook
+        // ==========================================================
+        // ส่ง order ไปที่ webhook พร้อมข้อมูลลูกค้าและยอดรวม
         async function confirmAndSendOrder() {
             const name = document.getElementById('customer-name').value.trim();
             const phone = document.getElementById('customer-phone').value.trim();
