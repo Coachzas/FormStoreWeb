@@ -1,0 +1,41 @@
+body {
+  font-family: 'Prompt', sans-serif;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tab-btn.tab-active {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.customer-info-attention {
+  animation: customer-info-blink 0.7s ease-in-out 3;
+}
+
+@keyframes customer-info-blink {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgb(220 38 38 / 0%);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgb(220 38 38 / 90%);
+  }
+}
