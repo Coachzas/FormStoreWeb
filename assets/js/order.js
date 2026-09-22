@@ -8,70 +8,76 @@ function buildOrderPayload() {
   for (const id in cart) {
     if (cart[id] > 0 && menuData[id]) {
       const item = menuData[id];
-      const subtotal = cart[id] * item.price;
+      const lineTotal = cart[id] * item.price;
       items.push({
-        itemId: id,
-        name: item.name,
+        productId: id,
+        productName: item.name,
         quantity: cart[id],
-        price: item.price,
-        subtotal
+        unitPrice: item.price,
+        lineTotal
       });
-      totalAmount += subtotal;
+      totalAmount += lineTotal;
     }
   }
 
   riceBoxOrders.forEach(box => {
-    const subtotal = box.price * box.quantity;
+    const lineTotal = box.price * box.quantity;
     items.push({
-      itemId: box.id,
-      name: `${box.name} ${box.details}`,
+      productId: box.id,
+      productName: `${box.name} ${box.details}`,
       quantity: box.quantity,
-      price: box.price,
-      subtotal
+      unitPrice: box.price,
+      lineTotal
     });
-    totalAmount += subtotal;
+    totalAmount += lineTotal;
   });
 
   drinkOrders.forEach(drink => {
-    const subtotal = drink.price * drink.quantity;
+    const lineTotal = drink.price * drink.quantity;
     items.push({
-      itemId: drink.id,
-      name: `${drink.name} ${drink.details || '(ปกติ)'}`,
+      productId: drink.id,
+      productName: `${drink.name} ${drink.details || '(ปกติ)'}`,
       quantity: drink.quantity,
-      price: drink.price,
-      subtotal
+      unitPrice: drink.price,
+      lineTotal
     });
-    totalAmount += subtotal;
+    totalAmount += lineTotal;
   });
 
   return {
-    store: 'ร้านเฟรนฟรายตังค์ตังค์',
-    customerName: name,
-    customerPhone: phone,
+    storeId: 'store_fries_tangtang',
+    storeName: 'ร้านเฟรนฟรายตังค์ตังค์',
+    customer: {
+      name,
+      phone
+    },
     items,
     totalAmount,
-    timestamp: new Date().toISOString()
+    orderStatus: 'pending',
+    createdAt: new Date().toISOString()
   };
 }
 
 async function confirmAndSendOrder() {
   const payload = buildOrderPayload();
 
-  if (!payload.customerName || !payload.customerPhone || payload.items.length === 0) {
+  if (!payload.customer.name || !payload.customer.phone || payload.items.length === 0) {
     alert('กรุณากรอกข้อมูลและเลือกสินค้าก่อนยืนยันคำสั่งซื้อ');
     return;
   }
 
   try {
-    const webhookUrl = 'https://collar-comrade-backrest.ngrok-free.dev/webhook/Form-fries-order';
-    const response = await fetch(webhookUrl, {
+    const backendUrl = 'http://localhost:4000/api/guest-checkout';
+    const response = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
 
+    const result = await response.json().catch(() => ({}));
+
     if (response.ok) {
-      alert('ส่งออเดอร์สำเร็จ! รายการถูกส่งให้แม่ค้าเรียบร้อยแล้วครับ 🎉');
+      alert(`ส่งออเดอร์สำเร็จ! รหัสออเดอร์: ${result.orderId || 'N/A'} 🎉`);
       toggleCheckoutModal();
       cart = {};
       riceBoxOrders = [];
@@ -81,10 +87,10 @@ async function confirmAndSendOrder() {
       document.getElementById('customer-phone').value = '';
       calculateTotal();
     } else {
-      alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
+      alert(result.error || 'เกิดข้อผิดพลาดในการส่งข้อมูล');
     }
   } catch (error) {
     console.error(error);
-    alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ n8n ได้');
+    alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ backend ได้ กรุณาเปิด server ก่อน');
   }
 }
