@@ -67,7 +67,7 @@ async function confirmAndSendOrder() {
   }
 
   try {
-    const backendUrl = 'http://localhost:4000/api/guest-checkout';
+    const backendUrl = 'https://large-rooms-take.loca.lt/api/guest-checkout';
     const response = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
