@@ -1,8 +1,12 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
+const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'http://localhost:7890/webhook/Form-fries-order';
+
 app.use(cors());
 app.use(express.json());
 
@@ -80,6 +84,41 @@ app.post('/api/guest-checkout', async (req, res) => {
       }
 
       await client.query('COMMIT');
+
+      const orderDataForN8n = {
+        success: true,
+        orderId: order.order_id,
+        storeId: payload.storeId,
+        storeName: payload.storeName,
+        customer: {
+          id: customer.id,
+          name: customer.name,
+          phone: customer.phone,
+        },
+        items: payload.items,
+        totalAmount: payload.totalAmount,
+        orderStatus: payload.orderStatus || 'pending',
+        createdAt: new Date().toISOString(),
+      };
+
+      try {
+        const n8nResponse = await fetch(n8nWebhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderDataForN8n),
+        });
+
+        if (!n8nResponse.ok) {
+          const errorText = await n8nResponse.text().catch(() => '');
+          console.warn('n8n webhook failed:', n8nResponse.status, errorText);
+        } else {
+          console.log('n8n webhook sent successfully');
+        }
+      } catch (error) {
+        console.error('Error sending order to n8n:', error.message);
+      }
 
       return res.status(201).json({
         success: true,

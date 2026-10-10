@@ -67,7 +67,7 @@ async function confirmAndSendOrder() {
   }
 
   try {
-    const backendUrl = 'https://large-rooms-take.loca.lt/api/guest-checkout';
+    const backendUrl = 'https://collar-comrade-backrest.ngrok-free.dev/api/guest-checkout';
     const response = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
