@@ -1,9 +1,12 @@
 {
   "name": "formstoreweb",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run dev:backend",
+    "dev:backend": "cd backend && npm run dev",
+    "start": "cd backend && npm start",
+    "start:frontend": "npx serve frontend"
   },
   "repository": {
     "type": "git",
@@ -17,11 +20,5 @@
     "url": "https://github.com/Coachzas/FormStoreWeb/issues"
   },
   "homepage": "https://github.com/Coachzas/FormStoreWeb#readme",
-  "description": "",
-  "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^18.0.2",
-    "express": "^5.2.1",
-    "pg": "^8.23.0"
-  }
+  "description": ""
 }

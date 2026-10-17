@@ -55,9 +55,9 @@ Frontend must send this exact object shape:
 
 ## Example files
 
-- server/backend/guestCheckoutEndpoint.js
-- server/db/schema.sql
-- server/backend/.env.example
+- `backend/server.js`
+- `backend/db/schema.sql`
+- `backend/.env.example`
 
 ## PostgreSQL notes
 
